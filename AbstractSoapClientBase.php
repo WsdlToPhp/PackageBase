@@ -531,6 +531,24 @@ abstract class AbstractSoapClientBase
         return array_key_exists($methoName, $this->lastError) ? $this->lastError[$methoName] : null;
     }
     /**
+     * Method returning current result from Soap call
+     * @return mixed
+     */
+    public function getResult()
+    {
+        return $this->result;
+    }
+    /**
+     * Method setting current result from Soap call
+     * @param mixed $result
+     * @return AbstractSoapClientBase
+     */
+    protected function setResult($result)
+    {
+        $this->result = $result;
+        return $this;
+    }
+    /**
      * Method returning actual class name
      * @return string __CLASS__
      */
