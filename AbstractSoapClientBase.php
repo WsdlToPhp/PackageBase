@@ -341,7 +341,7 @@ abstract class AbstractSoapClientBase
      */
     public function getLastRequestHeaders($asArray = false)
     {
-        return $this->getLastHeaders('__getLastRequestHeaders');
+        return $this->getLastHeaders('__getLastRequestHeaders', $asArray);
     }
     /**
      * Returns the last response headers used by the SoapClient object as the original value or an array
@@ -354,13 +354,14 @@ abstract class AbstractSoapClientBase
      */
     public function getLastResponseHeaders($asArray = false)
     {
-        return $this->getLastHeaders('__getLastResponseHeaders');
+        return $this->getLastHeaders('__getLastResponseHeaders', $asArray);
     }
     /**
      * @param string $method
+     * @param bool $asArray allows to get the headers in an associative array
      * @return string[]|null
      */
-    protected function getLastHeaders($method)
+    protected function getLastHeaders($method, $asArray)
     {
         $headers = self::getSoapClient() instanceof \SoapClient ? self::getSoapClient()->$method() : null;
         if (is_string($headers) && $asArray) {
