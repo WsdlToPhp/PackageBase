@@ -149,9 +149,9 @@ abstract class AbstractSoapClientBase
     private $lastError;
     /**
      * Constructor
-     * @uses ApiWsdlClass::setLastError()
-     * @uses ApiWsdlClass::initSoapClient()
-     * @param array $wsdlOptions SoapClient options
+     * @uses AbstractSoapClientBase::setLastError()
+     * @uses AbstractSoapClientBase::initSoapClient()
+     * @param array $wsdlOptions
      * @param bool $resetSoapClient allows to disable the SoapClient redefinition
      */
     public function __construct(array $wsdlOptions = array(), $resetSoapClient = true)
@@ -185,9 +185,9 @@ abstract class AbstractSoapClientBase
     /**
      * Method initiating SoapClient
      * @uses ApiClassMap::classMap()
-     * @uses ApiWsdlClass::getDefaultWsdlOptions()
-     * @uses ApiWsdlClass::getSoapClientClassName()
-     * @uses ApiWsdlClass::setSoapClient()
+     * @uses AbstractSoapClientBase::getDefaultWsdlOptions()
+     * @uses AbstractSoapClientBase::getSoapClientClassName()
+     * @uses AbstractSoapClientBase::setSoapClient()
      * @param array $options WSDL options
      * @return void
      */
@@ -228,30 +228,30 @@ abstract class AbstractSoapClientBase
     }
     /**
      * Method returning all default options values
-     * @uses ApiWsdlClass::WSDL_CLASSMAP
-     * @uses ApiWsdlClass::WSDL_CACHE_WSDL
-     * @uses ApiWsdlClass::WSDL_COMPRESSION
-     * @uses ApiWsdlClass::WSDL_CONNECTION_TIMEOUT
-     * @uses ApiWsdlClass::WSDL_ENCODING
-     * @uses ApiWsdlClass::WSDL_EXCEPTIONS
-     * @uses ApiWsdlClass::WSDL_FEATURES
-     * @uses ApiWsdlClass::WSDL_LOGIN
-     * @uses ApiWsdlClass::WSDL_PASSWORD
-     * @uses ApiWsdlClass::WSDL_SOAP_VERSION
-     * @uses ApiWsdlClass::WSDL_STREAM_CONTEXT
-     * @uses ApiWsdlClass::WSDL_TRACE
-     * @uses ApiWsdlClass::WSDL_TYPEMAP
-     * @uses ApiWsdlClass::WSDL_URL
-     * @uses ApiWsdlClass::VALUE_WSDL_URL
-     * @uses ApiWsdlClass::WSDL_USER_AGENT
-     * @uses ApiWsdlClass::WSDL_PROXY_HOST
-     * @uses ApiWsdlClass::WSDL_PROXY_PORT
-     * @uses ApiWsdlClass::WSDL_PROXY_LOGIN
-     * @uses ApiWsdlClass::WSDL_PROXY_PASSWORD
-     * @uses ApiWsdlClass::WSDL_LOCAL_CERT
-     * @uses ApiWsdlClass::WSDL_PASSPHRASE
-     * @uses ApiWsdlClass::WSDL_AUTHENTICATION
-     * @uses ApiWsdlClass::WSDL_SSL_METHOD
+     * @uses AbstractSoapClientBase::WSDL_CLASSMAP
+     * @uses AbstractSoapClientBase::WSDL_CACHE_WSDL
+     * @uses AbstractSoapClientBase::WSDL_COMPRESSION
+     * @uses AbstractSoapClientBase::WSDL_CONNECTION_TIMEOUT
+     * @uses AbstractSoapClientBase::WSDL_ENCODING
+     * @uses AbstractSoapClientBase::WSDL_EXCEPTIONS
+     * @uses AbstractSoapClientBase::WSDL_FEATURES
+     * @uses AbstractSoapClientBase::WSDL_LOGIN
+     * @uses AbstractSoapClientBase::WSDL_PASSWORD
+     * @uses AbstractSoapClientBase::WSDL_SOAP_VERSION
+     * @uses AbstractSoapClientBase::WSDL_STREAM_CONTEXT
+     * @uses AbstractSoapClientBase::WSDL_TRACE
+     * @uses AbstractSoapClientBase::WSDL_TYPEMAP
+     * @uses AbstractSoapClientBase::WSDL_URL
+     * @uses AbstractSoapClientBase::VALUE_WSDL_URL
+     * @uses AbstractSoapClientBase::WSDL_USER_AGENT
+     * @uses AbstractSoapClientBase::WSDL_PROXY_HOST
+     * @uses AbstractSoapClientBase::WSDL_PROXY_PORT
+     * @uses AbstractSoapClientBase::WSDL_PROXY_LOGIN
+     * @uses AbstractSoapClientBase::WSDL_PROXY_PASSWORD
+     * @uses AbstractSoapClientBase::WSDL_LOCAL_CERT
+     * @uses AbstractSoapClientBase::WSDL_PASSPHRASE
+     * @uses AbstractSoapClientBase::WSDL_AUTHENTICATION
+     * @uses AbstractSoapClientBase::WSDL_SSL_METHOD
      * @uses SOAP_SINGLE_ELEMENT_ARRAYS
      * @uses SOAP_USE_XSI_ARRAY_TYPE
      * @return array
@@ -285,7 +285,7 @@ abstract class AbstractSoapClientBase
     }
     /**
      * Allows to set the SoapClient location to call
-     * @uses ApiWsdlClass::getSoapClient()
+     * @uses AbstractSoapClientBase::getSoapClient()
      * @uses SoapClient::__setLocation()
      * @param string $location
      * @return AbstractSoapClientBase
@@ -300,8 +300,8 @@ abstract class AbstractSoapClientBase
     /**
      * Returns the last request content as a DOMDocument or as a formated XML String
      * @see SoapClient::__getLastRequest()
-     * @uses ApiWsdlClass::getSoapClient()
-     * @uses ApiWsdlClass::getFormatedXml()
+     * @uses AbstractSoapClientBase::getSoapClient()
+     * @uses AbstractSoapClientBase::getFormatedXml()
      * @uses SoapClient::__getLastRequest()
      * @param bool $asDomDocument
      * @return \DOMDocument|string|null
@@ -317,8 +317,8 @@ abstract class AbstractSoapClientBase
     /**
      * Returns the last response content as a DOMDocument or as a formated XML String
      * @see SoapClient::__getLastResponse()
-     * @uses ApiWsdlClass::getSoapClient()
-     * @uses ApiWsdlClass::getFormatedXml()
+     * @uses AbstractSoapClientBase::getSoapClient()
+     * @uses AbstractSoapClientBase::getFormatedXml()
      * @uses SoapClient::__getLastResponse()
      * @param bool $asDomDocument
      * @return \DOMDocument|string|null
@@ -333,32 +333,36 @@ abstract class AbstractSoapClientBase
     /**
      * Returns the last request headers used by the SoapClient object as the original value or an array
      * @see SoapClient::__getLastRequestHeaders()
-     * @uses ApiWsdlClass::getSoapClient()
-     * @uses ApiWsdlClass::convertStringHeadersToArray()
+     * @uses AbstractSoapClientBase::getSoapClient()
+     * @uses AbstractSoapClientBase::convertStringHeadersToArray()
      * @uses SoapClient::__getLastRequestHeaders()
      * @param bool $asArray allows to get the headers in an associative array
      * @return null|string|array
      */
     public function getLastRequestHeaders($asArray = false)
     {
-        $headers = self::getSoapClient() instanceof \SoapClient ? self::getSoapClient()->__getLastRequestHeaders() : null;
-        if (is_string($headers) && $asArray) {
-            return self::convertStringHeadersToArray($headers);
-        }
-        return $headers;
+        return $this->getLastHeaders('__getLastRequestHeaders');
     }
     /**
      * Returns the last response headers used by the SoapClient object as the original value or an array
      * @see SoapClient::__getLastResponseHeaders()
-     * @uses ApiWsdlClass::getSoapClient()
-     * @uses ApiWsdlClass::convertStringHeadersToArray()
+     * @uses AbstractSoapClientBase::getSoapClient()
+     * @uses AbstractSoapClientBase::convertStringHeadersToArray()
      * @uses SoapClient::__getLastRequestHeaders()
      * @param bool $asArray allows to get the headers in an associative array
      * @return null|string|array
      */
     public function getLastResponseHeaders($asArray = false)
     {
-        $headers = self::getSoapClient() instanceof \SoapClient ? self::getSoapClient()->__getLastResponseHeaders() : null;
+        return $this->getLastHeaders('__getLastResponseHeaders');
+    }
+    /**
+     * @param string $method
+     * @return string[]|null
+     */
+    protected function getLastHeaders($method)
+    {
+        $headers = self::getSoapClient() instanceof \SoapClient ? self::getSoapClient()->$method() : null;
         if (is_string($headers) && $asArray) {
             return self::convertStringHeadersToArray($headers);
         }
@@ -396,7 +400,7 @@ abstract class AbstractSoapClientBase
     /**
      * Sets a SoapHeader to send
      * For more information, please read the online documentation on {@link http://www.php.net/manual/en/class.soapheader.php}
-     * @uses ApiWsdlClass::getSoapClient()
+     * @uses AbstractSoapClientBase::getSoapClient()
      * @uses SoapClient::__setSoapheaders()
      * @param string $nameSpace SoapHeader namespace
      * @param string $name SoapHeader name
@@ -429,7 +433,7 @@ abstract class AbstractSoapClientBase
      * Sets the SoapClient Stream context HTTP Header name according to its value
      * If a context already exists, it tries to modify it
      * It the context does not exist, it then creates it with the header name and its value
-     * @uses ApiWsdlClass::getSoapClient()
+     * @uses AbstractSoapClientBase::getSoapClient()
      * @param string $headerName
      * @param mixed $headerValue
      * @return bool
