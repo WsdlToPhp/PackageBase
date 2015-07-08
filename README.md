@@ -1,4 +1,4 @@
-# WsdlToPhp Php Generator, a Real PHP source code generator
+# Package Base
 [![Build Status](https://api.travis-ci.org/WsdlToPhp/PackageBase.svg)](https://travis-ci.org/WsdlToPhp/PackageBase)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/WsdlToPhp/PackageBase/badges/quality-score.png)](https://scrutinizer-ci.com/g/WsdlToPhp/PackageBase/)
 [![Code Coverage](https://scrutinizer-ci.com/g/WsdlToPhp/PackageBase/badges/coverage.png)](https://scrutinizer-ci.com/g/WsdlToPhp/PackageBase/)
