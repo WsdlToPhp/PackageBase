@@ -35,7 +35,7 @@ class SoapClientTest extends TestCase
             SoapClient::WSDL_CLASSMAP => self::classMap(),
         ));
 
-        $this->assertInstanceOf('\\WsdlToPhp\\PackageBase\\Tests\\Client', SoapClient::getSoapClient());
+        $this->assertInstanceOf('\\WsdlToPhp\\PackageBase\\Tests\\Client', $soapClient->getSoapClient());
     }
     /**
      * @return string[]
