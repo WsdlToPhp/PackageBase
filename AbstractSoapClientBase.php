@@ -134,7 +134,7 @@ abstract class AbstractSoapClientBase
     const WSDL_SSL_METHOD = 'wsdl_ssl_method';
     /**
      * Soapclient called to communicate with the actual SOAP Service
-     * @var SoapClient
+     * @var \SoapClient
      */
     private static $soapClient;
     /**
