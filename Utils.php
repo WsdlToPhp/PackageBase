@@ -16,7 +16,7 @@ class Utils
     {
         $dom = null;
         $formated = $string;
-        if (!empty($string) && class_exists('DOMDocument')) {
+        if (!empty($string) && class_exists('\DOMDocument')) {
             $dom = new \DOMDocument('1.0', 'UTF-8');
             $dom->formatOutput = true;
             $dom->preserveWhiteSpace = false;
