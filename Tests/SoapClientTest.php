@@ -3,6 +3,8 @@
 namespace WsdlToPhp\PackageBase\Tests;
 
 
+use WsdlToPhp\PackageBase\Utils;
+
 use WsdlToPhp\PackageBase\Tests\SoapClient;
 
 class SoapClientTest extends TestCase
@@ -36,6 +38,161 @@ class SoapClientTest extends TestCase
         ));
 
         $this->assertInstanceOf('\\WsdlToPhp\\PackageBase\\Tests\\Client', $soapClient->getSoapClient());
+    }
+    /**
+     *
+     */
+    public function testSetLocation()
+    {
+        $soapClient = new SoapClient(array(
+            SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
+            SoapClient::WSDL_CLASSMAP => self::classMap(),
+        ));
+
+        $soapClient->setLocation('http://api.bing.net:80/soap.asm');
+
+        $this->assertSAme('http://api.bing.net:80/soap.asm', $soapClient->getSoapClient()->location);
+    }
+    /**
+     *
+     */
+    public function testGetLastRequestAsString()
+    {
+        $soapClient = new SoapClient(array(
+                SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
+                SoapClient::WSDL_CLASSMAP => self::classMap(),
+        ));
+
+        $this->assertSame(Utils::getFormatedXml(file_get_contents(__DIR__ . '/resources/oneline.xml')), $soapClient->getLastRequest(false));
+    }
+    /**
+     *
+     */
+    public function testGetLastRequestAsDomDocument()
+    {
+        $soapClient = new SoapClient(array(
+                SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
+                SoapClient::WSDL_CLASSMAP => self::classMap(),
+        ));
+
+        $this->assertInstanceOf('\\DOMDocument', $soapClient->getLastRequest(true));
+    }
+    /**
+     *
+     */
+    public function testGetLastResponseAsString()
+    {
+        $soapClient = new SoapClient(array(
+                SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
+                SoapClient::WSDL_CLASSMAP => self::classMap(),
+        ));
+
+        $this->assertSame(Utils::getFormatedXml(file_get_contents(__DIR__ . '/resources/oneline.xml')), $soapClient->getLastResponse(false));
+    }
+    /**
+     *
+     */
+    public function testGetLastResponseAsDomDocument()
+    {
+        $soapClient = new SoapClient(array(
+                SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
+                SoapClient::WSDL_CLASSMAP => self::classMap(),
+        ));
+
+        $this->assertInstanceOf('\\DOMDocument', $soapClient->getLastResponse(true));
+    }
+    /**
+     *
+     */
+    public function testGetLastRequestHeadersAsString()
+    {
+        $soapClient = new SoapClient(array(
+                SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
+                SoapClient::WSDL_CLASSMAP => self::classMap(),
+        ));
+
+        $this->assertSame($soapClient->getSoapClient()->__getLastRequestHeaders(), $soapClient->getLastRequestHeaders(false));
+    }
+    /**
+     *
+     */
+    public function testGetLastRequestHeadersAsArray()
+    {
+        $soapClient = new SoapClient(array(
+                SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
+                SoapClient::WSDL_CLASSMAP => self::classMap(),
+        ));
+
+        $this->assertSame($soapClient->getSoapClient()->getLastRequestHeadersAsArray(), $soapClient->getLastRequestHeaders(true));
+    }
+    /**
+     *
+     */
+    public function testGetLastResponseHeadersAsString()
+    {
+        $soapClient = new SoapClient(array(
+                SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
+                SoapClient::WSDL_CLASSMAP => self::classMap(),
+        ));
+
+        $this->assertSame($soapClient->getSoapClient()->__getLastResponseHeaders(), $soapClient->getLastResponseHeaders(false));
+    }
+    /**
+     *
+     */
+    public function testGetLastResponseHeadersAsArray()
+    {
+        $soapClient = new SoapClient(array(
+                SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
+                SoapClient::WSDL_CLASSMAP => self::classMap(),
+        ));
+
+        $this->assertSame($soapClient->getSoapClient()->getLastResponseHeadersAsArray(), $soapClient->getLastResponseHeaders(true));
+    }
+    /**
+     *
+     */
+    public function testSetGetLastErrorForMethod()
+    {
+        $soapClient = new SoapClient(array(
+                SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
+                SoapClient::WSDL_CLASSMAP => self::classMap(),
+        ));
+
+        // this call should fail as no parameter is defined in the request
+        $soapClient->search();
+
+        $this->assertInstanceOf('\\SoapFault', $soapClient->getLastErrorForMethod('WsdlToPhp\PackageBase\Tests\SoapClient::search'));
+    }
+    /**
+     *
+     */
+    public function testSetGetLastError()
+    {
+        $soapClient = new SoapClient(array(
+                SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
+                SoapClient::WSDL_CLASSMAP => self::classMap(),
+        ));
+
+        // this call should fail as no parameter is defined in the request
+        $soapClient->search();
+
+        $this->assertCount(1, $soapClient->getLastError());
+    }
+    /**
+     *
+     */
+    public function testSetGetResult()
+    {
+        $soapClient = new SoapClient(array(
+                SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
+                SoapClient::WSDL_CLASSMAP => self::classMap(),
+        ));
+
+        // this call should fail as no parameter is defined in the request
+        $soapClient->search();
+
+        $this->assertNull($soapClient->getResult());
     }
     /**
      * @return string[]
