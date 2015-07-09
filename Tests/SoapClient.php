@@ -25,6 +25,7 @@ class SoapClient extends AbstractSoapClientBase
         try {
             self::getSoapClient()->search();
         } catch (\SoapFault $soapFault) {
+            $this->setResult(null);
             $this->saveLastError(__METHOD__, $soapFault);
         }
     }

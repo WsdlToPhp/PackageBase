@@ -148,6 +148,16 @@ abstract class AbstractSoapClientBase
      */
     private $lastError;
     /**
+     * Undeclared \SoapClient property used in this class
+     * @var string
+     */
+    public $__default_headers;
+    /**
+     * Undeclared \SoapClient property used in this class
+     * @var resource
+     */
+    public $_stream_context;
+    /**
      * Constructor
      * @uses AbstractSoapClientBase::setLastError()
      * @uses AbstractSoapClientBase::initSoapClient()
@@ -325,10 +335,11 @@ abstract class AbstractSoapClientBase
      */
     public function getLastResponse($asDomDocument = false)
     {
+        $response = null;
         if (self::getSoapClient() instanceof \SoapClient) {
-            return self::getFormatedXml(self::getSoapClient()->__getLastResponse(), $asDomDocument);
+            $response = self::getFormatedXml(self::getSoapClient()->__getLastResponse(), $asDomDocument);
         }
-        return null;
+        return $response;
     }
     /**
      * Returns the last request headers used by the SoapClient object as the original value or an array
@@ -552,13 +563,5 @@ abstract class AbstractSoapClientBase
     {
         $this->result = $result;
         return $this;
-    }
-    /**
-     * Method returning actual class name
-     * @return string __CLASS__
-     */
-    public function __toString()
-    {
-        return __CLASS__;
     }
 }
