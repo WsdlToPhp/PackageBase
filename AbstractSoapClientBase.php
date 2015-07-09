@@ -148,16 +148,6 @@ abstract class AbstractSoapClientBase
      */
     private $lastError;
     /**
-     * Undeclared \SoapClient property used in this class
-     * @var string
-     */
-    public $__default_headers;
-    /**
-     * Undeclared \SoapClient property used in this class
-     * @var resource
-     */
-    public $_stream_context;
-    /**
      * Constructor
      * @uses AbstractSoapClientBase::setLastError()
      * @uses AbstractSoapClientBase::initSoapClient()
