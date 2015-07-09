@@ -8,7 +8,7 @@ class Utils
      * Returns a XML string content as a DOMDocument or as a formated XML string
      * @throws \InvalidArgumentException
      * @param string $string
-     * @param string $asDomDocument
+     * @param bool $asDomDocument
      * @return \DOMDocument|null
      */
     public static function getFormatedXml($string, $asDomDocument = false)

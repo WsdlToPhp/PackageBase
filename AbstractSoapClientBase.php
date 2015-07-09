@@ -318,11 +318,7 @@ abstract class AbstractSoapClientBase
      */
     public function getLastRequest($asDomDocument = false)
     {
-        $request = null;
-        if (self::getSoapClient() instanceof \SoapClient) {
-            $request = self::getFormatedXml(self::getSoapClient()->__getLastRequest(), $asDomDocument);
-        }
-        return $request;
+        return $this->getLastXml('__getLastRequest', $asDomDocument);
     }
     /**
      * Returns the last response content as a DOMDocument or as a formated XML String
@@ -335,11 +331,20 @@ abstract class AbstractSoapClientBase
      */
     public function getLastResponse($asDomDocument = false)
     {
-        $response = null;
+        return $this->getLastXml('__getLastResponse', $asDomDocument);
+    }
+    /**
+     * @param string $method
+     * @param bool $asDomDocument
+     * @return \DOMDocument|string|null
+     */
+    protected function getLastXml($method, $asDomDocument = false)
+    {
+        $xml = null;
         if (self::getSoapClient() instanceof \SoapClient) {
-            $response = self::getFormatedXml(self::getSoapClient()->__getLastResponse(), $asDomDocument);
+            $xml = self::getFormatedXml(self::getSoapClient()->$method(), $asDomDocument);
         }
-        return $response;
+        return $xml;
     }
     /**
      * Returns the last request headers used by the SoapClient object as the original value or an array
