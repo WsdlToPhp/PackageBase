@@ -482,7 +482,7 @@ abstract class AbstractSoapClientBase
                 /**
                  * Add new header entry
                  */
-                array_push($newLines, "$headerName:  $headerValue");
+                array_push($newLines, "$headerName: $headerValue");
                 /**
                  * Set the context http header option
                  */

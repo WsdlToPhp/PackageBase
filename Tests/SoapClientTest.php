@@ -195,6 +195,26 @@ class SoapClientTest extends TestCase
         $this->assertNull($soapClient->getResult());
     }
     /**
+     *
+     */
+    public function testSetHeaders()
+    {
+        $soapClient = new SoapClient(array(
+                SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
+                SoapClient::WSDL_CLASSMAP => self::classMap(),
+        ));
+
+        $this->assertTrue($soapClient->setHttpHeader('X-Header-Name', 'X-Header-Value'));
+
+        $this->assertTrue(is_resource(SoapClient::getSoapClient()->_stream_context));
+
+        $this->assertSame(array(
+            'http' => array(
+                'header' => 'X-Header-Name: X-Header-Value',
+            ),
+        ), stream_context_get_options(SoapClient::getSoapClient()->_stream_context));
+    }
+    /**
      * @return string[]
      */
     public static function classMap()
