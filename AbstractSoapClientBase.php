@@ -428,9 +428,9 @@ abstract class AbstractSoapClientBase
             }
             self::getSoapClient()->__setSoapheaders(null);
             if (!empty($actor)) {
-                array_push($defaultHeaders, new SoapHeader($nameSpace, $name, $data, $mustUnderstand, $actor));
+                array_push($defaultHeaders, new \SoapHeader($nameSpace, $name, $data, $mustUnderstand, $actor));
             } else {
-                array_push($defaultHeaders, new SoapHeader($nameSpace, $name, $data, $mustUnderstand));
+                array_push($defaultHeaders, new \SoapHeader($nameSpace, $name, $data, $mustUnderstand));
             }
             self::getSoapClient()->__setSoapheaders($defaultHeaders);
         }
