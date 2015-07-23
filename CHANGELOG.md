@@ -1,9 +1,13 @@
 CHANGELOG
 =========
 
+0.0.3
+-----
+Update dependency badge
+
 0.0.2
 -----
-use top level namespace for SoapHeader class
+Use top level namespace for SoapHeader class
 
 0.0.1
 -----
