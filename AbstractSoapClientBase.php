@@ -399,7 +399,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
      * @param \SoapFault $soapFault l'objet de l'erreur
      * @return AbstractSoapClientBase
      */
-    protected function saveLastError($methoName, \SoapFault $soapFault)
+    public function saveLastError($methoName, \SoapFault $soapFault)
     {
         $this->lastError[$methoName] = $soapFault;
         return $this;
@@ -426,7 +426,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
      * @param mixed $result
      * @return AbstractSoapClientBase
      */
-    protected function setResult($result)
+    public function setResult($result)
     {
         $this->result = $result;
         return $this;
