@@ -129,7 +129,7 @@ Its goal is to provide utility/handful methods by implementing our [SoapClientIn
 It's basically a decorator design pattern as the class has the [SoapClient](http://php.net/manual/en/class.soapclient.php) object as a static property in order to be able apply methods on it. It is static property in order to have a singleton between multiple calls. It can be reset by passing true as the second parameter.
 
 #### Usage
-Let's say you have this type of generate ServiceType's class:
+Let's say you have this type of generate ```ServiceType``` class:
 ```php
 namespace Api\ServiceType;
 class ApiUpdate extends AbstractSoapClientBase
