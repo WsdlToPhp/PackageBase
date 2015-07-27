@@ -5,9 +5,13 @@
 [![Dependency Status](https://www.versioneye.com/user/projects/5571b32b6634650018000011/badge.svg)](https://www.versioneye.com/user/projects/5571b32b6634650018000011)
 
 ## Main features
-This project contains base classes used as parent class by the generated classes from [PackageGenerator](https://github.com/WsdlToPhp/PackageGenerator).
+This project contains base classes used as parent class by the generated classes from [PackageGenerator](https://github.com/WsdlToPhp/PackageGenerator):
+- [AbstractStructBase](#abstractstructbase)
+- [AbstractStructArrayBase](#abstractstructarraybase)
+- [AbstractSoapClientBase](#abstractsoapclientbase)
+- [SoapClientInterface](#soapclientinterface)
 
-## How to
+## How tos
 ### AbstractStructBase
 #### Description
 
@@ -163,12 +167,13 @@ Then call any of these base methods:
 - **getLastResponse($asDomDocument = false)**: returns either the XML string version or the ```DOMDocument``` version of the response
 - **getLastRequestHeaders($asArray = false)**: returns either the HTTP request's headers as a string or as an array (each HTTP header is parsed)
 - **getLastResponseHeaders($asArray = false)**: returns either the HTTP response's headers as a string or as an array
-- **getLastError**: automatically populated with an error when ```$this->saveLastError(__METHOD__, $soapFault);``` is called
+- **getLastError**: automatically populated with an error when ```$this->saveLastError(__METHOD__, $soapFault)``` is called
 - **getLastErrorForMethod($methoName)** : returns the error associated to the called method. It should return a ```SoapFault``` object
 ```php
-$ok = $update->UpdateBulkOrder(new \Api\StructType\ApiUpdateBulkOrder())
-if ($ok !== false) {
+$result = $update->UpdateBulkOrder(new \Api\StructType\ApiUpdateBulkOrder())
+if ($result !== false) {
     echo "\nThis is the result as an object:" . print_r($update->getResult(), true);
+    // Actually $result is the same data than $update->getResult()
 } else {
     echo "\nThis is the XML request:" . $update->getLastRequest(false);
     echo "\nThese are the request's headers:" . $update->getLastRequestHeaders(false);
@@ -176,7 +181,7 @@ if ($ok !== false) {
     echo "\nThese are the response's headers:" . $update->getLastResponseHeaders(false);
     echo "\nThese are the last errors:" . print_r($update->getLastError(), true);
     echo "\nThis is the current error:" . print_r($update->getLastErrorForMethod('\Api\ServiceType\ApiUpdate::UpdateBulkOrder'), true);
-    }
+}
 ```
 You have additional methods such as:
 - **setSoapHeader($nameSpace, $name, $data, $mustUnderstand = false, $actor = null)**: it provides a way to redefine SoapHeaders
