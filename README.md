@@ -233,7 +233,7 @@ Here are the methods that must be implemented and why:
 - **saveLastError($methoName, \SoapFault $soapFault)**: look to [AbstractSoapClientBase](#abstractsoapclientbase) part that details this method. Basically, it must allow to store a catched ```Soapfault``` object when a request has failed
 - **getResult()**: should return the Soap Web Service response, it's up to you
 - **setResult($result)**: must accept any parameter type as it should received the Soap Web Service response
-- 
+
 **If you do not want to implement all these methods, you can too create your own class that inheits from the our [AbstractSoapClientBase](#abstractsoapclientbase) class.**
 
 ## Need improvements for these classes?
