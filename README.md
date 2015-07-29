@@ -6,11 +6,11 @@
 
 ## Main features
 This project contains base classes used as parent class by the generated classes from [PackageGenerator](https://github.com/WsdlToPhp/PackageGenerator):
-- [Interfaces][#the-interfaces]
+- [Interfaces](#the-interfaces)
     - [StructInterface](#structinterface)
     - [StructArrayInterface](#structarrayinterface)
     - [SoapClientInterface](#soapclientinterface)
-- [Abstract classes][#the-abstract-classes]
+- [Abstract classes](#the-abstract-classes)
     - [AbstractStructBase](#abstractstructbase)
     - [AbstractStructArrayBase](#abstractstructarraybase)
     - [AbstractSoapClientBase](#abstractsoapclientbase)
