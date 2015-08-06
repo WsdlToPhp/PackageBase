@@ -2,7 +2,7 @@
 
 namespace WsdlToPhp\PackageBase;
 
-abstract class AbstractStructBase
+abstract class AbstractStructBase implements StructInterface
 {
     /**
      * Generic method called when an object has been exported with var_export() functions
