@@ -2,136 +2,8 @@
 
 namespace WsdlToPhp\PackageBase;
 
-abstract class AbstractSoapClientBase
+abstract class AbstractSoapClientBase implements SoapClientInterface
 {
-    /**
-     * @var string
-     */
-    const DEFAULT_SOAP_CLIENT_CLASS = '\SoapClient';
-    /**
-     * @var string
-     */
-    const OPTION_PREFIX = 'wsdl_';
-    /**
-     * Option key to define WSDL url
-     * @var string
-     */
-    const WSDL_URL = 'wsdl_url';
-    /**
-     * Option key to define WSDL classmap
-     * @var string
-     */
-    const WSDL_CLASSMAP = 'wsdl_classmap';
-    /**
-     * Option key to define WSDL login
-     * @var string
-     */
-    const WSDL_LOGIN = 'wsdl_login';
-    /**
-     * Option key to define WSDL password
-     * @var string
-     */
-    const WSDL_PASSWORD = 'wsdl_password';
-    /**
-     * Option key to define WSDL trace option
-     * @var string
-     */
-    const WSDL_TRACE = 'wsdl_trace';
-    /**
-     * Option key to define WSDL exceptions
-     * @var string
-     */
-    const WSDL_EXCEPTIONS = 'wsdl_exceptions';
-    /**
-     * Option key to define WSDL cache_wsdl
-     * @var string
-     */
-    const WSDL_CACHE_WSDL = 'wsdl_cache_wsdl';
-    /**
-     * Option key to define WSDL stream_context
-     * @var string
-     */
-    const WSDL_STREAM_CONTEXT = 'wsdl_stream_context';
-    /**
-     * Option key to define WSDL soap_version
-     * @var string
-     */
-    const WSDL_SOAP_VERSION = 'wsdl_soap_version';
-    /**
-     * Option key to define WSDL compression
-     * @var string
-     */
-    const WSDL_COMPRESSION = 'wsdl_compression';
-    /**
-     * Option key to define WSDL encoding
-     * @var string
-     */
-    const WSDL_ENCODING = 'wsdl_encoding';
-    /**
-     * Option key to define WSDL connection_timeout
-     * @var string
-     */
-    const WSDL_CONNECTION_TIMEOUT = 'wsdl_connection_timeout';
-    /**
-     * Option key to define WSDL typemap
-     * @var string
-     */
-    const WSDL_TYPEMAP = 'wsdl_typemap';
-    /**
-     * Option key to define WSDL user_agent
-     * @var string
-     */
-    const WSDL_USER_AGENT = 'wsdl_user_agent';
-    /**
-     * Option key to define WSDL features
-     * @var string
-     */
-    const WSDL_FEATURES = 'wsdl_features';
-    /**
-     * Option key to define WSDL keep_alive
-     * @var string
-     */
-    const WSDL_KEEP_ALIVE = 'wsdl_keep_alive';
-    /**
-     * Option key to define WSDL proxy_host
-     * @var string
-     */
-    const WSDL_PROXY_HOST = 'wsdl_proxy_host';
-    /**
-     * Option key to define WSDL proxy_port
-     * @var string
-     */
-    const WSDL_PROXY_PORT = 'wsdl_proxy_port';
-    /**
-     * Option key to define WSDL proxy_login
-     * @var string
-     */
-    const WSDL_PROXY_LOGIN = 'wsdl_proxy_login';
-    /**
-     * Option key to define WSDL proxy_password
-     * @var string
-     */
-    const WSDL_PROXY_PASSWORD = 'wsdl_proxy_password';
-    /**
-     * Option key to define WSDL local_cert
-     * @var string
-     */
-    const WSDL_LOCAL_CERT = 'wsdl_local_cert';
-    /**
-     * Option key to define WSDL passphrase
-     * @var string
-     */
-    const WSDL_PASSPHRASE = 'wsdl_passphrase';
-    /**
-     * Option key to define WSDL authentication
-     * @var string
-     */
-    const WSDL_AUTHENTICATION = 'wsdl_authentication';
-    /**
-     * Option key to define WSDL ssl_method
-     * @var string
-     */
-    const WSDL_SSL_METHOD = 'wsdl_ssl_method';
     /**
      * Soapclient called to communicate with the actual SOAP Service
      * @var \SoapClient
@@ -527,7 +399,7 @@ abstract class AbstractSoapClientBase
      * @param \SoapFault $soapFault l'objet de l'erreur
      * @return AbstractSoapClientBase
      */
-    protected function saveLastError($methoName, \SoapFault $soapFault)
+    public function saveLastError($methoName, \SoapFault $soapFault)
     {
         $this->lastError[$methoName] = $soapFault;
         return $this;
@@ -554,7 +426,7 @@ abstract class AbstractSoapClientBase
      * @param mixed $result
      * @return AbstractSoapClientBase
      */
-    protected function setResult($result)
+    public function setResult($result)
     {
         $this->result = $result;
         return $this;

@@ -2,7 +2,7 @@
 
 namespace WsdlToPhp\PackageBase;
 
-abstract class AbstractStructArrayBase extends AbstractStructBase implements \ArrayAccess, \Iterator, \Countable
+abstract class AbstractStructArrayBase extends AbstractStructBase implements StructArrayInterface
 {
     /**
      * Array that contains values when only one parameter is set when calling __construct method
