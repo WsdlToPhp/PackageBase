@@ -56,7 +56,7 @@ Here are the constants defined by this interface and their utility:
 - **WSDL_EXCEPTIONS**: boolean value defining whether soap errors throw exceptions of type SoapFault
 - **WSDL_CACHE_WSDL**: option is one of ```WSDL_CACHE_NONE```, ```WSDL_CACHE_DISK```, ```WSDL_CACHE_MEMORY``` or ```WSDL_CACHE_BOTH```
 - **WSDL_STREAM_CONTEXT**: a [resource](http://php.net/manual/en/language.types.resource.php) for [context](http://php.net/manual/en/context.php)
-- **WSDL_SOAP_VERSION**: one of either ```SOAP_1_1``` or ```SOAP_1_2``` to select SOAP 1.1 or 1.2, respectively. If omitted, 1.1 is used
+- **WSDL_SOAP_VERSION**: one of either ```SOAP_1_1``` or ```SOAP_1_2``` to select SOAP 1.1 or 1.2, respectively. If omitted, SOAP 1.1 is used
 - **WSDL_COMPRESSION**: allows to use compression of HTTP SOAP requests and responses
 - **WSDL_ENCODING**: internal character encoding. This option does not change the encoding of SOAP requests (it is always utf-8), but converts strings into it
 - **WSDL_CONNECTION_TIMEOUT**: defines a timeout in seconds for the connection to the SOAP service. This option does not define a timeout for services with slow responses. To limit the time to wait for calls to finish the [default_socket_timeout](http://php.net/manual/en/filesystem.configuration.php#ini.default-socket-timeout) setting is available
