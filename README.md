@@ -204,6 +204,7 @@ It's basically a decorator design pattern as the class has the [SoapClient](http
 Let's say you have this type of generate ```ServiceType``` class:
 ```php
 namespace Api\ServiceType;
+use \WsdlToPhp\PackageBase\AbstractSoapClientBase
 class ApiUpdate extends AbstractSoapClientBase
 {
     public function UpdateBulkOrder(\Api\StructType\ApiUpdateBulkOrder $parameters)
