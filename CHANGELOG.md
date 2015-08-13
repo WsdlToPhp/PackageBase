@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+SRC
+---
+- Major: update source code structure, put all classes under ```src``` fodler, update composer and phpunit accordingly
+
 1.0.0RC01
 ---------
 - Update Readme
