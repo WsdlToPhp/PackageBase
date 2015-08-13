@@ -1,9 +1,9 @@
 CHANGELOG
 =========
 
-SRC
----
-- Major: update source code structure, put all classes under ```src``` fodler, update composer and phpunit accordingly
+1.0.0RC02
+---------
+- Major: update source code structure, put all classes under ```src``` folder, rename Tests to tests, update composer and phpunit accordingly
 
 1.0.0RC01
 ---------
