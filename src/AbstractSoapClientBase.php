@@ -67,7 +67,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
     {
         $wsdlOptions = array();
         $defaultWsdlOptions = self::getDefaultWsdlOptions();
-        foreach ($defaultWsdlOptions as $optioName=>$optionValue) {
+        foreach ($defaultWsdlOptions as $optioName => $optionValue) {
             if (array_key_exists($optioName, $options) && !empty($options[$optioName])) {
                 $wsdlOptions[str_replace(self::OPTION_PREFIX, '', $optioName)] = $options[$optioName];
             } elseif (!empty($optionValue)) {
@@ -292,8 +292,8 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
     {
         if (self::getSoapClient()) {
             $defaultHeaders = (isset(self::getSoapClient()->__default_headers) && is_array(self::getSoapClient()->__default_headers)) ? self::getSoapClient()->__default_headers : array();
-            foreach ($defaultHeaders as $index=>$soapheader) {
-                if ($soapheader->name === $name) {
+            foreach ($defaultHeaders as $index => $soapHeader) {
+                if ($soapHeader->name === $name) {
                     unset($defaultHeaders[$index]);
                     break;
                 }
@@ -319,6 +319,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
      */
     public function setHttpHeader($headerName, $headerValue)
     {
+        $state = false;
         if (self::getSoapClient() && !empty($headerName)) {
             $streamContext = (isset(self::getSoapClient()->_stream_context) && is_resource(self::getSoapClient()->_stream_context)) ? self::getSoapClient()->_stream_context : null;
             if (!is_resource($streamContext)) {
@@ -357,17 +358,16 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
                  * Create context if it does not exist
                  */
                 if (!is_resource($streamContext)) {
-                    return (self::getSoapClient()->_stream_context = stream_context_create($options)) ? true : false;
+                    $state = (self::getSoapClient()->_stream_context = stream_context_create($options)) ? true : false;
                 } else {
                     /**
                      * Set the new context http header option
                      */
-                    return stream_context_set_option(self::getSoapClient()->_stream_context, 'http', 'header', $options['http']['header']);
+                    $state = stream_context_set_option(self::getSoapClient()->_stream_context, 'http', 'header', $options['http']['header']);
                 }
             }
-            return false;
         }
-        return false;
+        return $state;
     }
     /**
      * Method returning last errors occured during the calls
