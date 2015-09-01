@@ -327,16 +327,10 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
                 $options['http']['header'] = '';
             } else {
                 $options = stream_context_get_options($streamContext);
-                if (is_array($options)) {
-                    if (!array_key_exists('http', $options) || !is_array($options['http'])) {
-                        $options['http'] = array();
-                        $options['http']['header'] = '';
-                    } elseif (!array_key_exists('header', $options['http'])) {
-                        $options['http']['header'] = '';
-                    }
-                } else {
-                    $options = array();
+                if (!array_key_exists('http', $options) || !is_array($options['http'])) {
                     $options['http'] = array();
+                    $options['http']['header'] = '';
+                } elseif (!array_key_exists('header', $options['http'])) {
                     $options['http']['header'] = '';
                 }
             }
