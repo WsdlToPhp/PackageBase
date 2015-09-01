@@ -215,6 +215,143 @@ class SoapClientTest extends TestCase
         ), stream_context_get_options(SoapClient::getSoapClient()->_stream_context));
     }
     /**
+     *
+     */
+    public function testSetHeadersOnExistingHeaders()
+    {
+        $soapClient = new SoapClient(array(
+                SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
+                SoapClient::WSDL_CLASSMAP => self::classMap(),
+        ));
+
+        $this->assertTrue($soapClient->setHttpHeader('X-Header-Name', 'X-Header-Value'));
+        $this->assertTrue($soapClient->setHttpHeader('X-Header-ID', 'X-Header-ID-Value'));
+
+        $this->assertTrue(is_resource(SoapClient::getSoapClient()->_stream_context));
+
+        $this->assertSame(array(
+            'http' => array(
+                'header' => 'X-Header-Name: X-Header-Value' . "\r\n" .
+                            'X-Header-ID: X-Header-ID-Value',
+            ),
+        ), stream_context_get_options(SoapClient::getSoapClient()->_stream_context));
+    }
+    /**
+     *
+     */
+    public function testSetHeadersOnExistingHttpsHeaders()
+    {
+        $streamContext = stream_context_create(array(
+            'https' => array(
+                'header' => array(
+                    'X-HEADER' => 'X-VALUE',
+                ),
+            ),
+        ));
+        $soapClient = new SoapClient(array(
+                SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
+                SoapClient::WSDL_CLASSMAP => self::classMap(),
+                SoapClient::WSDL_STREAM_CONTEXT => $streamContext,
+        ));
+
+        $this->assertTrue($soapClient->setHttpHeader('X-Header-Name', 'X-Header-Value'));
+        $this->assertTrue($soapClient->setHttpHeader('X-Header-ID', 'X-Header-ID-Value'));
+
+        $this->assertTrue(is_resource(SoapClient::getSoapClient()->_stream_context));
+
+        $this->assertSame(array(
+            'https' => array(
+                'header' => array(
+                    'X-HEADER' => 'X-VALUE',
+                ),
+            ),
+            'http' => array(
+                'header' => 'X-Header-Name: X-Header-Value' . "\r\n" .
+                            'X-Header-ID: X-Header-ID-Value',
+            ),
+        ), stream_context_get_options(SoapClient::getSoapClient()->_stream_context));
+    }
+    /**
+     *
+     */
+    public function testSetHeadersOnExistingHttpHeaders()
+    {
+        $streamContext = stream_context_create(array(
+            'http' => array(
+                'Auth' => array(
+                    'X-HEADER' => 'X-VALUE',
+                ),
+            ),
+        ));
+        $soapClient = new SoapClient(array(
+                SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
+                SoapClient::WSDL_CLASSMAP => self::classMap(),
+                SoapClient::WSDL_STREAM_CONTEXT => $streamContext,
+        ));
+
+        $this->assertTrue($soapClient->setHttpHeader('X-Header-Name', 'X-Header-Value'));
+        $this->assertTrue($soapClient->setHttpHeader('X-Header-ID', 'X-Header-ID-Value'));
+
+        $this->assertTrue(is_resource(SoapClient::getSoapClient()->_stream_context));
+
+        $this->assertSame(array(
+            'http' => array(
+                'Auth' => array(
+                    'X-HEADER' => 'X-VALUE',
+                ),
+                'header' => 'X-Header-Name: X-Header-Value' . "\r\n" .
+                            'X-Header-ID: X-Header-ID-Value',
+            ),
+        ), stream_context_get_options(SoapClient::getSoapClient()->_stream_context));
+    }
+    /**
+     *
+     */
+    public function testSetSoapHeader()
+    {
+        $soapClient = new SoapClient(array(
+            SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
+            SoapClient::WSDL_CLASSMAP => self::classMap(),
+        ));
+
+        $soapClient->setSoapHeader('urn:namespace', 'HeaderAuth', 'the-data', false, null);
+
+        $this->assertEquals(array(
+            new \SoapHeader('urn:namespace', 'HeaderAuth', 'the-data', false),
+        ), SoapClient::getSoapClient()->__default_headers);
+    }
+    /**
+     *
+     */
+    public function testSetSoapHeaderModified()
+    {
+        $soapClient = new SoapClient(array(
+            SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
+            SoapClient::WSDL_CLASSMAP => self::classMap(),
+        ));
+
+        $soapClient->setSoapHeader('urn:namespace', 'HeaderAuth', 'the-data', false, null);
+        $soapClient->setSoapHeader('urn:namespace', 'HeaderAuth', 'the-data-modified', false, null);
+
+        $this->assertEquals(new \SoapHeader('urn:namespace', 'HeaderAuth', 'the-data-modified', false), array_pop(SoapClient::getSoapClient()->__default_headers));
+    }
+    /**
+     *
+     */
+    public function testSetSoapActor()
+    {
+        $soapClient = new SoapClient(array(
+            SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
+            SoapClient::WSDL_CLASSMAP => self::classMap(),
+        ));
+
+        $soapClient->setSoapHeader('urn:namespace', 'HeaderAuth', 'the-data', false, 'actor');
+
+        $this->assertEquals(array(
+            new \SoapHeader('urn:namespace', 'HeaderAuth', 'the-data', false, 'actor'),
+        ), SoapClient::getSoapClient()->__default_headers);
+    }
+    /**
      * @return string[]
      */
     public static function classMap()
