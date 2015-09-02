@@ -9,12 +9,16 @@ class NtlmBase extends \SoapClient
      */
     protected $options;
     /**
+     * @var string
+     */
+    public $__last_request;
+    /**
      * @param string $wsdl
      * @param mixed[] $options
      */
     public function __construct($wsdl, array $options = array())
     {
-        parent::__construct($wsdl, $options);
+        parent::SoapClient($wsdl, $options);
         $this->setOptions($options);
     }
     /**
