@@ -272,7 +272,7 @@ public function setSoapHeaderCSPCHD(\Api\StructType\ApiCSPCHD $cSPCHD, $nameSpac
 ### AbstractNtlmSoapClientBase
 #### Description
 This class inherits from the [AbstractSoapClientBase](#abstractsoapclientbase) class in order to define the SoapClient class to use.
-In this case, the [NtlmBase](#ntlmBbase) is the SoapClient client.
+In this case, the [NtlmBase](#ntlmbase) is the SoapClient client.
 
 #### Usage
 Same as the [AbstractSoapClientBase](#abstractsoapclientbase) class.
