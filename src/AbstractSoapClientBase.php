@@ -88,6 +88,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
      * Be sure that this class inherits from the native PHP SoapClient class and this class has been loaded or can be loaded.
      * The goal is to allow the override of the SoapClient without having to modify this generated class.
      * Then the overridding SoapClient class can override for example the SoapClient::__doRequest() method if it is needed.
+     * @param string $soapClientClassName
      * @return string
      */
     public function getSoapClientClassName($soapClientClassName = null)
