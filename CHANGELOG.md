@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+WIP
+---
+- Implementation of a SoapClient for NTLM authentication
+
 1.0.0
 ---------
 - First major release, code coverage improved to reach 100% from the 1.0.0RC02 release.

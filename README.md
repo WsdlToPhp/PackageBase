@@ -15,6 +15,9 @@ This project contains base classes used as parent class by the generated classes
     - [AbstractStructBase](#abstractstructbase)
     - [AbstractStructArrayBase](#abstractstructarraybase)
     - [AbstractSoapClientBase](#abstractsoapclientbase)
+    - [AbstractNtlmSoapClientBase](#abstractntlmsoapclientbase)
+- [Soap Clients](#soap-clients)
+    - [NtlmBase](#ntlmbase)
 
 ## The interfaces
 The defined interfaces must be used in order to be able to match the requirements for the [PackageGenerator](https://github.com/WsdlToPhp/PackageGenerator) generated classes.
@@ -266,8 +269,19 @@ public function setSoapHeaderCSPCHD(\Api\StructType\ApiCSPCHD $cSPCHD, $nameSpac
 - **setHttpHeader($headerName, $headerValue)**: an easy way to define your proper HTTP headers that must be sent
 - **setLocation($location)**: Sets the location of the Web service to use
 
-## Need improvements for these classes?
-Feel free to make some pull requests. We'll study them and let you know when it can be integrated.
+### AbstractNtlmSoapClientBase
+#### Description
+This class inherits from the [AbstractSoapClientBase](#abstractsoapclientbase) class in order to define the SoapClient class to use.
+In this case, the [NtlmBase](#ntlmBbase) is the SoapClient client.
+
+#### Usage
+Same as the [AbstractSoapClientBase](#abstractsoapclientbase) class.
+
+## Soap Clients
+### NtlmBase
+This class is located under the ```src/SoapClient``` folder and can be used as the base SoapClient client. In order to use it, you MUST set the option ```--soapclient``` with the value ```\WsdlToPhp\PackageBase\AbstractNtlmSoapClientBase``` when you generate your package with the [PackageGenerator](https://github.com/WsdlToPhp/PackageGenerator) project.
+
+It should be used if the Web Service requires a NTLM authentication such as Exchange Web Services.
 
 ## Unit tests
 You can run the unit tests with the following command:
@@ -276,3 +290,6 @@ You can run the unit tests with the following command:
     $ composer install
     $ phpunit
 ```
+
+## Need improvements for these classes?
+Feel free to make some pull requests. We'll study them and let you know when it can be integrated.
