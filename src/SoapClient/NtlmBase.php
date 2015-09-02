@@ -31,7 +31,9 @@ class NtlmBase extends \SoapClient
      */
     public function __doRequest($request, $location, $action, $version, $one_way = false)
     {
-        if (version_compare(PHP_VERSION, '5.5.0') === -1) {
+        if (version_compare(PHP_VERSION, '5.4.0') === -1) {
+            return parent::__doRequest($request, $location, $action, $version, $one_way);
+        } elseif (version_compare(PHP_VERSION, '5.5.0') === -1) {
             $this->__last_request = $request;
         } else {
             $this->lastRequest = $request;
@@ -85,7 +87,9 @@ class NtlmBase extends \SoapClient
      */
     public function __getLastRequest()
     {
-        if (version_compare(PHP_VERSION, '5.5.0') === -1) {
+        if (version_compare(PHP_VERSION, '5.4.0') === -1) {
+            $lastRequest = $this->__last_request;
+        } elseif (version_compare(PHP_VERSION, '5.5.0') === -1) {
             $lastRequest = $this->__last_request;
         } else {
             $lastRequest = $this->lastRequest;
