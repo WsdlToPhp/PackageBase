@@ -83,4 +83,21 @@ class NtlmSoapClientTest extends TestCase
 
         $this->assertInstanceOf('\SoapFault', $soapClient->getLastErrorForMethod('WsdlToPhp\PackageBase\Tests\NtlmSoapClient::search'));
     }
+    /**
+     *
+     */
+    public function testGetLastRequest()
+    {
+        $soapClient = new NtlmSoapClient(array(
+            SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
+            SoapClient::WSDL_CLASSMAP => self::classMap(),
+            SoapClient::WSDL_LOGIN => 'foo',
+            SoapClient::WSDL_PASSWORD => 'bar',
+        ), true);
+
+        // this call should fail as no parameter is defined in the request
+        $soapClient->search();
+
+        $this->assertNotEmpty(NtlmSoapClient::getSoapClient()->__getLastRequest());
+    }
 }

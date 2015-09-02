@@ -9,9 +9,9 @@ class NtlmBase extends \SoapClient
      */
     protected $options;
     /**
-     * @var string
+     * @var mixed
      */
-    public $__last_request;
+    public $lastRequest;
     /**
      * @param string $wsdl
      * @param mixed[] $options
@@ -27,7 +27,7 @@ class NtlmBase extends \SoapClient
      */
     public function __doRequest($request, $location, $action, $version, $one_way = false)
     {
-        $this->__last_request = $request;
+        $this->lastRequest = $request;
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $location);
         curl_setopt($curl, CURLOPT_POST, true);
@@ -71,5 +71,12 @@ class NtlmBase extends \SoapClient
     {
         $this->options = $options;
         return $this;
+    }
+    /**
+     * @return mixed
+     */
+    public function __getLastRequest()
+    {
+        return $this->lastRequest;
     }
 }
