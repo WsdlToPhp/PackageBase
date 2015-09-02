@@ -2,7 +2,7 @@
 
 namespace WsdlToPhp\PackageBase\Tests;
 
-class StructBase extends TestCase
+class StructBaseTest extends TestCase
 {
     /**
      *
