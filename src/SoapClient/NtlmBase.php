@@ -13,12 +13,16 @@ class NtlmBase extends \SoapClient
      */
     public $lastRequest;
     /**
+     * @var mixed
+     */
+    public $__last_request;
+    /**
      * @param string $wsdl
      * @param mixed[] $options
      */
     public function __construct($wsdl, array $options = array())
     {
-        parent::SoapClient($wsdl, $options);
+        $this->SoapClient($wsdl, $options);
         $this->setOptions($options);
     }
     /**
@@ -27,7 +31,11 @@ class NtlmBase extends \SoapClient
      */
     public function __doRequest($request, $location, $action, $version, $one_way = false)
     {
-        $this->lastRequest = $request;
+        if (version_compare(PHP_VERSION, '5.5.0') === -1) {
+            $this->__last_request = $request;
+        } else {
+            $this->lastRequest = $request;
+        }
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $location);
         curl_setopt($curl, CURLOPT_POST, true);
@@ -77,6 +85,11 @@ class NtlmBase extends \SoapClient
      */
     public function __getLastRequest()
     {
-        return $this->lastRequest;
+        if (version_compare(PHP_VERSION, '5.5.0') === -1) {
+            $lastRequest = $this->__last_request;
+        } else {
+            $lastRequest = $this->lastRequest;
+        }
+        return $lastRequest;
     }
 }
