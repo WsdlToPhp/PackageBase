@@ -28,7 +28,8 @@ class NtlmBase extends \SoapClient
     public function __doRequest($request, $location, $action, $version, $one_way = false)
     {
         $this->__last_request = $request;
-        $curl = curl_init($location);
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $location);
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLINFO_HEADER_OUT, true);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -37,7 +38,7 @@ class NtlmBase extends \SoapClient
         curl_setopt($curl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
         curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_NTLM | CURLAUTH_BASIC);
         if ($this->useNTLMAuthentication()) {
-            curl_setopt($curl, CURLOPT_USERPWD, sprintf('%s:%', $this->options['login'], $this->options['password']));
+            curl_setopt($curl, CURLOPT_USERPWD, sprintf('%s:%s', $this->options['login'], $this->options['password']));
         }
         return curl_exec($curl);
     }
