@@ -9,5 +9,5 @@ interface StructArrayInterface extends StructInterface, \ArrayAccess, \Iterator,
      * This method has been overridden in real-array struct class
      * @return string
      */
-    function getAttributeName();
+    public function getAttributeName();
 }
