@@ -139,12 +139,12 @@ interface SoapClientInterface
      * @param array $wsdlOptions
      * @param bool $resetSoapClient allows to disable the SoapClient redefinition
      */
-    function __construct(array $wsdlOptions = array(), $resetSoapClient = true);
+    public function __construct(array $wsdlOptions = array(), $resetSoapClient = true);
     /**
      * Static method getting current SoapClient
      * @return \SoapClient
      */
-    static function getSoapClient();
+    public static function getSoapClient();
     /**
      * Sets a SoapHeader to send
      * For more information, please read the online documentation on {@link http://www.php.net/manual/en/class.soapheader.php}
@@ -155,28 +155,28 @@ interface SoapClientInterface
      * @param string $actor
      * @return SoapClientInterface
      */
-    function setSoapHeader($nameSpace, $name, $data, $mustUnderstand = false, $actor = null);
+    public function setSoapHeader($nameSpace, $name, $data, $mustUnderstand = false, $actor = null);
     /**
      * Method returning last errors occured during the calls
      * @return array
      */
-    function getLastError();
+    public function getLastError();
     /**
      * Method saving the last error returned by the SoapClient
      * @param string $methoName the method called when the error occurred
      * @param \SoapFault $soapFault l'objet de l'erreur
      * @return SoapClientInterface
      */
-    function saveLastError($methoName, \SoapFault $soapFault);
+    public function saveLastError($methoName, \SoapFault $soapFault);
     /**
      * Method returning current result from Soap call
      * @return mixed
      */
-    function getResult();
+    public function getResult();
     /**
      * Method setting current result from Soap call
      * @param mixed $result
      * @return SoapClientInterface
      */
-    function setResult($result);
+    public function setResult($result);
 }
