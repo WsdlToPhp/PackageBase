@@ -11,5 +11,5 @@ interface StructInterface
      * @param array $array the exported values
      * @return Struct
      */
-    static function __set_state(array $array);
+    public static function __set_state(array $array);
 }
