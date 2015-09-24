@@ -31,7 +31,7 @@ There is at least/most one method that must be implemented so it's pretty fast t
 
 ### StructArrayInterface
 #### Description
-This interface must be used to define a new ArrayType class. The goal is to provide utility methods around Array Structs defined by the Wsdl in order to ease the handling of its content. Therefore, this interface inherits from our [StructInterface](structinterface) interface interface plus the native [ArrayAccess](http://php.net/manual/en/class.arrayaccess.php), [Iterator](http://php.net/manual/en/class.iterator.php) and [Countable](http://php.net/manual/en/class.countable.php) PHP interfaces
+This interface must be used to define a new ArrayType class. The goal is to provide utility methods around Array Structs defined by the Wsdl in order to ease the handling of its content. Therefore, this interface inherits from our [StructInterface](#structinterface) interface interface plus the native [ArrayAccess](http://php.net/manual/en/class.arrayaccess.php), [Iterator](http://php.net/manual/en/class.iterator.php) and [Countable](http://php.net/manual/en/class.countable.php) PHP interfaces
 
 #### What has to be implemented?
 The only method that must implement would be **getAttributeName** but be aware that it is implemented in every generated ArrayType class so no need to define it. It's just a reminder of what is available in ArrayType classes.
