@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.0.2
+- Remove AbstractStructArrayBase::getAttributeName() method due to fatal error on PHP <= 5.3
+
 ## 1.0.1
 - Interfaces' methods has been well declared as public
 - Minor readme typo updates
