@@ -20,12 +20,6 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      */
     protected $internArrayOffset;
     /**
-     * Method returning alone attribute name when class is *array* type
-     * This method has been overridden in real-array struct class
-     * @return string
-     */
-    abstract public function getAttributeName();
-    /**
      * Method alias to count
      * @uses ApiWsdlClass::count()
      * @return int
