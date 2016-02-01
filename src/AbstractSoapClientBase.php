@@ -321,8 +321,8 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
     {
         $state = false;
         if (self::getSoapClient() && !empty($headerName)) {
-            $streamContext = (isset(self::getSoapClient()->_stream_context) && is_resource(self::getSoapClient()->_stream_context)) ? self::getSoapClient()->_stream_context : null;
-            if (!is_resource($streamContext)) {
+            $streamContext = $this->getStreamContext();
+            if ($streamContext === null) {
                 $options = array();
                 $options['http'] = array();
                 $options['http']['header'] = '';
@@ -357,7 +357,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
                 /**
                  * Create context if it does not exist
                  */
-                if (!is_resource($streamContext)) {
+                if ($streamContext === null) {
                     $state = (self::getSoapClient()->_stream_context = stream_context_create($options)) ? true : false;
                 } else {
                     /**
@@ -368,6 +368,27 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
             }
         }
         return $state;
+    }
+    /**
+     * Returns current \SoapClient::_stream_context resource or null
+     * @return resource|null
+     */
+    public function getStreamContext()
+    {
+        return (self::getSoapClient() && isset(self::getSoapClient()->_stream_context) && is_resource(self::getSoapClient()->_stream_context)) ? self::getSoapClient()->_stream_context : null;
+    }
+    /**
+     * Returns current \SoapClient::_stream_context resource options or empty array
+     * @return array
+     */
+    public function getStreamContextOptions()
+    {
+        $options = array();
+        $context = $this->getStreamContext();
+        if ($context !== null) {
+            $options = stream_context_get_options($context);
+        }
+        return $options;
     }
     /**
      * Method returning last errors occured during the calls
