@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.0.3
+- Add utility methods **getStreamContext()** and **getStreamContextOptions()** to AbstractSoapClientbase class
+
 ## 1.0.2
 - Remove AbstractStructArrayBase::getAttributeName() method due to fatal error on PHP <= 5.3
 
