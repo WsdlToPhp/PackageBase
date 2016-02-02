@@ -266,6 +266,8 @@ public function setSoapHeaderCSPCHD(\Api\StructType\ApiCSPCHD $cSPCHD, $nameSpac
 ```
 - **setHttpHeader($headerName, $headerValue)**: an easy way to define your proper HTTP headers that must be sent
 - **setLocation($location)**: Sets the location of the Web service to use
+- **getStreamContext()**: Returns the created stream context used by the SoapClient class
+- **getStreamContextOptions()**: Returns the created stream context's options used by the SoapClient class
 
 ## Need improvements for these classes?
 Feel free to make some pull requests. We'll study them and let you know when it can be integrated.
