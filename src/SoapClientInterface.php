@@ -163,11 +163,11 @@ interface SoapClientInterface
     public function getLastError();
     /**
      * Method saving the last error returned by the SoapClient
-     * @param string $methoName the method called when the error occurred
+     * @param string $methodName the method called when the error occurred
      * @param \SoapFault $soapFault l'objet de l'erreur
      * @return SoapClientInterface
      */
-    public function saveLastError($methoName, \SoapFault $soapFault);
+    public function saveLastError($methodName, \SoapFault $soapFault);
     /**
      * Method returning current result from Soap call
      * @return mixed
