@@ -81,7 +81,7 @@ Here are the methods that must be implemented and why:
 - **getSoapClient()**: must return the [SoapClient](http://php.net/manual/en/class.soapclient.php) object that is responsible fo sending the requests.
 - **setSoapHeader($nameSpace, $name, $data, $mustUnderstand = false, $actor = null)**: look to [AbstractSoapClientBase](#abstractsoapclientbase) part that details this method. Basically, it allows to define [SoapHeader](http://php.net/manual/en/class.soapheader.php)s for the request
 - **getLastError()**: must return the last error, its format is up to you
-- **saveLastError($methoName, \SoapFault $soapFault)**: look to [AbstractSoapClientBase](#abstractsoapclientbase) part that details this method. Basically, it must allow to store a catched [Soapfault](http://php.net/manual/en/class.soapfault.php) object when a request has failed
+- **saveLastError($methodName, \SoapFault $soapFault)**: look to [AbstractSoapClientBase](#abstractsoapclientbase) part that details this method. Basically, it must allow to store a catched [Soapfault](http://php.net/manual/en/class.soapfault.php) object when a request has failed
 - **getResult()**: should return the Soap Web Service response, it's up to you
 - **setResult($result)**: must accept any parameter type as it should received the Soap Web Service response
 
@@ -241,7 +241,7 @@ Then call any of these base methods:
 - **getLastRequestHeaders($asArray = false)**: returns either the HTTP request's headers as a string or as an array (each HTTP header is parsed)
 - **getLastResponseHeaders($asArray = false)**: returns either the HTTP response's headers as a string or as an array
 - **getLastError**: automatically populated with an error when ```$this->saveLastError(__METHOD__, $soapFault)``` is called
-- **getLastErrorForMethod($methoName)** : returns the error associated to the called method. It should return a ```SoapFault``` object
+- **getLastErrorForMethod($methodName)** : returns the error associated to the called method. It should return a ```SoapFault``` object
 ```php
 $result = $update->UpdateBulkOrder(new \Api\StructType\ApiUpdateBulkOrder())
 if ($result !== false) {
