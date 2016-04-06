@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.0.4
+- Issue #2 - Var name change request from $methoName to $methodName
+
 ## 1.0.3
 - Add utility methods **getStreamContext()** and **getStreamContextOptions()** to AbstractSoapClientbase class
 
