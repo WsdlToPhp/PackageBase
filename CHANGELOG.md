@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.0.5
+- Update readme
+
 ## 1.0.4
 - Issue #2 - Var name change request from $methoName to $methodName
 
