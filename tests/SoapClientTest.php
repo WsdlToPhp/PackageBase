@@ -2,7 +2,6 @@
 
 namespace WsdlToPhp\PackageBase\Tests;
 
-
 use WsdlToPhp\PackageBase\Utils;
 use WsdlToPhp\PackageBase\Tests\SoapClient;
 
@@ -326,14 +325,18 @@ class SoapClientTest extends TestCase
     /**
      *
      */
-    public function testGetStreamContextAsNill()
+    public function testGetStreamContextAsNull()
     {
         $soapClient = new SoapClient(array(
             SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
             SoapClient::WSDL_CLASSMAP => self::classMap(),
         ));
 
-        $this->assertNull($soapClient->getStreamContext());
+        if (PHP_VERSION_ID < 70013) {
+            $this->assertNull($soapClient->getStreamContext());
+        } else {
+            $this->assertTrue(is_resource($soapClient->getStreamContext()));
+        }
     }
     /**
      *
