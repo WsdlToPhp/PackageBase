@@ -67,11 +67,11 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
     {
         $wsdlOptions = array();
         $defaultWsdlOptions = self::getDefaultWsdlOptions();
-        foreach ($defaultWsdlOptions as $optioName => $optionValue) {
-            if (array_key_exists($optioName, $options) && !empty($options[$optioName])) {
-                $wsdlOptions[str_replace(self::OPTION_PREFIX, '', $optioName)] = $options[$optioName];
+        foreach ($defaultWsdlOptions as $optionName => $optionValue) {
+            if (array_key_exists($optionName, $options) && !empty($options[$optionName])) {
+                $wsdlOptions[str_replace(self::OPTION_PREFIX, '', $optionName)] = $options[$optionName];
             } elseif (!empty($optionValue)) {
-                $wsdlOptions[str_replace(self::OPTION_PREFIX, '', $optioName)] = $optionValue;
+                $wsdlOptions[str_replace(self::OPTION_PREFIX, '', $optionName)] = $optionValue;
             }
         }
         if (array_key_exists(str_replace(self::OPTION_PREFIX, '', self::WSDL_URL), $wsdlOptions)) {

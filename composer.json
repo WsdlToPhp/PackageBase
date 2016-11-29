@@ -10,6 +10,11 @@
             "name": "Mikaël DELSOL",
             "email": "contact@wsdltophp.com",
             "role": "Owner"
+        },
+        {
+            "name": "Luke Rodgers",
+            "email": "lukerodgers90@gmail.com",
+            "role": "Contributor"
         }
     ],
     "support" : {
