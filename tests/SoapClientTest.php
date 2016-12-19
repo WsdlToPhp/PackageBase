@@ -333,7 +333,11 @@ class SoapClientTest extends TestCase
             SoapClient::WSDL_CLASSMAP => self::classMap(),
         ));
 
-        $this->assertNull($soapClient->getStreamContext());
+        if (PHP_VERSION_ID < 70013) {
+            $this->assertNull($soapClient->getStreamContext());
+        } else {
+            $this->assertTrue(is_resource($soapClient->getStreamContext()));
+        }
     }
     /**
      *
