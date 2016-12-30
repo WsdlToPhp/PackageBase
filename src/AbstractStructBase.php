@@ -15,7 +15,7 @@ abstract class AbstractStructBase implements StructInterface
     {
         $className = get_called_class();
         $object = @new $className();
-        foreach ($array as $name=>$value) {
+        foreach ($array as $name => $value) {
             $object->_set($name, $value);
         }
         return $object;
