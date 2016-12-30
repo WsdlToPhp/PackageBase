@@ -67,11 +67,11 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
     {
         $wsdlOptions = array();
         $defaultWsdlOptions = static::getDefaultWsdlOptions();
-        foreach ($defaultWsdlOptions as $optioName => $optionValue) {
-            if (array_key_exists($optioName, $options) && !empty($options[$optioName])) {
-                $wsdlOptions[str_replace(self::OPTION_PREFIX, '', $optioName)] = $options[$optioName];
+        foreach ($defaultWsdlOptions as $optionName => $optionValue) {
+            if (array_key_exists($optionName, $options) && !empty($options[$optionName])) {
+                $wsdlOptions[str_replace(self::OPTION_PREFIX, '', $optionName)] = $options[$optionName];
             } elseif (!empty($optionValue)) {
-                $wsdlOptions[str_replace(self::OPTION_PREFIX, '', $optioName)] = $optionValue;
+                $wsdlOptions[str_replace(self::OPTION_PREFIX, '', $optionName)] = $optionValue;
             }
         }
         if (array_key_exists(str_replace(self::OPTION_PREFIX, '', self::WSDL_URL), $wsdlOptions)) {
@@ -131,29 +131,30 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
     public static function getDefaultWsdlOptions()
     {
         return array(
-                    self::WSDL_CLASSMAP => null,
-                    self::WSDL_CACHE_WSDL => WSDL_CACHE_NONE,
-                    self::WSDL_COMPRESSION => null,
-                    self::WSDL_CONNECTION_TIMEOUT => null,
-                    self::WSDL_ENCODING => null,
-                    self::WSDL_EXCEPTIONS => true,
-                    self::WSDL_FEATURES => SOAP_SINGLE_ELEMENT_ARRAYS | SOAP_USE_XSI_ARRAY_TYPE,
-                    self::WSDL_LOGIN => null,
-                    self::WSDL_PASSWORD => null,
-                    self::WSDL_SOAP_VERSION => null,
-                    self::WSDL_STREAM_CONTEXT => null,
-                    self::WSDL_TRACE => true,
-                    self::WSDL_TYPEMAP => null,
-                    self::WSDL_URL => null,
-                    self::WSDL_USER_AGENT => null,
-                    self::WSDL_PROXY_HOST => null,
-                    self::WSDL_PROXY_PORT => null,
-                    self::WSDL_PROXY_LOGIN => null,
-                    self::WSDL_PROXY_PASSWORD => null,
-                    self::WSDL_LOCAL_CERT => null,
-                    self::WSDL_PASSPHRASE => null,
-                    self::WSDL_AUTHENTICATION => null,
-                    self::WSDL_SSL_METHOD => null);
+            self::WSDL_CLASSMAP => null,
+            self::WSDL_CACHE_WSDL => WSDL_CACHE_NONE,
+            self::WSDL_COMPRESSION => null,
+            self::WSDL_CONNECTION_TIMEOUT => null,
+            self::WSDL_ENCODING => null,
+            self::WSDL_EXCEPTIONS => true,
+            self::WSDL_FEATURES => SOAP_SINGLE_ELEMENT_ARRAYS | SOAP_USE_XSI_ARRAY_TYPE,
+            self::WSDL_LOGIN => null,
+            self::WSDL_PASSWORD => null,
+            self::WSDL_SOAP_VERSION => null,
+            self::WSDL_STREAM_CONTEXT => null,
+            self::WSDL_TRACE => true,
+            self::WSDL_TYPEMAP => null,
+            self::WSDL_URL => null,
+            self::WSDL_USER_AGENT => null,
+            self::WSDL_PROXY_HOST => null,
+            self::WSDL_PROXY_PORT => null,
+            self::WSDL_PROXY_LOGIN => null,
+            self::WSDL_PROXY_PASSWORD => null,
+            self::WSDL_LOCAL_CERT => null,
+            self::WSDL_PASSPHRASE => null,
+            self::WSDL_AUTHENTICATION => null,
+            self::WSDL_SSL_METHOD => null,
+        );
     }
     /**
      * Allows to set the SoapClient location to call
@@ -410,23 +411,23 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
     }
     /**
      * Method saving the last error returned by the SoapClient
-     * @param string $methoName the method called when the error occurred
+     * @param string $methodName the method called when the error occurred
      * @param \SoapFault $soapFault l'objet de l'erreur
      * @return AbstractSoapClientBase
      */
-    public function saveLastError($methoName, \SoapFault $soapFault)
+    public function saveLastError($methodName, \SoapFault $soapFault)
     {
-        $this->lastError[$methoName] = $soapFault;
+        $this->lastError[$methodName] = $soapFault;
         return $this;
     }
     /**
      * Method getting the last error for a certain method
-     * @param string $methoName method name to get error from
+     * @param string $methodName method name to get error from
      * @return \SoapFault|null
      */
-    public function getLastErrorForMethod($methoName)
+    public function getLastErrorForMethod($methodName)
     {
-        return array_key_exists($methoName, $this->lastError) ? $this->lastError[$methoName] : null;
+        return array_key_exists($methodName, $this->lastError) ? $this->lastError[$methodName] : null;
     }
     /**
      * Method returning current result from Soap call

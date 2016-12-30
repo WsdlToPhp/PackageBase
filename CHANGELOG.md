@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 1.0.6
+- Pull request #4: Rename $optioName to $optionName
+
+## 1.0.5
+- Update readme
+
+## 1.0.4
+- Issue #2 - Var name change request from $methoName to $methodName
+
 ## 1.0.3
 - Add utility methods **getStreamContext()** and **getStreamContextOptions()** to AbstractSoapClientbase class
 
