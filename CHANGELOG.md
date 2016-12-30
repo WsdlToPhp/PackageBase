@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.0.7
+- Issue #3 - More than one SoapClient in Project
+
 ## 1.0.6
 - Pull request #4: Rename $optioName to $optionName
 
