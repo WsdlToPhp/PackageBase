@@ -63,6 +63,11 @@ interface SoapClientInterface
      */
     const WSDL_LOCAL_CERT = 'wsdl_local_cert';
     /**
+     * Option key to define WSDL location
+     * @var string
+     */
+    const WSDL_LOCATION = 'wsdl_location';
+    /**
      * Option key to define WSDL login
      * @var string
      */
