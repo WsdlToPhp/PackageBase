@@ -55,6 +55,19 @@ class SoapClientTest extends TestCase
     /**
      *
      */
+    public function testLocationOotion()
+    {
+        $soapClient = new SoapClient(array(
+            SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
+            SoapClient::WSDL_CLASSMAP => self::classMap(),
+            SoapClient::WSDL_LOCATION => 'http://api.bing.net:80/soap.asm',
+        ));
+
+        $this->assertSAme('http://api.bing.net:80/soap.asm', $soapClient->getSoapClient()->location);
+    }
+    /**
+     *
+     */
     public function testGetLastRequestAsString()
     {
         $soapClient = new SoapClient(array(
