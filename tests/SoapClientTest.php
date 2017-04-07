@@ -2,7 +2,6 @@
 
 namespace WsdlToPhp\PackageBase\Tests;
 
-
 use WsdlToPhp\PackageBase\Utils;
 use WsdlToPhp\PackageBase\Tests\SoapClient;
 
@@ -339,7 +338,7 @@ class SoapClientTest extends TestCase
     /**
      *
      */
-    public function testGetStreamContextAsNill()
+    public function testGetStreamContextAsNull()
     {
         $soapClient = new SoapClient(array(
             SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',

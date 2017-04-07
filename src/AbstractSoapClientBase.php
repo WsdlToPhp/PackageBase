@@ -66,19 +66,19 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
     public function initSoapClient(array $options)
     {
         $wsdlOptions = array();
-        $defaultWsdlOptions = self::getDefaultWsdlOptions();
-        foreach ($defaultWsdlOptions as $optioName => $optionValue) {
-            if (array_key_exists($optioName, $options) && !empty($options[$optioName])) {
-                $wsdlOptions[str_replace(self::OPTION_PREFIX, '', $optioName)] = $options[$optioName];
+        $defaultWsdlOptions = static::getDefaultWsdlOptions();
+        foreach ($defaultWsdlOptions as $optionName => $optionValue) {
+            if (array_key_exists($optionName, $options) && !empty($options[$optionName])) {
+                $wsdlOptions[str_replace(self::OPTION_PREFIX, '', $optionName)] = $options[$optionName];
             } elseif (!empty($optionValue)) {
-                $wsdlOptions[str_replace(self::OPTION_PREFIX, '', $optioName)] = $optionValue;
+                $wsdlOptions[str_replace(self::OPTION_PREFIX, '', $optionName)] = $optionValue;
             }
         }
         if (array_key_exists(str_replace(self::OPTION_PREFIX, '', self::WSDL_URL), $wsdlOptions)) {
             $wsdlUrl = $wsdlOptions[str_replace(self::OPTION_PREFIX, '', self::WSDL_URL)];
             unset($wsdlOptions[str_replace(self::OPTION_PREFIX, '', self::WSDL_URL)]);
             $soapClientClassName = $this->getSoapClientClassName();
-            self::setSoapClient(new $soapClientClassName($wsdlUrl, $wsdlOptions));
+            static::setSoapClient(new $soapClientClassName($wsdlUrl, $wsdlOptions));
         }
     }
     /**
@@ -132,30 +132,31 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
     public static function getDefaultWsdlOptions()
     {
         return array(
-                    self::WSDL_CLASSMAP => null,
-                    self::WSDL_CACHE_WSDL => WSDL_CACHE_NONE,
-                    self::WSDL_COMPRESSION => null,
-                    self::WSDL_CONNECTION_TIMEOUT => null,
-                    self::WSDL_ENCODING => null,
-                    self::WSDL_EXCEPTIONS => true,
-                    self::WSDL_FEATURES => SOAP_SINGLE_ELEMENT_ARRAYS | SOAP_USE_XSI_ARRAY_TYPE,
-                    self::WSDL_LOCATION => null,
-                    self::WSDL_LOGIN => null,
-                    self::WSDL_PASSWORD => null,
-                    self::WSDL_SOAP_VERSION => null,
-                    self::WSDL_STREAM_CONTEXT => null,
-                    self::WSDL_TRACE => true,
-                    self::WSDL_TYPEMAP => null,
-                    self::WSDL_URL => null,
-                    self::WSDL_USER_AGENT => null,
-                    self::WSDL_PROXY_HOST => null,
-                    self::WSDL_PROXY_PORT => null,
-                    self::WSDL_PROXY_LOGIN => null,
-                    self::WSDL_PROXY_PASSWORD => null,
-                    self::WSDL_LOCAL_CERT => null,
-                    self::WSDL_PASSPHRASE => null,
-                    self::WSDL_AUTHENTICATION => null,
-                    self::WSDL_SSL_METHOD => null);
+            self::WSDL_CLASSMAP => null,
+            self::WSDL_CACHE_WSDL => WSDL_CACHE_NONE,
+            self::WSDL_COMPRESSION => null,
+            self::WSDL_CONNECTION_TIMEOUT => null,
+            self::WSDL_ENCODING => null,
+            self::WSDL_EXCEPTIONS => true,
+            self::WSDL_FEATURES => SOAP_SINGLE_ELEMENT_ARRAYS | SOAP_USE_XSI_ARRAY_TYPE,
+            self::WSDL_LOCATION => null,
+            self::WSDL_LOGIN => null,
+            self::WSDL_PASSWORD => null,
+            self::WSDL_SOAP_VERSION => null,
+            self::WSDL_STREAM_CONTEXT => null,
+            self::WSDL_TRACE => true,
+            self::WSDL_TYPEMAP => null,
+            self::WSDL_URL => null,
+            self::WSDL_USER_AGENT => null,
+            self::WSDL_PROXY_HOST => null,
+            self::WSDL_PROXY_PORT => null,
+            self::WSDL_PROXY_LOGIN => null,
+            self::WSDL_PROXY_PASSWORD => null,
+            self::WSDL_LOCAL_CERT => null,
+            self::WSDL_PASSPHRASE => null,
+            self::WSDL_AUTHENTICATION => null,
+            self::WSDL_SSL_METHOD => null,
+        );
     }
     /**
      * Allows to set the SoapClient location to call
@@ -166,8 +167,8 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
      */
     public function setLocation($location)
     {
-        if (self::getSoapClient() instanceof \SoapClient) {
-            self::getSoapClient()->__setLocation($location);
+        if (static::getSoapClient() instanceof \SoapClient) {
+            static::getSoapClient()->__setLocation($location);
         }
         return $this;
     }
@@ -205,8 +206,8 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
     protected function getLastXml($method, $asDomDocument = false)
     {
         $xml = null;
-        if (self::getSoapClient() instanceof \SoapClient) {
-            $xml = self::getFormatedXml(self::getSoapClient()->$method(), $asDomDocument);
+        if (static::getSoapClient() instanceof \SoapClient) {
+            $xml = static::getFormatedXml(static::getSoapClient()->$method(), $asDomDocument);
         }
         return $xml;
     }
@@ -243,9 +244,9 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
      */
     protected function getLastHeaders($method, $asArray)
     {
-        $headers = self::getSoapClient() instanceof \SoapClient ? self::getSoapClient()->$method() : null;
+        $headers = static::getSoapClient() instanceof \SoapClient ? static::getSoapClient()->$method() : null;
         if (is_string($headers) && $asArray) {
-            return self::convertStringHeadersToArray($headers);
+            return static::convertStringHeadersToArray($headers);
         }
         return $headers;
     }
@@ -292,21 +293,21 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
      */
     public function setSoapHeader($nameSpace, $name, $data, $mustUnderstand = false, $actor = null)
     {
-        if (self::getSoapClient()) {
-            $defaultHeaders = (isset(self::getSoapClient()->__default_headers) && is_array(self::getSoapClient()->__default_headers)) ? self::getSoapClient()->__default_headers : array();
+        if (static::getSoapClient()) {
+            $defaultHeaders = (isset(static::getSoapClient()->__default_headers) && is_array(static::getSoapClient()->__default_headers)) ? static::getSoapClient()->__default_headers : array();
             foreach ($defaultHeaders as $index => $soapHeader) {
                 if ($soapHeader->name === $name) {
                     unset($defaultHeaders[$index]);
                     break;
                 }
             }
-            self::getSoapClient()->__setSoapheaders(null);
+            static::getSoapClient()->__setSoapheaders(null);
             if (!empty($actor)) {
                 array_push($defaultHeaders, new \SoapHeader($nameSpace, $name, $data, $mustUnderstand, $actor));
             } else {
                 array_push($defaultHeaders, new \SoapHeader($nameSpace, $name, $data, $mustUnderstand));
             }
-            self::getSoapClient()->__setSoapheaders($defaultHeaders);
+            static::getSoapClient()->__setSoapheaders($defaultHeaders);
         }
         return $this;
     }
@@ -322,7 +323,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
     public function setHttpHeader($headerName, $headerValue)
     {
         $state = false;
-        if (self::getSoapClient() && !empty($headerName)) {
+        if (static::getSoapClient() && !empty($headerName)) {
             $streamContext = $this->getStreamContext();
             if ($streamContext === null) {
                 $options = array();
@@ -360,12 +361,12 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
                  * Create context if it does not exist
                  */
                 if ($streamContext === null) {
-                    $state = (self::getSoapClient()->_stream_context = stream_context_create($options)) ? true : false;
+                    $state = (static::getSoapClient()->_stream_context = stream_context_create($options)) ? true : false;
                 } else {
                     /**
                      * Set the new context http header option
                      */
-                    $state = stream_context_set_option(self::getSoapClient()->_stream_context, 'http', 'header', $options['http']['header']);
+                    $state = stream_context_set_option(static::getSoapClient()->_stream_context, 'http', 'header', $options['http']['header']);
                 }
             }
         }
@@ -377,7 +378,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
      */
     public function getStreamContext()
     {
-        return (self::getSoapClient() && isset(self::getSoapClient()->_stream_context) && is_resource(self::getSoapClient()->_stream_context)) ? self::getSoapClient()->_stream_context : null;
+        return (static::getSoapClient() && isset(static::getSoapClient()->_stream_context) && is_resource(static::getSoapClient()->_stream_context)) ? static::getSoapClient()->_stream_context : null;
     }
     /**
      * Returns current \SoapClient::_stream_context resource options or empty array
@@ -412,23 +413,23 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
     }
     /**
      * Method saving the last error returned by the SoapClient
-     * @param string $methoName the method called when the error occurred
+     * @param string $methodName the method called when the error occurred
      * @param \SoapFault $soapFault l'objet de l'erreur
      * @return AbstractSoapClientBase
      */
-    public function saveLastError($methoName, \SoapFault $soapFault)
+    public function saveLastError($methodName, \SoapFault $soapFault)
     {
-        $this->lastError[$methoName] = $soapFault;
+        $this->lastError[$methodName] = $soapFault;
         return $this;
     }
     /**
      * Method getting the last error for a certain method
-     * @param string $methoName method name to get error from
+     * @param string $methodName method name to get error from
      * @return \SoapFault|null
      */
-    public function getLastErrorForMethod($methoName)
+    public function getLastErrorForMethod($methodName)
     {
-        return array_key_exists($methoName, $this->lastError) ? $this->lastError[$methoName] : null;
+        return array_key_exists($methodName, $this->lastError) ? $this->lastError[$methodName] : null;
     }
     /**
      * Method returning current result from Soap call

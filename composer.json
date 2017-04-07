@@ -10,6 +10,11 @@
             "name": "Mikaël DELSOL",
             "email": "contact@wsdltophp.com",
             "role": "Owner"
+        },
+        {
+            "name": "Luke Rodgers",
+            "email": "lukerodgers90@gmail.com",
+            "role": "Contributor"
         }
     ],
     "support" : {
@@ -19,7 +24,7 @@
         "php" : ">=5.3.3"
     },
     "require-dev": {
-        "fabpot/php-cs-fixer": "~1.8",
+        "friendsofphp/php-cs-fixer": "~2.0",
         "phpunit/phpunit": "~4.0"
     },
     "autoload": {
