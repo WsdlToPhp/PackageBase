@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.0.8
+- Issue #7 - Missing SoapClient location option
+
 ## 1.0.7
 - Issue #3 - More than one SoapClient in Project
 
