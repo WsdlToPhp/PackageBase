@@ -15,7 +15,7 @@ class SoapClientTest extends TestCase
     {
         $soapClient = new SoapClient();
 
-        $this->assertSame('\\WsdlToPhp\\PackageBase\\Tests\\Client', $soapClient->getSoapClientClassName());
+        $this->assertSame('\WsdlToPhp\PackageBase\Tests\Client', $soapClient->getSoapClientClassName());
     }
     /**
      *
@@ -24,7 +24,7 @@ class SoapClientTest extends TestCase
     {
         $soapClient = new SoapClient();
 
-        $this->assertSame('\SoapClient', $soapClient->getSoapClientClassName('\\WsdlToPhp\\PackageBase\\Tests\\Clien'));
+        $this->assertSame('\SoapClient', $soapClient->getSoapClientClassName('\WsdlToPhp\PackageBase\Tests\Clien'));
     }
     /**
      *
@@ -36,7 +36,7 @@ class SoapClientTest extends TestCase
             SoapClient::WSDL_CLASSMAP => self::classMap(),
         ));
 
-        $this->assertInstanceOf('\\WsdlToPhp\\PackageBase\\Tests\\Client', $soapClient->getSoapClient());
+        $this->assertInstanceOf('\WsdlToPhp\PackageBase\Tests\Client', $soapClient->getSoapClient());
     }
     /**
      *
@@ -74,7 +74,7 @@ class SoapClientTest extends TestCase
             SoapClient::WSDL_CLASSMAP => self::classMap(),
         ));
 
-        $this->assertInstanceOf('\\DOMDocument', $soapClient->getLastRequest(true));
+        $this->assertInstanceOf('\DOMDocument', $soapClient->getLastRequest(true));
     }
     /**
      *
@@ -98,7 +98,7 @@ class SoapClientTest extends TestCase
             SoapClient::WSDL_CLASSMAP => self::classMap(),
         ));
 
-        $this->assertInstanceOf('\\DOMDocument', $soapClient->getLastResponse(true));
+        $this->assertInstanceOf('\DOMDocument', $soapClient->getLastResponse(true));
     }
     /**
      *
@@ -161,7 +161,7 @@ class SoapClientTest extends TestCase
         // this call should fail as no parameter is defined in the request
         $soapClient->search();
 
-        $this->assertInstanceOf('\\SoapFault', $soapClient->getLastErrorForMethod('WsdlToPhp\PackageBase\Tests\SoapClient::search'));
+        $this->assertInstanceOf('\SoapFault', $soapClient->getLastErrorForMethod('WsdlToPhp\PackageBase\Tests\SoapClient::search'));
     }
     /**
      *
@@ -333,7 +333,11 @@ class SoapClientTest extends TestCase
             SoapClient::WSDL_CLASSMAP => self::classMap(),
         ));
 
-        $this->assertNull($soapClient->getStreamContext());
+        if (PHP_VERSION_ID < 70013) {
+            $this->assertNull($soapClient->getStreamContext());
+        } else {
+            $this->assertTrue(is_resource($soapClient->getStreamContext()));
+        }
     }
     /**
      *
