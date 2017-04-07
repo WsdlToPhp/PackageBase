@@ -8,7 +8,7 @@ class SoapClient extends AbstractSoapClientBase
 {
     public function getSoapClientClassName($soapClientClassName = null)
     {
-        return parent::getSoapClientClassName(empty($soapClientClassName) ? '\\WsdlToPhp\\PackageBase\\Tests\\Client' : $soapClientClassName);
+        return parent::getSoapClientClassName(empty($soapClientClassName) ? '\WsdlToPhp\PackageBase\Tests\Client' : $soapClientClassName);
     }
     /**
      * @return Client
