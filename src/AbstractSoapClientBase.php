@@ -107,6 +107,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
      * @uses AbstractSoapClientBase::WSDL_ENCODING
      * @uses AbstractSoapClientBase::WSDL_EXCEPTIONS
      * @uses AbstractSoapClientBase::WSDL_FEATURES
+     * @uses AbstractSoapClientBase::WSDL_LOCATION
      * @uses AbstractSoapClientBase::WSDL_LOGIN
      * @uses AbstractSoapClientBase::WSDL_PASSWORD
      * @uses AbstractSoapClientBase::WSDL_SOAP_VERSION
@@ -138,6 +139,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
             self::WSDL_ENCODING => null,
             self::WSDL_EXCEPTIONS => true,
             self::WSDL_FEATURES => SOAP_SINGLE_ELEMENT_ARRAYS | SOAP_USE_XSI_ARRAY_TYPE,
+            self::WSDL_LOCATION => null,
             self::WSDL_LOGIN => null,
             self::WSDL_PASSWORD => null,
             self::WSDL_SOAP_VERSION => null,

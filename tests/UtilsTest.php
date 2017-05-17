@@ -46,13 +46,13 @@ class UtilsTest extends TestCase
      */
     public function testGetDOMDocument()
     {
-        $this->assertInstanceOf('\\DOMDocument', Utils::getDOMDocument(file_get_contents(__DIR__ . '/resources/oneline.xml')));
+        $this->assertInstanceOf('\DOMDocument', Utils::getDOMDocument(file_get_contents(__DIR__ . '/resources/oneline.xml')));
     }
     /**
      * @expectedException \InvalidArgumentException
      */
     public function testGetDOMDocumentException()
     {
-        $this->assertInstanceOf('\\DOMDocument', Utils::getDOMDocument(''));
+        $this->assertInstanceOf('\DOMDocument', Utils::getDOMDocument(''));
     }
 }
