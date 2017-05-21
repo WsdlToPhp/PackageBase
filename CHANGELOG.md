@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.0.9
+- Improve code, remove @ usage in generic __set_State method, add SensioLabs Insight badge
+
 ## 1.0.8
 - Issue #7 - Missing SoapClient location option
 
