@@ -144,7 +144,7 @@ interface SoapClientInterface
      * @param array $wsdlOptions
      * @param bool $resetSoapClient allows to disable the SoapClient redefinition
      */
-    public function __construct(array $wsdlOptions = array(), $resetSoapClient = true);
+    public function __construct(array $wsdlOptions = [], $resetSoapClient = true);
     /**
      * Static method getting current SoapClient
      * @return \SoapClient

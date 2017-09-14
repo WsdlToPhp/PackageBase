@@ -2,8 +2,16 @@
 
 namespace WsdlToPhp\PackageBase;
 
-abstract class AbstractStructBase implements StructInterface
+abstract class AbstractStructBase implements StructInterface, \JsonSerializable
 {
+    /**
+     * Returns the properties of this object
+     * @return mixed[]
+     */
+    public function jsonSerialize()
+    {
+        return \get_object_vars($this);
+    }
     /**
      * Generic method called when an object has been exported with var_export() functions
      * It allows to return an object instantiated with the values

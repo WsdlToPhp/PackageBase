@@ -115,7 +115,7 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
              * init array
              */
             if (!is_array($this->_get($this->getAttributeName()))) {
-                $this->_set($this->getAttributeName(), array());
+                $this->_set($this->getAttributeName(), []);
             }
             /**
              * current array
@@ -232,7 +232,7 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      * @param bool $internCall indicates that methods is calling itself
      * @return AbstractStructArrayBase
      */
-    public function initInternArray($array = array(), $internCall = false)
+    public function initInternArray($array = [], $internCall = false)
     {
         if (stripos(get_called_class(), 'array') !== false) {
             if (is_array($array) && count($array) > 0) {
