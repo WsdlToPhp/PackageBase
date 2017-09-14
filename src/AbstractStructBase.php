@@ -15,7 +15,7 @@ abstract class AbstractStructBase implements StructInterface, \JsonSerializable
     /**
      * Generic method called when an object has been exported with var_export() functions
      * It allows to return an object instantiated with the values
-     * @uses ApiWsdlClass::_set()
+     * @uses AbstractStructBase::_set()
      * @param array $array the exported values
      * @return Struct
      */
