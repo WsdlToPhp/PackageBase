@@ -51,4 +51,15 @@ class StructBase extends TestCase
             ->setFoo('bar');
         $object->_get('sample');
     }
+    public function testJsonSerialize()
+    {
+        $object = new StructObject();
+        $object
+            ->setBar('foo')
+            ->setFoo('bar');
+        $this->assertSame([
+            'foo' => 'bar',
+            'bar' => 'foo',
+        ], $object->jsonSerialize());
+    }
 }

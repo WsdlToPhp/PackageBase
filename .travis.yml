@@ -1,12 +1,9 @@
 language: php
 
 sudo: false
-dist: trusty
 
 matrix:
   include:
-    - php: 5.3
-      dist: precise
     - php: 5.4
     - php: 5.5
     - php: 5.6
