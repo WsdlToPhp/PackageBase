@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.0.10
+- Issue #10 - Improve AbstractStructArrayBase class
+- Issue #13 - Feature request: AbstractStructBase implement JsonSerializable
+- Add Code of Conduct and Contributing files
+
 ## 1.0.9
 - Improve code, remove @ usage in generic __set_State method, add SensioLabs Insight badge
 
