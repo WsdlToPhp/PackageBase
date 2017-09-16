@@ -21,7 +21,7 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
     protected $internArrayOffset;
     /**
      * Method alias to count
-     * @uses ApiWsdlClass::count()
+     * @uses AbstractStructArrayBase::count()
      * @return int
      */
     public function length()
@@ -30,8 +30,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
     }
     /**
      * Method returning item length, alias to length
-     * @uses ApiWsdlClass::getInternArray()
-     * @uses ApiWsdlClass::getInternArrayIsArray()
+     * @uses AbstractStructArrayBase::getInternArray()
+     * @uses AbstractStructArrayBase::getInternArrayIsArray()
      * @return int
      */
     public function count()
@@ -40,7 +40,7 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
     }
     /**
      * Method returning the current element
-     * @uses ApiWsdlClass::offsetGet()
+     * @uses AbstractStructArrayBase::offsetGet()
      * @return mixed
      */
     public function current()
@@ -49,8 +49,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
     }
     /**
      * Method moving the current position to the next element
-     * @uses ApiWsdlClass::getInternArrayOffset()
-     * @uses ApiWsdlClass::setInternArrayOffset()
+     * @uses AbstractStructArrayBase::getInternArrayOffset()
+     * @uses AbstractStructArrayBase::setInternArrayOffset()
      * @return AbstractStructArrayBase
      */
     public function next()
@@ -59,7 +59,7 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
     }
     /**
      * Method resetting itemOffset
-     * @uses ApiWsdlClass::setInternArrayOffset()
+     * @uses AbstractStructArrayBase::setInternArrayOffset()
      * @return int
      */
     public function rewind()
@@ -68,8 +68,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
     }
     /**
      * Method checking if current itemOffset points to an existing item
-     * @uses ApiWsdlClass::getInternArrayOffset()
-     * @uses ApiWsdlClass::offsetExists()
+     * @uses AbstractStructArrayBase::getInternArrayOffset()
+     * @uses AbstractStructArrayBase::offsetExists()
      * @return bool
      */
     public function valid()
@@ -78,7 +78,7 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
     }
     /**
      * Method returning current itemOffset value, alias to getInternArrayOffset
-     * @uses ApiWsdlClass::getInternArrayOffset()
+     * @uses AbstractStructArrayBase::getInternArrayOffset()
      * @return int
      */
     public function key()
@@ -87,8 +87,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
     }
     /**
      * Method alias to offsetGet
-     * @see ApiWsdlClass::offsetGet()
-     * @uses ApiWsdlClass::offsetGet()
+     * @see AbstractStructArrayBase::offsetGet()
+     * @uses AbstractStructArrayBase::offsetGet()
      * @param int $index
      * @return mixed
      */
@@ -98,41 +98,35 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
     }
     /**
      * Default method adding item to array
-     * @uses ApiWsdlClass::getAttributeName()
-     * @uses ApiWsdlClass::__toString()
-     * @uses ApiWsdlClass::_set()
-     * @uses ApiWsdlClass::_get()
-     * @uses ApiWsdlClass::setInternArray()
-     * @uses ApiWsdlClass::setInternArrayIsArray()
-     * @uses ApiWsdlClass::setInternArrayOffset()
+     * @uses AbstractStructArrayBase::getAttributeName()
+     * @uses AbstractStructArrayBase::__toString()
+     * @uses AbstractStructArrayBase::_set()
+     * @uses AbstractStructArrayBase::_get()
+     * @uses AbstractStructArrayBase::setInternArray()
+     * @uses AbstractStructArrayBase::setInternArrayIsArray()
+     * @uses AbstractStructArrayBase::setInternArrayOffset()
      * @param mixed $item value
      * @return AbstractStructArrayBase
      */
     public function add($item)
     {
-        if (stripos(get_called_class(), 'array') !== false) {
-            /**
-             * init array
-             */
-            if (!is_array($this->_get($this->getAttributeName()))) {
-                $this->_set($this->getAttributeName(), array());
-            }
-            /**
-             * current array
-             */
-            $currentArray = $this->_get($this->getAttributeName());
-            array_push($currentArray, $item);
-            $this
-                ->_set($this->getAttributeName(), $currentArray)
-                ->setInternArray($currentArray)
-                ->setInternArrayIsArray(true)
-                ->setInternArrayOffset(0);
+        // init array
+        if (!is_array($this->_get($this->getAttributeName()))) {
+            $this->_set($this->getAttributeName(), []);
         }
+        // current array
+        $currentArray = $this->_get($this->getAttributeName());
+        array_push($currentArray, $item);
+        $this
+            ->_set($this->getAttributeName(), $currentArray)
+            ->setInternArray($currentArray)
+            ->setInternArrayIsArray(true)
+            ->setInternArrayOffset(0);
         return $this;
     }
     /**
      * Method returning the first item
-     * @uses ApiWsdlClass::item()
+     * @uses AbstractStructArrayBase::item()
      * @return mixed
      */
     public function first()
@@ -141,8 +135,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
     }
     /**
      * Method returning the last item
-     * @uses ApiWsdlClass::item()
-     * @uses ApiWsdlClass::length()
+     * @uses AbstractStructArrayBase::item()
+     * @uses AbstractStructArrayBase::length()
      * @return mixed
      */
     public function last()
@@ -151,8 +145,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
     }
     /**
      * Method testing index in item
-     * @uses ApiWsdlClass::getInternArrayIsArray()
-     * @uses ApiWsdlClass::getInternArray()
+     * @uses AbstractStructArrayBase::getInternArrayIsArray()
+     * @uses AbstractStructArrayBase::getInternArray()
      * @param int $offset
      * @return bool
      */
@@ -162,7 +156,7 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
     }
     /**
      * Method returning the item at "index" value
-     * @uses ApiWsdlClass::offsetExists()
+     * @uses AbstractStructArrayBase::offsetExists()
      * @param int $offset
      * @return mixed
      */
@@ -222,27 +216,25 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
     }
     /**
      * Method initiating internArray
-     * @uses ApiWsdlClass::setInternArray()
-     * @uses ApiWsdlClass::setInternArrayOffset()
-     * @uses ApiWsdlClass::setInternArrayIsArray()
-     * @uses ApiWsdlClass::getAttributeName()
-     * @uses ApiWsdlClass::initInternArray()
-     * @uses ApiWsdlClass::__toString()
+     * @uses AbstractStructArrayBase::setInternArray()
+     * @uses AbstractStructArrayBase::setInternArrayOffset()
+     * @uses AbstractStructArrayBase::setInternArrayIsArray()
+     * @uses AbstractStructArrayBase::getAttributeName()
+     * @uses AbstractStructArrayBase::initInternArray()
+     * @uses AbstractStructArrayBase::__toString()
      * @param array $array the array to iterate trough
      * @param bool $internCall indicates that methods is calling itself
      * @return AbstractStructArrayBase
      */
-    public function initInternArray($array = array(), $internCall = false)
+    public function initInternArray($array = [], $internCall = false)
     {
-        if (stripos(get_called_class(), 'array') !== false) {
-            if (is_array($array) && count($array) > 0) {
-                $this
-                    ->setInternArray($array)
-                    ->setInternArrayOffset(0)
-                    ->setInternArrayIsArray(true);
-            } elseif (!$internCall && property_exists($this, $this->getAttributeName())) {
-                $this->initInternArray($this->_get($this->getAttributeName()), true);
-            }
+        if (is_array($array) && count($array) > 0) {
+            $this
+                ->setInternArray($array)
+                ->setInternArrayOffset(0)
+                ->setInternArrayIsArray(true);
+        } elseif (!$internCall && property_exists($this, $this->getAttributeName())) {
+            $this->initInternArray($this->_get($this->getAttributeName()), true);
         }
         return $this;
     }

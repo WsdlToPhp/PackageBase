@@ -21,11 +21,15 @@
         "email" : "contact@wsdltophp.com"
     },
     "require": {
-        "php" : ">=5.3.3"
+        "php" : ">=5.4"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "lint": "vendor/bin/php-cs-fixer fix"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "~2.0",
-        "phpunit/phpunit": "~4.0"
+        "phpunit/phpunit": "^4.8 || ^6.0"
     },
     "autoload": {
         "psr-4": {

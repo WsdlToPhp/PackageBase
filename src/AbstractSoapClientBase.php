@@ -26,9 +26,9 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
      * @param array $wsdlOptions
      * @param bool $resetSoapClient allows to disable the SoapClient redefinition
      */
-    public function __construct(array $wsdlOptions = array(), $resetSoapClient = true)
+    public function __construct(array $wsdlOptions = [], $resetSoapClient = true)
     {
-        $this->setLastError(array());
+        $this->setLastError([]);
         /**
          * Init soap Client
          * Set default values
@@ -65,7 +65,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
      */
     public function initSoapClient(array $options)
     {
-        $wsdlOptions = array();
+        $wsdlOptions = [];
         $defaultWsdlOptions = static::getDefaultWsdlOptions();
         foreach ($defaultWsdlOptions as $optionName => $optionValue) {
             if (array_key_exists($optionName, $options) && !empty($options[$optionName])) {
@@ -131,7 +131,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
      */
     public static function getDefaultWsdlOptions()
     {
-        return array(
+        return [
             self::WSDL_CLASSMAP => null,
             self::WSDL_CACHE_WSDL => WSDL_CACHE_NONE,
             self::WSDL_COMPRESSION => null,
@@ -156,7 +156,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
             self::WSDL_PASSPHRASE => null,
             self::WSDL_AUTHENTICATION => null,
             self::WSDL_SSL_METHOD => null,
-        );
+        ];
     }
     /**
      * Allows to set the SoapClient location to call
@@ -270,7 +270,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
     public static function convertStringHeadersToArray($headers)
     {
         $lines = explode("\r\n", $headers);
-        $headers = array();
+        $headers = [];
         foreach ($lines as $line) {
             if (strpos($line, ':')) {
                 $headerParts = explode(':', $line);
@@ -294,7 +294,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
     public function setSoapHeader($nameSpace, $name, $data, $mustUnderstand = false, $actor = null)
     {
         if (static::getSoapClient()) {
-            $defaultHeaders = (isset(static::getSoapClient()->__default_headers) && is_array(static::getSoapClient()->__default_headers)) ? static::getSoapClient()->__default_headers : array();
+            $defaultHeaders = (isset(static::getSoapClient()->__default_headers) && is_array(static::getSoapClient()->__default_headers)) ? static::getSoapClient()->__default_headers : [];
             foreach ($defaultHeaders as $index => $soapHeader) {
                 if ($soapHeader->name === $name) {
                     unset($defaultHeaders[$index]);
@@ -326,13 +326,13 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
         if (static::getSoapClient() && !empty($headerName)) {
             $streamContext = $this->getStreamContext();
             if ($streamContext === null) {
-                $options = array();
-                $options['http'] = array();
+                $options = [];
+                $options['http'] = [];
                 $options['http']['header'] = '';
             } else {
                 $options = stream_context_get_options($streamContext);
                 if (!array_key_exists('http', $options) || !is_array($options['http'])) {
-                    $options['http'] = array();
+                    $options['http'] = [];
                     $options['http']['header'] = '';
                 } elseif (!array_key_exists('header', $options['http'])) {
                     $options['http']['header'] = '';
@@ -343,7 +343,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
                 /**
                  * Ensure there is only one header entry for this header name
                  */
-                $newLines = array();
+                $newLines = [];
                 foreach ($lines as $line) {
                     if (!empty($line) && strpos($line, $headerName) === false) {
                         array_push($newLines, $line);
@@ -386,7 +386,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
      */
     public function getStreamContextOptions()
     {
-        $options = array();
+        $options = [];
         $context = $this->getStreamContext();
         if ($context !== null) {
             $options = stream_context_get_options($context);
