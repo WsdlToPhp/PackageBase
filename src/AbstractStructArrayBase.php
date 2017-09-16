@@ -110,24 +110,18 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      */
     public function add($item)
     {
-        if (stripos(get_called_class(), 'array') !== false) {
-            /**
-             * init array
-             */
-            if (!is_array($this->_get($this->getAttributeName()))) {
-                $this->_set($this->getAttributeName(), []);
-            }
-            /**
-             * current array
-             */
-            $currentArray = $this->_get($this->getAttributeName());
-            array_push($currentArray, $item);
-            $this
-                ->_set($this->getAttributeName(), $currentArray)
-                ->setInternArray($currentArray)
-                ->setInternArrayIsArray(true)
-                ->setInternArrayOffset(0);
+        // init array
+        if (!is_array($this->_get($this->getAttributeName()))) {
+            $this->_set($this->getAttributeName(), []);
         }
+        // current array
+        $currentArray = $this->_get($this->getAttributeName());
+        array_push($currentArray, $item);
+        $this
+            ->_set($this->getAttributeName(), $currentArray)
+            ->setInternArray($currentArray)
+            ->setInternArrayIsArray(true)
+            ->setInternArrayOffset(0);
         return $this;
     }
     /**
@@ -234,15 +228,13 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      */
     public function initInternArray($array = [], $internCall = false)
     {
-        if (stripos(get_called_class(), 'array') !== false) {
-            if (is_array($array) && count($array) > 0) {
-                $this
-                    ->setInternArray($array)
-                    ->setInternArrayOffset(0)
-                    ->setInternArrayIsArray(true);
-            } elseif (!$internCall && property_exists($this, $this->getAttributeName())) {
-                $this->initInternArray($this->_get($this->getAttributeName()), true);
-            }
+        if (is_array($array) && count($array) > 0) {
+            $this
+                ->setInternArray($array)
+                ->setInternArrayOffset(0)
+                ->setInternArrayIsArray(true);
+        } elseif (!$internCall && property_exists($this, $this->getAttributeName())) {
+            $this->initInternArray($this->_get($this->getAttributeName()), true);
         }
         return $this;
     }
