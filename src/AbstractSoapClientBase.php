@@ -8,7 +8,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
      * Soapclient called to communicate with the actual SOAP Service
      * @var \SoapClient
      */
-    private static $soapClient;
+    private $soapClient;
     /**
      * Contains Soap call result
      * @var mixed
@@ -24,35 +24,32 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
      * @uses AbstractSoapClientBase::setLastError()
      * @uses AbstractSoapClientBase::initSoapClient()
      * @param array $wsdlOptions
-     * @param bool $resetSoapClient allows to disable the SoapClient redefinition
      */
-    public function __construct(array $wsdlOptions = [], $resetSoapClient = true)
+    public function __construct(array $wsdlOptions = [])
     {
         $this->setLastError([]);
         /**
          * Init soap Client
          * Set default values
          */
-        if ($resetSoapClient) {
-            $this->initSoapClient($wsdlOptions);
-        }
+        $this->initSoapClient($wsdlOptions);
     }
     /**
-     * Static method getting current SoapClient
+     * Method getting current SoapClient
      * @return \SoapClient
      */
-    public static function getSoapClient()
+    public function getSoapClient()
     {
-        return self::$soapClient;
+        return $this->soapClient;
     }
     /**
-     * Static method setting current SoapClient
+     * Method setting current SoapClient
      * @param \SoapClient $soapClient
      * @return \SoapClient
      */
-    public static function setSoapClient(\SoapClient $soapClient)
+    public function setSoapClient(\SoapClient $soapClient)
     {
-        return (self::$soapClient = $soapClient);
+        return ($this->soapClient = $soapClient);
     }
     /**
      * Method initiating SoapClient
@@ -78,7 +75,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
             $wsdlUrl = $wsdlOptions[str_replace(self::OPTION_PREFIX, '', self::WSDL_URL)];
             unset($wsdlOptions[str_replace(self::OPTION_PREFIX, '', self::WSDL_URL)]);
             $soapClientClassName = $this->getSoapClientClassName();
-            static::setSoapClient(new $soapClientClassName($wsdlUrl, $wsdlOptions));
+            $this->setSoapClient(new $soapClientClassName($wsdlUrl, $wsdlOptions));
         }
     }
     /**
@@ -167,8 +164,8 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
      */
     public function setLocation($location)
     {
-        if (static::getSoapClient() instanceof \SoapClient) {
-            static::getSoapClient()->__setLocation($location);
+        if ($this->getSoapClient() instanceof \SoapClient) {
+            $this->getSoapClient()->__setLocation($location);
         }
         return $this;
     }
@@ -206,8 +203,8 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
     protected function getLastXml($method, $asDomDocument = false)
     {
         $xml = null;
-        if (static::getSoapClient() instanceof \SoapClient) {
-            $xml = static::getFormatedXml(static::getSoapClient()->$method(), $asDomDocument);
+        if ($this->getSoapClient() instanceof \SoapClient) {
+            $xml = static::getFormatedXml($this->getSoapClient()->$method(), $asDomDocument);
         }
         return $xml;
     }
@@ -244,7 +241,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
      */
     protected function getLastHeaders($method, $asArray)
     {
-        $headers = static::getSoapClient() instanceof \SoapClient ? static::getSoapClient()->$method() : null;
+        $headers = $this->getSoapClient() instanceof \SoapClient ? $this->getSoapClient()->$method() : null;
         if (is_string($headers) && $asArray) {
             return static::convertStringHeadersToArray($headers);
         }
@@ -293,21 +290,21 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
      */
     public function setSoapHeader($nameSpace, $name, $data, $mustUnderstand = false, $actor = null)
     {
-        if (static::getSoapClient()) {
-            $defaultHeaders = (isset(static::getSoapClient()->__default_headers) && is_array(static::getSoapClient()->__default_headers)) ? static::getSoapClient()->__default_headers : [];
+        if ($this->getSoapClient()) {
+            $defaultHeaders = (isset($this->getSoapClient()->__default_headers) && is_array($this->getSoapClient()->__default_headers)) ? $this->getSoapClient()->__default_headers : [];
             foreach ($defaultHeaders as $index => $soapHeader) {
                 if ($soapHeader->name === $name) {
                     unset($defaultHeaders[$index]);
                     break;
                 }
             }
-            static::getSoapClient()->__setSoapheaders(null);
+            $this->getSoapClient()->__setSoapheaders(null);
             if (!empty($actor)) {
                 array_push($defaultHeaders, new \SoapHeader($nameSpace, $name, $data, $mustUnderstand, $actor));
             } else {
                 array_push($defaultHeaders, new \SoapHeader($nameSpace, $name, $data, $mustUnderstand));
             }
-            static::getSoapClient()->__setSoapheaders($defaultHeaders);
+            $this->getSoapClient()->__setSoapheaders($defaultHeaders);
         }
         return $this;
     }
@@ -323,7 +320,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
     public function setHttpHeader($headerName, $headerValue)
     {
         $state = false;
-        if (static::getSoapClient() && !empty($headerName)) {
+        if ($this->getSoapClient() && !empty($headerName)) {
             $streamContext = $this->getStreamContext();
             if ($streamContext === null) {
                 $options = [];
@@ -361,12 +358,12 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
                  * Create context if it does not exist
                  */
                 if ($streamContext === null) {
-                    $state = (static::getSoapClient()->_stream_context = stream_context_create($options)) ? true : false;
+                    $state = ($this->getSoapClient()->_stream_context = stream_context_create($options)) ? true : false;
                 } else {
                     /**
                      * Set the new context http header option
                      */
-                    $state = stream_context_set_option(static::getSoapClient()->_stream_context, 'http', 'header', $options['http']['header']);
+                    $state = stream_context_set_option($this->getSoapClient()->_stream_context, 'http', 'header', $options['http']['header']);
                 }
             }
         }
@@ -378,7 +375,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
      */
     public function getStreamContext()
     {
-        return (static::getSoapClient() && isset(static::getSoapClient()->_stream_context) && is_resource(static::getSoapClient()->_stream_context)) ? static::getSoapClient()->_stream_context : null;
+        return ($this->getSoapClient() && isset($this->getSoapClient()->_stream_context) && is_resource($this->getSoapClient()->_stream_context)) ? $this->getSoapClient()->_stream_context : null;
     }
     /**
      * Returns current \SoapClient::_stream_context resource options or empty array
