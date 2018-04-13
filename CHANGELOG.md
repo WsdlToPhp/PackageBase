@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.11
+- Issue #19 - WSDL_CACHE_WSDL does not work!
+- Merged pull request #20 - Fix WSDL_CACHE_WSDL not working
+
 ## 1.0.10
 - Issue #10 - Improve AbstractStructArrayBase class
 - Issue #13 - Feature request: AbstractStructBase implement JsonSerializable
