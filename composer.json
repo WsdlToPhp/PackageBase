@@ -15,6 +15,11 @@
             "name": "Luke Rodgers",
             "email": "lukerodgers90@gmail.com",
             "role": "Contributor"
+        },
+        {
+            "name": "Arthur Moore",
+            "email": "github@cd-net.net",
+            "role": "Contributor"
         }
     ],
     "support" : {
