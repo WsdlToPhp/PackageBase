@@ -1,6 +1,6 @@
 # UPGRADE FROM 1.0 to 2.0
 
-The main change is that the property `$soapclient` in the abstract class `AbstractSoapClientBase` is no more static.
+The main change is that the property `$soapClient` in the abstract class `AbstractSoapClientBase` is no more static.
 
 **Previously**:
 ```php
