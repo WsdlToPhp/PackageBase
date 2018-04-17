@@ -218,13 +218,13 @@ class SoapClientTest extends TestCase
 
         $this->assertTrue($soapClient->setHttpHeader('X-Header-Name', 'X-Header-Value'));
 
-        $this->assertTrue(is_resource(SoapClient::getSoapClient()->_stream_context));
+        $this->assertTrue(is_resource($soapClient->getSoapClient()->_stream_context));
 
         $this->assertSame(array(
             'http' => array(
                 'header' => 'X-Header-Name: X-Header-Value',
             ),
-        ), stream_context_get_options(SoapClient::getSoapClient()->_stream_context));
+        ), stream_context_get_options($soapClient->getSoapClient()->_stream_context));
     }
     /**
      *
@@ -239,14 +239,14 @@ class SoapClientTest extends TestCase
         $this->assertTrue($soapClient->setHttpHeader('X-Header-Name', 'X-Header-Value'));
         $this->assertTrue($soapClient->setHttpHeader('X-Header-ID', 'X-Header-ID-Value'));
 
-        $this->assertTrue(is_resource(SoapClient::getSoapClient()->_stream_context));
+        $this->assertTrue(is_resource($soapClient->getSoapClient()->_stream_context));
 
         $this->assertSame(array(
             'http' => array(
                 'header' => 'X-Header-Name: X-Header-Value' . "\r\n" .
                             'X-Header-ID: X-Header-ID-Value',
             ),
-        ), stream_context_get_options(SoapClient::getSoapClient()->_stream_context));
+        ), stream_context_get_options($soapClient->getSoapClient()->_stream_context));
     }
     /**
      *
@@ -269,7 +269,7 @@ class SoapClientTest extends TestCase
         $this->assertTrue($soapClient->setHttpHeader('X-Header-Name', 'X-Header-Value'));
         $this->assertTrue($soapClient->setHttpHeader('X-Header-ID', 'X-Header-ID-Value'));
 
-        $this->assertTrue(is_resource(SoapClient::getSoapClient()->_stream_context));
+        $this->assertTrue(is_resource($soapClient->getSoapClient()->_stream_context));
 
         $this->assertSame(array(
             'https' => array(
@@ -281,7 +281,7 @@ class SoapClientTest extends TestCase
                 'header' => 'X-Header-Name: X-Header-Value' . "\r\n" .
                             'X-Header-ID: X-Header-ID-Value',
             ),
-        ), stream_context_get_options(SoapClient::getSoapClient()->_stream_context));
+        ), stream_context_get_options($soapClient->getSoapClient()->_stream_context));
     }
     /**
      *
@@ -304,7 +304,7 @@ class SoapClientTest extends TestCase
         $this->assertTrue($soapClient->setHttpHeader('X-Header-Name', 'X-Header-Value'));
         $this->assertTrue($soapClient->setHttpHeader('X-Header-ID', 'X-Header-ID-Value'));
 
-        $this->assertTrue(is_resource(SoapClient::getSoapClient()->_stream_context));
+        $this->assertTrue(is_resource($soapClient->getSoapClient()->_stream_context));
 
         $this->assertSame(array(
             'http' => array(
@@ -314,7 +314,7 @@ class SoapClientTest extends TestCase
                 'header' => 'X-Header-Name: X-Header-Value' . "\r\n" .
                             'X-Header-ID: X-Header-ID-Value',
             ),
-        ), stream_context_get_options(SoapClient::getSoapClient()->_stream_context));
+        ), stream_context_get_options($soapClient->getSoapClient()->_stream_context));
     }
     /**
      *
@@ -399,7 +399,7 @@ class SoapClientTest extends TestCase
 
         $this->assertEquals(array(
             new \SoapHeader('urn:namespace', 'HeaderAuth', 'the-data', false),
-        ), SoapClient::getSoapClient()->__default_headers);
+        ), $soapClient->getSoapClient()->__default_headers);
     }
     /**
      *
@@ -414,7 +414,7 @@ class SoapClientTest extends TestCase
         $soapClient->setSoapHeader('urn:namespace', 'HeaderAuth', 'the-data', false, null);
         $soapClient->setSoapHeader('urn:namespace', 'HeaderAuth', 'the-data-modified', false, null);
 
-        $this->assertEquals(new \SoapHeader('urn:namespace', 'HeaderAuth', 'the-data-modified', false), array_pop(SoapClient::getSoapClient()->__default_headers));
+        $this->assertEquals(new \SoapHeader('urn:namespace', 'HeaderAuth', 'the-data-modified', false), array_pop($soapClient->getSoapClient()->__default_headers));
     }
     /**
      *
@@ -430,7 +430,7 @@ class SoapClientTest extends TestCase
 
         $this->assertEquals(array(
             new \SoapHeader('urn:namespace', 'HeaderAuth', 'the-data', false, 'actor'),
-        ), SoapClient::getSoapClient()->__default_headers);
+        ), $soapClient->getSoapClient()->__default_headers);
     }
     /**
      * @return string[]
