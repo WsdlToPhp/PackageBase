@@ -6,12 +6,15 @@ The main change is that the property `$soapclient` in the abstract class `Abstra
 ```php
 class MyService extends AbstractSoapClientBase
 {
-    try {
-        $this->setResult(self::getSoapClient()->CreateQueue($body));
-        return $this->getResult();
-    } catch (\SoapFault $soapFault) {
-        $this->saveLastError(__METHOD__, $soapFault);
-        return false;
+    public function CreateQueue(\Api\StructType\ApiCreateQueue $body)
+    {
+        try {
+            $this->setResult(self::getSoapClient()->CreateQueue($body));
+            return $this->getResult();
+        } catch (\SoapFault $soapFault) {
+            $this->saveLastError(__METHOD__, $soapFault);
+            return false;
+        }
     }
 }
 ```
@@ -22,12 +25,15 @@ class MyService extends AbstractSoapClientBase
 ```php
 class MyService extends AbstractSoapClientBase
 {
-    try {
-        $this->setResult($this->getSoapClient()->CreateQueue($body));
-        return $this->getResult();
-    } catch (\SoapFault $soapFault) {
-        $this->saveLastError(__METHOD__, $soapFault);
-        return false;
+    public function CreateQueue(\Api\StructType\ApiCreateQueue $body)
+    {
+        try {
+            $this->setResult($this->getSoapClient()->CreateQueue($body));
+            return $this->getResult();
+        } catch (\SoapFault $soapFault) {
+            $this->saveLastError(__METHOD__, $soapFault);
+            return false;
+        }
     }
 }
 ```
