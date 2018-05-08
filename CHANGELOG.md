@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.12
+- Issue #19 - WSDL_CACHE_WSDL does not work!
+    - Code reviewed as it was not complete, default options were not taken into account properly too, it's working right from now on!
+
 ## 1.0.11
 - Issue #19 - WSDL_CACHE_WSDL does not work!
 - Merged pull request #20 - Fix WSDL_CACHE_WSDL not working
