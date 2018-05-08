@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.0.1 - 2018-05-08
+- Issue #19 - WSDL_CACHE_WSDL does not work!
+    - Code reviewed as it was not complete, default options were not taken into account properly too, it's working right from now on!
+
 ## 2.0.0 - 2018-04-17
 - Issue #15 - AbstractSoapClientBase should not define static SoapClient instance
 
