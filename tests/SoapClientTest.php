@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace WsdlToPhp\PackageBase\Tests;
 
@@ -220,11 +219,8 @@ class SoapClientTest extends TestCase
 
         $this->assertTrue(is_resource($soapClient->getSoapClient()->_stream_context));
 
-        $this->assertSame(array(
-            'http' => array(
-                'header' => 'X-Header-Name: X-Header-Value',
-            ),
-        ), stream_context_get_options($soapClient->getSoapClient()->_stream_context));
+        $o = stream_context_get_options($soapClient->getSoapClient()->_stream_context);
+        $this->assertTrue(strpos($o['http']['header'], 'X-Header-Name: X-Header-Value') !== false);
     }
     /**
      *
@@ -241,12 +237,9 @@ class SoapClientTest extends TestCase
 
         $this->assertTrue(is_resource($soapClient->getSoapClient()->_stream_context));
 
-        $this->assertSame(array(
-            'http' => array(
-                'header' => 'X-Header-Name: X-Header-Value' . "\r\n" .
-                            'X-Header-ID: X-Header-ID-Value',
-            ),
-        ), stream_context_get_options($soapClient->getSoapClient()->_stream_context));
+        $o = stream_context_get_options($soapClient->getSoapClient()->_stream_context);
+        $this->assertTrue(strpos($o['http']['header'], 'X-Header-Name: X-Header-Value') !== false);
+        $this->assertTrue(strpos($o['http']['header'], 'X-Header-ID: X-Header-ID-Value') !== false);
     }
     /**
      *
@@ -271,17 +264,14 @@ class SoapClientTest extends TestCase
 
         $this->assertTrue(is_resource($soapClient->getSoapClient()->_stream_context));
 
+        $o = stream_context_get_options($soapClient->getSoapClient()->_stream_context);
         $this->assertSame(array(
-            'https' => array(
-                'header' => array(
-                    'X-HEADER' => 'X-VALUE',
-                ),
+            'header' => array(
+                'X-HEADER' => 'X-VALUE',
             ),
-            'http' => array(
-                'header' => 'X-Header-Name: X-Header-Value' . "\r\n" .
-                            'X-Header-ID: X-Header-ID-Value',
-            ),
-        ), stream_context_get_options($soapClient->getSoapClient()->_stream_context));
+        ), $o['https']);
+        $this->assertTrue(strpos($o['http']['header'], 'X-Header-Name: X-Header-Value') !== false);
+        $this->assertTrue(strpos($o['http']['header'], 'X-Header-ID: X-Header-ID-Value') !== false);
     }
     /**
      *
@@ -306,15 +296,12 @@ class SoapClientTest extends TestCase
 
         $this->assertTrue(is_resource($soapClient->getSoapClient()->_stream_context));
 
+        $o = stream_context_get_options($soapClient->getSoapClient()->_stream_context);
         $this->assertSame(array(
-            'http' => array(
-                'Auth' => array(
-                    'X-HEADER' => 'X-VALUE',
-                ),
-                'header' => 'X-Header-Name: X-Header-Value' . "\r\n" .
-                            'X-Header-ID: X-Header-ID-Value',
-            ),
-        ), stream_context_get_options($soapClient->getSoapClient()->_stream_context));
+            'X-HEADER' => 'X-VALUE',
+        ), $o['http']['Auth']);
+        $this->assertTrue(strpos($o['http']['header'], 'X-Header-Name: X-Header-Value') !== false);
+        $this->assertTrue(strpos($o['http']['header'], 'X-Header-ID: X-Header-ID-Value') !== false);
     }
     /**
      *
@@ -330,11 +317,8 @@ class SoapClientTest extends TestCase
 
         $this->assertTrue(is_resource($soapClient->getStreamContext()));
 
-        $this->assertSame(array(
-            'http' => array(
-                'header' => 'X-Header-Name: X-Header-Value',
-            ),
-        ), stream_context_get_options($soapClient->getStreamContext()));
+        $o = stream_context_get_options($soapClient->getStreamContext());
+        $this->assertTrue(strpos($o['http']['header'], 'X-Header-Name: X-Header-Value') !== false);
     }
     /**
      *
@@ -375,15 +359,12 @@ class SoapClientTest extends TestCase
 
         $this->assertTrue(is_resource($soapClient->getStreamContext()));
 
+        $o = $soapClient->getStreamContextOptions();
         $this->assertSame(array(
-            'http' => array(
-                'Auth' => array(
-                    'X-HEADER' => 'X-VALUE',
-                ),
-                'header' => 'X-Header-Name: X-Header-Value' . "\r\n" .
-                            'X-Header-ID: X-Header-ID-Value',
-            ),
-        ), $soapClient->getStreamContextOptions());
+            'X-HEADER' => 'X-VALUE',
+        ), $o['http']['Auth']);
+        $this->assertTrue(strpos($o['http']['header'], 'X-Header-Name: X-Header-Value') !== false);
+        $this->assertTrue(strpos($o['http']['header'], 'X-Header-ID: X-Header-ID-Value') !== false);
     }
     /**
      *
