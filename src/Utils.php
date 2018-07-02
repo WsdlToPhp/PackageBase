@@ -13,8 +13,11 @@ class Utils
      */
     public static function getFormatedXml($string, $asDomDocument = false)
     {
-        $domDocument = self::getDOMDocument($string);
-        return $asDomDocument ? $domDocument : $domDocument->saveXML();
+        if (!is_null($string)) {
+            $domDocument = self::getDOMDocument($string);
+            return $asDomDocument ? $domDocument : $domDocument->saveXML();
+        }
+        return null;
     }
     /**
      * @param string $string
