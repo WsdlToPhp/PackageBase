@@ -9,7 +9,7 @@ class Utils
      * @throws \InvalidArgumentException
      * @param string $string
      * @param bool $asDomDocument
-     * @return \DOMDocument|null
+     * @return \DOMDocument|string|null
      */
     public static function getFormatedXml($string, $asDomDocument = false)
     {
