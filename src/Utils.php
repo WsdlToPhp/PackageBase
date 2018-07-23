@@ -9,12 +9,15 @@ class Utils
      * @throws \InvalidArgumentException
      * @param string $string
      * @param bool $asDomDocument
-     * @return \DOMDocument|null
+     * @return \DOMDocument|string|null
      */
     public static function getFormatedXml($string, $asDomDocument = false)
     {
-        $domDocument = self::getDOMDocument($string);
-        return $asDomDocument ? $domDocument : $domDocument->saveXML();
+        if (!is_null($string)) {
+            $domDocument = self::getDOMDocument($string);
+            return $asDomDocument ? $domDocument : $domDocument->saveXML();
+        }
+        return null;
     }
     /**
      * @param string $string
