@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.0.13
+- Issue #22 / Pull request #23 - Add support to invoke getLastRequest without throwing an InvalidArgumentException if the request is not executed
+
 ## 1.0.12
 - Issue #19 - WSDL_CACHE_WSDL does not work!
     - Code reviewed as it was not complete, default options were not taken into account properly too, it's working right from now on!
