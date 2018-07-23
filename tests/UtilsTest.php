@@ -44,6 +44,20 @@ class UtilsTest extends TestCase
     /**
      *
      */
+    public function testGetFormatedXmlNullAsString()
+    {
+        $this->assertNull(Utils::getFormatedXml(null));
+    }
+    /**
+     *
+     */
+    public function testGetFormatedXmlNullAsDomDocument()
+    {
+        $this->assertNull(Utils::getFormatedXml(null, true));
+    }
+    /**
+     *
+     */
     public function testGetDOMDocument()
     {
         $this->assertInstanceOf('\DOMDocument', Utils::getDOMDocument(file_get_contents(__DIR__ . '/resources/oneline.xml')));
