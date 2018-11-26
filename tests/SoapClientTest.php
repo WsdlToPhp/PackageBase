@@ -363,8 +363,8 @@ class SoapClientTest extends TestCase
         $this->assertSame(array(
             'X-HEADER' => 'X-VALUE',
         ), $o['http']['Auth']);
-        $this->assertTrue(strpos($o['http']['header'], 'X-Header-Name: X-Header-Value') !== false);
-        $this->assertTrue(strpos($o['http']['header'], 'X-Header-ID: X-Header-ID-Value') !== false);
+        $this->assertContains('X-Header-Name: X-Header-Value', $o['http']['header']);
+        $this->assertContains('X-Header-ID: X-Header-ID-Value', $o['http']['header']);
     }
     /**
      *
