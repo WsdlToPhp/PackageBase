@@ -97,31 +97,34 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
     }
     /**
      * Method returning all default options values
-     * @uses AbstractSoapClientBase::WSDL_CLASSMAP
+     * @uses AbstractSoapClientBase::WSDL_AUTHENTICATION
      * @uses AbstractSoapClientBase::WSDL_CACHE_WSDL
+     * @uses AbstractSoapClientBase::WSDL_CLASSMAP
      * @uses AbstractSoapClientBase::WSDL_COMPRESSION
      * @uses AbstractSoapClientBase::WSDL_CONNECTION_TIMEOUT
      * @uses AbstractSoapClientBase::WSDL_ENCODING
      * @uses AbstractSoapClientBase::WSDL_EXCEPTIONS
      * @uses AbstractSoapClientBase::WSDL_FEATURES
+     * @uses AbstractSoapClientBase::WSDL_LOCAL_CERT
      * @uses AbstractSoapClientBase::WSDL_LOCATION
      * @uses AbstractSoapClientBase::WSDL_LOGIN
+     * @uses AbstractSoapClientBase::WSDL_PASSPHRASE
      * @uses AbstractSoapClientBase::WSDL_PASSWORD
+     * @uses AbstractSoapClientBase::WSDL_PROXY_HOST
+     * @uses AbstractSoapClientBase::WSDL_PROXY_LOGIN
+     * @uses AbstractSoapClientBase::WSDL_PROXY_PASSWORD
+     * @uses AbstractSoapClientBase::WSDL_PROXY_PORT
      * @uses AbstractSoapClientBase::WSDL_SOAP_VERSION
+     * @uses AbstractSoapClientBase::WSDL_SSL_METHOD
      * @uses AbstractSoapClientBase::WSDL_STREAM_CONTEXT
+     * @uses AbstractSoapClientBase::WSDL_STYLE
      * @uses AbstractSoapClientBase::WSDL_TRACE
      * @uses AbstractSoapClientBase::WSDL_TYPEMAP
      * @uses AbstractSoapClientBase::WSDL_URL
-     * @uses AbstractSoapClientBase::VALUE_WSDL_URL
+     * @uses AbstractSoapClientBase::WSDL_URI
+     * @uses AbstractSoapClientBase::WSDL_USE
      * @uses AbstractSoapClientBase::WSDL_USER_AGENT
-     * @uses AbstractSoapClientBase::WSDL_PROXY_HOST
-     * @uses AbstractSoapClientBase::WSDL_PROXY_PORT
-     * @uses AbstractSoapClientBase::WSDL_PROXY_LOGIN
-     * @uses AbstractSoapClientBase::WSDL_PROXY_PASSWORD
-     * @uses AbstractSoapClientBase::WSDL_LOCAL_CERT
-     * @uses AbstractSoapClientBase::WSDL_PASSPHRASE
-     * @uses AbstractSoapClientBase::WSDL_AUTHENTICATION
-     * @uses AbstractSoapClientBase::WSDL_SSL_METHOD
+     * @uses WSDL_CACHE_NONE
      * @uses SOAP_SINGLE_ELEMENT_ARRAYS
      * @uses SOAP_USE_XSI_ARRAY_TYPE
      * @return array
@@ -129,30 +132,33 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
     public static function getDefaultWsdlOptions()
     {
         return [
-            self::WSDL_CLASSMAP => null,
+            self::WSDL_AUTHENTICATION => null,
             self::WSDL_CACHE_WSDL => WSDL_CACHE_NONE,
+            self::WSDL_CLASSMAP => null,
             self::WSDL_COMPRESSION => null,
             self::WSDL_CONNECTION_TIMEOUT => null,
             self::WSDL_ENCODING => null,
             self::WSDL_EXCEPTIONS => true,
             self::WSDL_FEATURES => SOAP_SINGLE_ELEMENT_ARRAYS | SOAP_USE_XSI_ARRAY_TYPE,
+            self::WSDL_LOCAL_CERT => null,
             self::WSDL_LOCATION => null,
             self::WSDL_LOGIN => null,
+            self::WSDL_PASSPHRASE => null,
             self::WSDL_PASSWORD => null,
+            self::WSDL_PROXY_HOST => null,
+            self::WSDL_PROXY_LOGIN => null,
+            self::WSDL_PROXY_PASSWORD => null,
+            self::WSDL_PROXY_PORT => null,
             self::WSDL_SOAP_VERSION => null,
+            self::WSDL_SSL_METHOD => null,
             self::WSDL_STREAM_CONTEXT => null,
+            self::WSDL_STYLE => null,
             self::WSDL_TRACE => true,
             self::WSDL_TYPEMAP => null,
             self::WSDL_URL => null,
+            self::WSDL_URI => null,
+            self::WSDL_USE => null,
             self::WSDL_USER_AGENT => null,
-            self::WSDL_PROXY_HOST => null,
-            self::WSDL_PROXY_PORT => null,
-            self::WSDL_PROXY_LOGIN => null,
-            self::WSDL_PROXY_PASSWORD => null,
-            self::WSDL_LOCAL_CERT => null,
-            self::WSDL_PASSPHRASE => null,
-            self::WSDL_AUTHENTICATION => null,
-            self::WSDL_SSL_METHOD => null,
         ];
     }
     /**
