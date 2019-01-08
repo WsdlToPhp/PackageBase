@@ -55,5 +55,8 @@
             "WsdlToPhp\\PackageBase\\": "src",
             "WsdlToPhp\\PackageBase\\Tests\\": "tests"
         }
+    },
+    "config": {
+        "sort-packages": true
     }
 }
