@@ -288,5 +288,5 @@ You can run the unit tests with the following command:
 ```
     $ cd /path/to/src/WsdlToPhp/PackageBase/
     $ composer install
-    $ phpunit
+    $ composer test
 ```
