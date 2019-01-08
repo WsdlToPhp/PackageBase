@@ -59,5 +59,8 @@
         "psr-4": {
             "WsdlToPhp\\PackageBase\\Tests\\": "tests"
         }
+    },
+    "config": {
+        "sort-packages": true
     }
 }
