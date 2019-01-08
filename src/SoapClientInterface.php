@@ -118,6 +118,11 @@ interface SoapClientInterface
      */
     const WSDL_STREAM_CONTEXT = 'wsdl_stream_context';
     /**
+     * Option key to define WSDL style
+     * @var string
+     */
+    const WSDL_STYLE = 'wsdl_style';
+    /**
      * Option key to define WSDL trace option
      * @var string
      */
@@ -132,6 +137,16 @@ interface SoapClientInterface
      * @var string
      */
     const WSDL_URL = 'wsdl_url';
+    /**
+     * Option key to define WSDL uri
+     * @var string
+     */
+    const WSDL_URI = 'wsdl_uri';
+    /**
+     * Option key to define WSDL use
+     * @var string
+     */
+    const WSDL_USE = 'wsdl_use';
     /**
      * Option key to define WSDL user_agent
      * @var string
