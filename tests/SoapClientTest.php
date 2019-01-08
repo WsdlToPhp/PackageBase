@@ -49,12 +49,12 @@ class SoapClientTest extends TestCase
 
         $soapClient->setLocation('http://api.bing.net:80/soap.asm');
 
-        $this->assertSAme('http://api.bing.net:80/soap.asm', $soapClient->getSoapClient()->location);
+        $this->assertSame('http://api.bing.net:80/soap.asm', $soapClient->getSoapClient()->location);
     }
     /**
      *
      */
-    public function testLocationOotion()
+    public function testLocationOption()
     {
         $soapClient = new SoapClient(array(
             SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
@@ -62,7 +62,7 @@ class SoapClientTest extends TestCase
             SoapClient::WSDL_LOCATION => 'http://api.bing.net:80/soap.asm',
         ));
 
-        $this->assertSAme('http://api.bing.net:80/soap.asm', $soapClient->getSoapClient()->location);
+        $this->assertSame('http://api.bing.net:80/soap.asm', $soapClient->getSoapClient()->location);
     }
     /**
      *
@@ -480,5 +480,53 @@ class SoapClientTest extends TestCase
             'WebSearchOption' => 'ApiEnumWebSearchOption',
             'WebSearchTag' => 'ApiStructWebSearchTag',
         );
+    }
+    /**
+     *
+     */
+    public function testInvalidNonWsdlModeMustNotCreateASoapInstanceForMissingUriAndLocationOptions()
+    {
+        $soapClient = new SoapClient(array(
+            SoapClient::WSDL_URL => null,
+        ));
+
+        $this->assertNull($soapClient->getSoapClient());
+    }
+    /**
+     *
+     */
+    public function testInvalidNonWsdlModeMustNotCreateASoapInstanceForMissingLocationOption()
+    {
+        $soapClient = new SoapClient(array(
+            SoapClient::WSDL_URL => null,
+            SoapClient::WSDL_URI => 'http://api.bing.net:80/soap.asmx',
+        ));
+
+        $this->assertNull($soapClient->getSoapClient());
+    }
+    /**
+     *
+     */
+    public function testInvalidNonWsdlModeMustNotCreateASoapInstanceForMissingUriOption()
+    {
+        $soapClient = new SoapClient(array(
+            SoapClient::WSDL_URL => null,
+            SoapClient::WSDL_LOCATION => 'http://api.bing.net:80/soap.asmx',
+        ));
+
+        $this->assertNull($soapClient->getSoapClient());
+    }
+    /**
+     *
+     */
+    public function testInvalidNonWsdlModeMustCreateASoapInstanceWithUriAndLocationOptions()
+    {
+        $soapClient = new SoapClient(array(
+            SoapClient::WSDL_URL => null,
+            SoapClient::WSDL_LOCATION => 'http://api.bing.net:80/soap.asmx',
+            SoapClient::WSDL_URI => 'http://api.bing.net:80/soap.asmx',
+        ));
+
+        $this->assertInstanceOf('\SoapClient', $soapClient->getSoapClient());
     }
 }
