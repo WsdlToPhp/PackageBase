@@ -57,6 +57,9 @@ Here are the constants/options defined by this interface and their utility:
 - **DEFAULT_SOAP_CLIENT_CLASS = '\SoapClient'**: this is the default [SoapClient](http://php.net/manual/en/class.soapclient.php) class that is used to send the request. Feel free to override it if you want to use another [SoapClient](http://php.net/manual/en/class.soapclient.php) class
 - **OPTION_PREFIX**: this is the prefix used for any constant's option name
 - **WSDL_URL**: option index used to pass the WSDL url
+- **WSDL_URI**: option index used to pass the target namespace of the SOAP service (required for non-WSDL-mode with with the `location`)
+- **WSDL_USE**: option index used to pass  non-WSDL-mode option use
+- **WSDL_STYLE**: option index used to pass non-WSDL-mode option style
 - **WSDL_CLASSMAP**: the classmap's array
 - **WSDL_LOGIN**: the basic authentication's login
 - **WSDL_PASSWORD**: the basic authentication's password
