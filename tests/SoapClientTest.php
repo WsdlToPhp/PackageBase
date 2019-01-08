@@ -490,7 +490,7 @@ class SoapClientTest extends TestCase
             SoapClient::WSDL_URL => null,
         ));
 
-        $this->assertNull($soapClient->getSoapClient());
+        $this->assertNull(SoapClient::getSoapClient());
     }
     /**
      *
@@ -502,7 +502,7 @@ class SoapClientTest extends TestCase
             SoapClient::WSDL_URI => 'http://api.bing.net:80/soap.asmx',
         ));
 
-        $this->assertNull($soapClient->getSoapClient());
+        $this->assertNull(SoapClient::getSoapClient());
     }
     /**
      *
@@ -514,7 +514,7 @@ class SoapClientTest extends TestCase
             SoapClient::WSDL_LOCATION => 'http://api.bing.net:80/soap.asmx',
         ));
 
-        $this->assertNull($soapClient->getSoapClient());
+        $this->assertNull(SoapClient::getSoapClient());
     }
     /**
      *
@@ -527,6 +527,6 @@ class SoapClientTest extends TestCase
             SoapClient::WSDL_URI => 'http://api.bing.net:80/soap.asmx',
         ));
 
-        $this->assertInstanceOf('\SoapClient', $soapClient->getSoapClient());
+        $this->assertInstanceOf('\SoapClient', SoapClient::getSoapClient());
     }
 }
