@@ -57,6 +57,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
      * @uses AbstractSoapClientBase::getDefaultWsdlOptions()
      * @uses AbstractSoapClientBase::getSoapClientClassName()
      * @uses AbstractSoapClientBase::setSoapClient()
+     * @uses AbstractSoapClientBase::OPTION_PREFIX
      * @param array $options WSDL options
      * @return void
      */
@@ -71,12 +72,33 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
                 $wsdlOptions[str_replace(self::OPTION_PREFIX, '', $optionName)] = $optionValue;
             }
         }
-        if (array_key_exists(str_replace(self::OPTION_PREFIX, '', self::WSDL_URL), $wsdlOptions)) {
-            $wsdlUrl = $wsdlOptions[str_replace(self::OPTION_PREFIX, '', self::WSDL_URL)];
-            unset($wsdlOptions[str_replace(self::OPTION_PREFIX, '', self::WSDL_URL)]);
+        if (self::canInstantiateSoapClientWithOptions($wsdlOptions)) {
+            $wsdlUrl = null;
+            if (array_key_exists(str_replace(self::OPTION_PREFIX, '', self::WSDL_URL), $wsdlOptions)) {
+                $wsdlUrl = $wsdlOptions[str_replace(self::OPTION_PREFIX, '', self::WSDL_URL)];
+                unset($wsdlOptions[str_replace(self::OPTION_PREFIX, '', self::WSDL_URL)]);
+            }
             $soapClientClassName = $this->getSoapClientClassName();
             $this->setSoapClient(new $soapClientClassName($wsdlUrl, $wsdlOptions));
         }
+    }
+    /**
+     * Checks if the provided options are sufficient to instantiate a SoapClient:
+     *  - WSDL-mode : only the WSDL is required
+     *  - non-WSDL-mode : URI and LOCATION are required, WSDL url can be empty then
+     * @uses AbstractSoapClientBase::OPTION_PREFIX
+     * @param $wsdlOptions
+     * @return bool
+     */
+    protected static function canInstantiateSoapClientWithOptions($wsdlOptions)
+    {
+        return (
+            array_key_exists(str_replace(self::OPTION_PREFIX, '', self::WSDL_URL), $wsdlOptions) ||
+            (
+                array_key_exists(str_replace(self::OPTION_PREFIX, '', self::WSDL_URI), $wsdlOptions) &&
+                array_key_exists(str_replace(self::OPTION_PREFIX, '', self::WSDL_LOCATION), $wsdlOptions)
+            )
+        );
     }
     /**
      * Returns the SoapClient class name to use to create the instance of the SoapClient.
@@ -85,6 +107,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
      * Be sure that this class inherits from the native PHP SoapClient class and this class has been loaded or can be loaded.
      * The goal is to allow the override of the SoapClient without having to modify this generated class.
      * Then the overridding SoapClient class can override for example the SoapClient::__doRequest() method if it is needed.
+     * @uses AbstractSoapClientBase::DEFAULT_SOAP_CLIENT_CLASS
      * @return string
      */
     public function getSoapClientClassName($soapClientClassName = null)
