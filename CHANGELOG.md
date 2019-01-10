@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2.0.3 - 2019-01-10
+- Issue #25 - Enhancement: Improve output from running php-cs-fixer
+- Issue #26 - Enhancement: Keep packages sorted in composer.json
+- Issue #28 - Add the URI as an option in the soapClient parameters
+
+
 ## 2.0.2 - 2018-07-23
 - Issue #22 / Pull request #23 - Add support to invoke getLastRequest without throwing an InvalidArgumentException if the request is not executed
 
