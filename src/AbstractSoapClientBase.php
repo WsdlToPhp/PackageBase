@@ -475,4 +475,12 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
         $this->result = $result;
         return $this;
     }
+    /**
+     * Default string representation of current object. Don't want to expose any sensible data
+     * @return string
+     */
+    public function __toString()
+    {
+        return get_called_class();
+    }
 }

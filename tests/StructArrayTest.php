@@ -304,4 +304,11 @@ class StructArrayTest extends TestCase
             ->offsetUnset(2);
         $this->assertFalse($object->offsetExists(2));
     }
+    /**
+     *
+     */
+    public function test__toStringMustReturnTheClassNameOfTheInstance()
+    {
+        $this->assertSame('WsdlToPhp\PackageBase\Tests\StructArrayObject', (string) new StructArrayObject());
+    }
 }

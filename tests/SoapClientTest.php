@@ -529,4 +529,11 @@ class SoapClientTest extends TestCase
 
         $this->assertInstanceOf('\SoapClient', $soapClient->getSoapClient());
     }
+    /**
+     *
+     */
+    public function test__toStringMustReturnTheClassNameOfTheInstance()
+    {
+        $this->assertSame('WsdlToPhp\PackageBase\Tests\SoapClient', (string) new SoapClient());
+    }
 }
