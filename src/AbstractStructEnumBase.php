@@ -2,7 +2,7 @@
 
 namespace WsdlToPhp\PackageBase;
 
-abstract class AbstractStructStructEnumBase implements StructEnumInterface
+abstract class AbstractStructEnumBase implements StructEnumInterface
 {
     /**
      * Return true if value is allowed

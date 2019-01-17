@@ -2,9 +2,9 @@
 
 namespace WsdlToPhp\PackageBase\Tests;
 
-use WsdlToPhp\PackageBase\AbstractStructStructEnumBase;
+use WsdlToPhp\PackageBase\AbstractStructEnumBase;
 
-class StructEnumObject extends AbstractStructStructEnumBase
+class StructEnumObject extends AbstractStructEnumBase
 {
     const ONE = 1;
     const TWO = 2;
