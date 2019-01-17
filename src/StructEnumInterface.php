@@ -2,7 +2,7 @@
 
 namespace WsdlToPhp\PackageBase;
 
-interface EnumInterface
+interface StructEnumInterface
 {
     /**
      * Return true if value is allowed
