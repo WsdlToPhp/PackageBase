@@ -305,10 +305,33 @@ public function setSoapHeaderCSPCHD(\Api\StructType\ApiCSPCHD $cSPCHD, $nameSpac
 ## Need improvements for these classes?
 Feel free to make some pull requests. We'll study them and let you know when it can be integrated.
 
-## Unit tests
+## Testing
 You can run the unit tests with the following command:
 ```
-    $ cd /path/to/src/WsdlToPhp/PackageBase/
-    $ composer install
-    $ composer test
+$ cd /path/to/src/WsdlToPhp/PackageBase/
+$ composer install
+$ composer test
+```
+
+## Testing using [Docker](https://www.docker.com/)
+Thanks to the [Docker image](https://hub.docker.com/r/splitbrain/phpfarm) of [phpfarm](https://github.com/fpoirotte/phpfarm), tests can be run locally under *any* PHP version using the cli:
+- php-5.4
+- php-5.5
+- php-5.6
+- php-7.0
+- php-7.1
+- php-7.2
+- php-7.3
+
+First of all, you need to create your container which you can do using [docker-compose](https://docs.docker.com/compose/) by running the below command line from the root directory of the project:
+```bash
+$ docker-compose up -d --build
+```
+
+You then have a container named `package_base` in which you can run `composer` commands and `php cli` commands such as:
+```bash
+# install deps in container (using update ensure it does use the composer.lock file if there is any)
+$ docker exec -it package_base php-7.2 /usr/bin/composer update
+# run tests in container
+$ docker exec -it package_base php-7.2 -dmemory_limit=-1 vendor/bin/phpunit
 ```
