@@ -17,7 +17,7 @@ abstract class AbstractStructBase implements StructInterface, \JsonSerializable
      * It allows to return an object instantiated with the values
      * @uses AbstractStructBase::_set()
      * @param array $array the exported values
-     * @return Struct
+     * @return self
      */
     public static function __set_state(array $array)
     {
@@ -33,7 +33,7 @@ abstract class AbstractStructBase implements StructInterface, \JsonSerializable
      * @throws \InvalidArgumentException
      * @param string $name property name to set
      * @param mixed $value property value to use
-     * @return Struct
+     * @return self
      */
     public function _set($name, $value)
     {
@@ -58,5 +58,13 @@ abstract class AbstractStructBase implements StructInterface, \JsonSerializable
             return $this->$getMethod();
         }
         throw new \InvalidArgumentException(sprintf('Getter does not exist for "%s" property', $name));
+    }
+    /**
+     * Default string representation of current object. Don't want to expose any sensible data
+     * @return string
+     */
+    public function __toString()
+    {
+        return get_called_class();
     }
 }

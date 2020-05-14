@@ -62,4 +62,11 @@ class StructBase extends TestCase
             'bar' => 'foo',
         ], $object->jsonSerialize());
     }
+    /**
+     *
+     */
+    public function test__toStringMustReturnTheClassNameOfTheInstance()
+    {
+        $this->assertSame('WsdlToPhp\PackageBase\Tests\StructObject', (string) new StructObject());
+    }
 }
