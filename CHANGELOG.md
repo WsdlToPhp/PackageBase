@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2.0.4 - 2020-05-14
+- Pull request #29 - Transform HTTP headers from stream context options to array
+- Update Travis CI PHP Matrix
+- Use better Docker configuration
+- Introduce StructEnumInterface and AbstractStructEnumBase from which generated Enum classes should inherit
+- Add __toString method to AbstractStructBase and AbstractSoapClientBase classes
+
 ## 2.0.3 - 2019-01-10
 - Issue #25 - Enhancement: Improve output from running php-cs-fixer
 - Issue #26 - Enhancement: Keep packages sorted in composer.json

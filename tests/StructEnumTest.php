@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mikael
- * Date: 17/01/19
- * Time: 00:20
- */
 
 namespace WsdlToPhp\PackageBase\Tests;
 
