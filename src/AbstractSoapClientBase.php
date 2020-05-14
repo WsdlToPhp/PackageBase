@@ -420,6 +420,9 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
         $context = $this->getStreamContext();
         if ($context !== null) {
             $options = stream_context_get_options($context);
+            if (isset($options['http']['header']) && is_string($options['http']['header'])) {
+                $options['http']['header'] = array_filter(array_map('trim', explode(PHP_EOL, $options['http']['header'])));
+            }
         }
         return $options;
     }
