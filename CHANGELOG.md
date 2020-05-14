@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.15
+- Pull request #29 - Transform HTTP headers from stream context options to array
+- Update Travis CI PHP Matrix
+
 ## 1.0.14
 - Issue #25 - Enhancement: Improve output from running php-cs-fixer
 - Issue #26 - Enhancement: Keep packages sorted in composer.json
