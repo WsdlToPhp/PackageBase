@@ -3,7 +3,6 @@
 namespace WsdlToPhp\PackageBase\Tests;
 
 use WsdlToPhp\PackageBase\Utils;
-use WsdlToPhp\PackageBase\Tests\SoapClient;
 
 class SoapClientTest extends TestCase
 {
@@ -486,7 +485,7 @@ class SoapClientTest extends TestCase
      */
     public function testInvalidNonWsdlModeMustNotCreateASoapInstanceForMissingUriAndLocationOptions()
     {
-        $soapClient = new SoapClient(array(
+        new SoapClient(array(
             SoapClient::WSDL_URL => null,
         ));
 
@@ -497,7 +496,7 @@ class SoapClientTest extends TestCase
      */
     public function testInvalidNonWsdlModeMustNotCreateASoapInstanceForMissingLocationOption()
     {
-        $soapClient = new SoapClient(array(
+        new SoapClient(array(
             SoapClient::WSDL_URL => null,
             SoapClient::WSDL_URI => 'http://api.bing.net:80/soap.asmx',
         ));
@@ -509,7 +508,7 @@ class SoapClientTest extends TestCase
      */
     public function testInvalidNonWsdlModeMustNotCreateASoapInstanceForMissingUriOption()
     {
-        $soapClient = new SoapClient(array(
+        new SoapClient(array(
             SoapClient::WSDL_URL => null,
             SoapClient::WSDL_LOCATION => 'http://api.bing.net:80/soap.asmx',
         ));
@@ -521,7 +520,7 @@ class SoapClientTest extends TestCase
      */
     public function testInvalidNonWsdlModeMustCreateASoapInstanceWithUriAndLocationOptions()
     {
-        $soapClient = new SoapClient(array(
+        new SoapClient(array(
             SoapClient::WSDL_URL => null,
             SoapClient::WSDL_LOCATION => 'http://api.bing.net:80/soap.asmx',
             SoapClient::WSDL_URI => 'http://api.bing.net:80/soap.asmx',
@@ -535,5 +534,19 @@ class SoapClientTest extends TestCase
     public function test__toStringMustReturnTheClassNameOfTheInstance()
     {
         $this->assertSame('WsdlToPhp\PackageBase\Tests\SoapClient', (string) new SoapClient());
+    }
+    /**
+     *
+     */
+    public function testGetOutputHeadersWithoutRequestMustReturnAnEmptyArray()
+    {
+        $soapClient = new SoapClient(array(
+            SoapClient::WSDL_URL => null,
+            SoapClient::WSDL_LOCATION => 'http://api.bing.net:80/soap.asmx',
+            SoapClient::WSDL_URI => 'http://api.bing.net:80/soap.asmx',
+        ));
+
+        $this->assertTrue(is_array($soapClient->getOutputHeaders()));
+        $this->assertEmpty($soapClient->getOutputHeaders());
     }
 }
