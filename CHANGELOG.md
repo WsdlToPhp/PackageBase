@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.1.0
+- Issue #31 - Add output headers to SoapClient in order to be able to store them
+
 ## 1.0.15
 - Pull request #29 - Transform HTTP headers from stream context options to array
 - Update Travis CI PHP Matrix
