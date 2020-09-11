@@ -2,6 +2,7 @@
 
 namespace WsdlToPhp\PackageBase\Tests;
 
+use SoapFault;
 use WsdlToPhp\PackageBase\AbstractSoapClientBase;
 
 class SoapClient extends AbstractSoapClientBase
@@ -24,7 +25,7 @@ class SoapClient extends AbstractSoapClientBase
     {
         try {
             $this->getSoapClient()->search();
-        } catch (\SoapFault $soapFault) {
+        } catch (SoapFault $soapFault) {
             $this->setResult(null);
             $this->saveLastError(__METHOD__, $soapFault);
         }

@@ -20,6 +20,11 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
      */
     private $lastError;
     /**
+     * Contains output headers
+     * @var array
+     */
+    protected $outputHeaders = [];
+    /**
      * Constructor
      * @uses AbstractSoapClientBase::setLastError()
      * @uses AbstractSoapClientBase::initSoapClient()
@@ -477,6 +482,13 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
     {
         $this->result = $result;
         return $this;
+    }
+    /**
+     * @return array
+     */
+    public function getOutputHeaders()
+    {
+        return $this->outputHeaders;
     }
     /**
      * Default string representation of current object. Don't want to expose any sensible data
