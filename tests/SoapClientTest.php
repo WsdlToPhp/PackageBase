@@ -485,7 +485,7 @@ class SoapClientTest extends TestCase
      */
     public function testInvalidNonWsdlModeMustNotCreateASoapInstanceForMissingUriAndLocationOptions()
     {
-        new SoapClient(array(
+        $soapClient = new SoapClient(array(
             SoapClient::WSDL_URL => null,
         ));
 
@@ -496,7 +496,7 @@ class SoapClientTest extends TestCase
      */
     public function testInvalidNonWsdlModeMustNotCreateASoapInstanceForMissingLocationOption()
     {
-        new SoapClient(array(
+        $soapClient = new SoapClient(array(
             SoapClient::WSDL_URL => null,
             SoapClient::WSDL_URI => 'http://api.bing.net:80/soap.asmx',
         ));
@@ -508,7 +508,7 @@ class SoapClientTest extends TestCase
      */
     public function testInvalidNonWsdlModeMustNotCreateASoapInstanceForMissingUriOption()
     {
-        new SoapClient(array(
+        $soapClient = new SoapClient(array(
             SoapClient::WSDL_URL => null,
             SoapClient::WSDL_LOCATION => 'http://api.bing.net:80/soap.asmx',
         ));
@@ -520,7 +520,7 @@ class SoapClientTest extends TestCase
      */
     public function testInvalidNonWsdlModeMustCreateASoapInstanceWithUriAndLocationOptions()
     {
-        new SoapClient(array(
+        $soapClient = new SoapClient(array(
             SoapClient::WSDL_URL => null,
             SoapClient::WSDL_LOCATION => 'http://api.bing.net:80/soap.asmx',
             SoapClient::WSDL_URI => 'http://api.bing.net:80/soap.asmx',
