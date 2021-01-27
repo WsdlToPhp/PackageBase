@@ -287,6 +287,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
             }
             $this->getSoapClient()->__setSoapheaders($defaultHeaders);
         }
+
         return $this;
     }
 
@@ -348,6 +349,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
                 }
             }
         }
+
         return $state;
     }
 
@@ -374,6 +376,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
                 $options['http']['header'] = array_filter(array_map('trim', explode(PHP_EOL, $options['http']['header'])));
             }
         }
+
         return $options;
     }
 

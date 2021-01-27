@@ -22,6 +22,7 @@ class Utils
     {
         if (!is_null($string)) {
             $domDocument = self::getDOMDocument($string);
+
             return $asDomDocument ? $domDocument : $domDocument->saveXML();
         }
 
