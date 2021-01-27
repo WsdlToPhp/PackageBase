@@ -316,13 +316,7 @@ $ composer test
 
 ## Testing using [Docker](https://www.docker.com/)
 Thanks to the [Docker image](https://hub.docker.com/r/splitbrain/phpfarm) of [phpfarm](https://github.com/fpoirotte/phpfarm), tests can be run locally under *any* PHP version using the cli:
-- php-5.4
-- php-5.5
-- php-5.6
-- php-7.0
-- php-7.1
-- php-7.2
-- php-7.3
+- php-7.4
 
 First of all, you need to create your container which you can do using [docker-compose](https://docs.docker.com/compose/) by running the below command line from the root directory of the project:
 ```bash
@@ -332,7 +326,15 @@ $ docker-compose up -d --build
 You then have a container named `package_base` in which you can run `composer` commands and `php cli` commands such as:
 ```bash
 # install deps in container (using update ensure it does use the composer.lock file if there is any)
-$ docker exec -it package_base php-7.2 /usr/bin/composer update
+$ docker exec -it package_base php-7.4 /usr/bin/composer update
 # run tests in container
-$ docker exec -it package_base php-7.2 -dmemory_limit=-1 vendor/bin/phpunit
+$ docker exec -it package_base php-7.4 -dmemory_limit=-1 vendor/bin/phpunit
 ```
+
+## FAQ
+
+If you have a question, feel free to [create an issue](https://github.com/WsdlToPhp/PackageBase/issues/new).
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE) for more information.
