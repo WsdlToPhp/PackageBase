@@ -387,18 +387,6 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
     }
 
     /**
-     * Method setting last errors occurred during the calls
-     * @param array $lastError
-     * @return AbstractSoapClientBase
-     */
-    private function setLastError(array $lastError): self
-    {
-        $this->lastError = $lastError;
-
-        return $this;
-    }
-
-    /**
      * Method saving the last error returned by the SoapClient
      * @param string $methodName the method called when the error occurred
      * @param SoapFault $soapFault the fault
