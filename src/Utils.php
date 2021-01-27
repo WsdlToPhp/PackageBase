@@ -7,6 +7,7 @@ namespace WsdlToPhp\PackageBase;
 use DOMDocument;
 use Exception;
 use InvalidArgumentException;
+use ValueError;
 
 class Utils
 {
@@ -29,8 +30,8 @@ class Utils
 
     /**
      * @param string $string
-     * @throws InvalidArgumentException
      * @return DOMDocument
+     * @throws InvalidArgumentException|ValueError
      */
     public static function getDOMDocument(string $string): DOMDocument
     {

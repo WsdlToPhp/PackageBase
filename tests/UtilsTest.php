@@ -6,6 +6,7 @@ namespace WsdlToPhp\PackageBase\Tests;
 
 use DOMDocument;
 use InvalidArgumentException;
+use ValueError;
 use WsdlToPhp\PackageBase\Utils;
 
 class UtilsTest extends TestCase
@@ -22,14 +23,14 @@ class UtilsTest extends TestCase
 
     public function testGetFormattedXmlEmptyStringAsString()
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(-1 === version_compare(PHP_VERSION, '8.0.0') ? InvalidArgumentException::class : ValueError::class);
 
         Utils::getFormattedXml('');
     }
 
     public function testGetFormattedXmlEmptyStringAsDomDocument()
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(-1 === version_compare(PHP_VERSION, '8.0.0') ? InvalidArgumentException::class : ValueError::class);
 
         Utils::getFormattedXml('', true);
     }
@@ -58,7 +59,7 @@ class UtilsTest extends TestCase
 
     public function testGetDOMDocumentException()
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(-1 === version_compare(PHP_VERSION, '8.0.0') ? InvalidArgumentException::class : ValueError::class);
 
         $this->assertInstanceOf(DOMDocument::class, Utils::getDOMDocument(''));
     }
