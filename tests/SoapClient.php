@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WsdlToPhp\PackageBase\Tests;
 
 use SoapFault;
@@ -7,20 +9,11 @@ use WsdlToPhp\PackageBase\AbstractSoapClientBase;
 
 class SoapClient extends AbstractSoapClientBase
 {
-    public function getSoapClientClassName($soapClientClassName = null)
+    public function getSoapClientClassName(?string $soapClientClassName = null): string
     {
-        return parent::getSoapClientClassName(empty($soapClientClassName) ? '\WsdlToPhp\PackageBase\Tests\Client' : $soapClientClassName);
+        return parent::getSoapClientClassName(empty($soapClientClassName) ? Client::class : $soapClientClassName);
     }
-    /**
-     * @return Client
-     */
-    public function getSoapClient()
-    {
-        return parent::getSoapClient();
-    }
-    /**
-     *
-     */
+
     public function search()
     {
         try {
