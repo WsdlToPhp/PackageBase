@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## 3.0.0 - 2021-01-28
+- Issue #32 - Migrate to PHp >= 7.4
+  - use `splitbrain/phpfarm:jessie` as Docker image and fix docker image settings
+  - Code requires PHP >= 7.4
+  - Code cleaning
+  - BC:
+    - `WsdlToPhp\PackageBase\Utils::getFormatedXml` has been renamed to `WsdlToPhp\PackageBase\Utils::getFormattedXml`
+    - `WsdlToPhp\PackageBase\AbstractSoapClientBase::getFormatedXml` has been renamed to `WsdlToPhp\PackageBase\AbstractSoapClientBase::getFormattedXml`
+  - Update READMEs
+  - Update Travis CI settings
+  - Update PHPUnit settings
+  - Update LICENSE file
+  - Version 1.0 is no more maintained
+
 ## 2.2.0 - 2020-09-11
 - Issue #31 - Add output headers to SoapClient in order to be able to store them
 
