@@ -4,7 +4,7 @@
 
 [![Latest Stable Version](https://poser.pugx.org/wsdltophp/packagebase/version.png)](https://packagist.org/packages/wsdltophp/packagebase)
 [![Total Downloads](https://poser.pugx.org/wsdltophp/packagebase/downloads)](https://packagist.org/packages/wsdltophp/packagebase)
-[![Build Status](https://api.travis-ci.org/WsdlToPhp/PackageBase.svg)](https://travis-ci.org/WsdlToPhp/PackageBase)
+[![Build Status](https://travis-ci.com/WsdlToPhp/PackageBase.svg?branch=2.x)](https://travis-ci.com/github/WsdlToPhp/PackageBase)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/WsdlToPhp/PackageBase/badges/quality-score.png)](https://scrutinizer-ci.com/g/WsdlToPhp/PackageBase/)
 [![Code Coverage](https://scrutinizer-ci.com/g/WsdlToPhp/PackageBase/badges/coverage.png)](https://scrutinizer-ci.com/g/WsdlToPhp/PackageBase/)
 [![StyleCI](https://styleci.io/repos/38760239/shield)](https://styleci.io/repos/38760239)
