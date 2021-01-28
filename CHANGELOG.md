@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 2.2.1 - 2021-01-28
+- Fix Travis settings
+
 ## 2.2.0 - 2020-09-11
 - Issue #31 - Add output headers to SoapClient in order to be able to store them
 
