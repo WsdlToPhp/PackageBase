@@ -1,72 +1,56 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WsdlToPhp\PackageBase;
+
+use DOMDocument;
+use SoapClient;
+use SoapFault;
+use SoapHeader;
 
 abstract class AbstractSoapClientBase implements SoapClientInterface
 {
     /**
-     * Soapclient called to communicate with the actual SOAP Service
-     * @var \SoapClient
+     * SoapClient called to communicate with the actual SOAP Service
+     * @var SoapClient|null
      */
-    private $soapClient;
+    private ?SoapClient $soapClient = null;
+
     /**
      * Contains Soap call result
      * @var mixed
      */
     private $result;
+
     /**
      * Contains last errors
      * @var array
      */
-    private $lastError;
+    private array $lastError = [];
+
     /**
      * Contains output headers
      * @var array
      */
-    protected $outputHeaders = [];
-    /**
-     * Constructor
-     * @uses AbstractSoapClientBase::setLastError()
-     * @uses AbstractSoapClientBase::initSoapClient()
-     * @param array $wsdlOptions
-     */
+    protected array $outputHeaders = [];
+
     public function __construct(array $wsdlOptions = [])
     {
-        $this->setLastError([]);
-        /**
-         * Init soap Client
-         * Set default values
-         */
         $this->initSoapClient($wsdlOptions);
     }
-    /**
-     * Method getting current SoapClient
-     * @return \SoapClient
-     */
-    public function getSoapClient()
+
+    public function getSoapClient(): ?SoapClient
     {
         return $this->soapClient;
     }
-    /**
-     * Method setting current SoapClient
-     * @param \SoapClient $soapClient
-     * @return \SoapClient
-     */
-    public function setSoapClient(\SoapClient $soapClient)
+
+    public function setSoapClient(SoapClient $soapClient): SoapClient
     {
         return ($this->soapClient = $soapClient);
     }
-    /**
-     * Method initiating SoapClient
-     * @uses ApiClassMap::classMap()
-     * @uses AbstractSoapClientBase::getDefaultWsdlOptions()
-     * @uses AbstractSoapClientBase::getSoapClientClassName()
-     * @uses AbstractSoapClientBase::setSoapClient()
-     * @uses AbstractSoapClientBase::OPTION_PREFIX
-     * @param array $options WSDL options
-     * @return void
-     */
-    public function initSoapClient(array $options)
+
+    public function initSoapClient(array $options): void
     {
         $wsdlOptions = [];
         $defaultWsdlOptions = static::getDefaultWsdlOptions();
@@ -87,15 +71,15 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
             $this->setSoapClient(new $soapClientClassName($wsdlUrl, $wsdlOptions));
         }
     }
+
     /**
      * Checks if the provided options are sufficient to instantiate a SoapClient:
      *  - WSDL-mode : only the WSDL is required
      *  - non-WSDL-mode : URI and LOCATION are required, WSDL url can be empty then
-     * @uses AbstractSoapClientBase::OPTION_PREFIX
-     * @param $wsdlOptions
+     * @param array $wsdlOptions
      * @return bool
      */
-    protected static function canInstantiateSoapClientWithOptions($wsdlOptions)
+    protected static function canInstantiateSoapClientWithOptions(array $wsdlOptions): bool
     {
         return (
             array_key_exists(str_replace(self::OPTION_PREFIX, '', self::WSDL_URL), $wsdlOptions) ||
@@ -105,59 +89,30 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
             )
         );
     }
+
     /**
      * Returns the SoapClient class name to use to create the instance of the SoapClient.
-     * The SoapClient class is determined based on the package name.
-     * If a class is named as {Api}SoapClient, then this is the class that will be used.
      * Be sure that this class inherits from the native PHP SoapClient class and this class has been loaded or can be loaded.
      * The goal is to allow the override of the SoapClient without having to modify this generated class.
-     * Then the overridding SoapClient class can override for example the SoapClient::__doRequest() method if it is needed.
-     * @uses AbstractSoapClientBase::DEFAULT_SOAP_CLIENT_CLASS
+     * Then the overriding SoapClient class can override for example the SoapClient::__doRequest() method if it is needed.
+     * @param string|null $soapClientClassName
      * @return string
      */
-    public function getSoapClientClassName($soapClientClassName = null)
+    public function getSoapClientClassName(?string $soapClientClassName = null): string
     {
         $className = self::DEFAULT_SOAP_CLIENT_CLASS;
-        if (!empty($soapClientClassName) && is_subclass_of($soapClientClassName, '\SoapClient')) {
+        if (!empty($soapClientClassName) && is_subclass_of($soapClientClassName, SoapClient::class)) {
             $className = $soapClientClassName;
         }
+
         return $className;
     }
+
     /**
-     * Method returning all default options values
-     * @uses AbstractSoapClientBase::WSDL_AUTHENTICATION
-     * @uses AbstractSoapClientBase::WSDL_CACHE_WSDL
-     * @uses AbstractSoapClientBase::WSDL_CLASSMAP
-     * @uses AbstractSoapClientBase::WSDL_COMPRESSION
-     * @uses AbstractSoapClientBase::WSDL_CONNECTION_TIMEOUT
-     * @uses AbstractSoapClientBase::WSDL_ENCODING
-     * @uses AbstractSoapClientBase::WSDL_EXCEPTIONS
-     * @uses AbstractSoapClientBase::WSDL_FEATURES
-     * @uses AbstractSoapClientBase::WSDL_LOCAL_CERT
-     * @uses AbstractSoapClientBase::WSDL_LOCATION
-     * @uses AbstractSoapClientBase::WSDL_LOGIN
-     * @uses AbstractSoapClientBase::WSDL_PASSPHRASE
-     * @uses AbstractSoapClientBase::WSDL_PASSWORD
-     * @uses AbstractSoapClientBase::WSDL_PROXY_HOST
-     * @uses AbstractSoapClientBase::WSDL_PROXY_LOGIN
-     * @uses AbstractSoapClientBase::WSDL_PROXY_PASSWORD
-     * @uses AbstractSoapClientBase::WSDL_PROXY_PORT
-     * @uses AbstractSoapClientBase::WSDL_SOAP_VERSION
-     * @uses AbstractSoapClientBase::WSDL_SSL_METHOD
-     * @uses AbstractSoapClientBase::WSDL_STREAM_CONTEXT
-     * @uses AbstractSoapClientBase::WSDL_STYLE
-     * @uses AbstractSoapClientBase::WSDL_TRACE
-     * @uses AbstractSoapClientBase::WSDL_TYPEMAP
-     * @uses AbstractSoapClientBase::WSDL_URL
-     * @uses AbstractSoapClientBase::WSDL_URI
-     * @uses AbstractSoapClientBase::WSDL_USE
-     * @uses AbstractSoapClientBase::WSDL_USER_AGENT
-     * @uses WSDL_CACHE_NONE
-     * @uses SOAP_SINGLE_ELEMENT_ARRAYS
-     * @uses SOAP_USE_XSI_ARRAY_TYPE
+     * Method returning all default SoapClient options values
      * @return array
      */
-    public static function getDefaultWsdlOptions()
+    public static function getDefaultWsdlOptions(): array
     {
         return [
             self::WSDL_AUTHENTICATION => null,
@@ -189,116 +144,108 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
             self::WSDL_USER_AGENT => null,
         ];
     }
+
     /**
      * Allows to set the SoapClient location to call
-     * @uses AbstractSoapClientBase::getSoapClient()
-     * @uses SoapClient::__setLocation()
      * @param string $location
      * @return AbstractSoapClientBase
      */
-    public function setLocation($location)
+    public function setLocation(string $location): self
     {
-        if ($this->getSoapClient() instanceof \SoapClient) {
+        if ($this->getSoapClient() instanceof SoapClient) {
             $this->getSoapClient()->__setLocation($location);
         }
+
         return $this;
     }
+
     /**
-     * Returns the last request content as a DOMDocument or as a formated XML String
-     * @see SoapClient::__getLastRequest()
-     * @uses AbstractSoapClientBase::getSoapClient()
-     * @uses AbstractSoapClientBase::getFormatedXml()
-     * @uses SoapClient::__getLastRequest()
+     * Returns the last request content as a DOMDocument or as a formatted XML String
      * @param bool $asDomDocument
-     * @return \DOMDocument|string|null
+     * @return DOMDocument|string|null
      */
-    public function getLastRequest($asDomDocument = false)
+    public function getLastRequest(bool $asDomDocument = false)
     {
         return $this->getLastXml('__getLastRequest', $asDomDocument);
     }
+
     /**
-     * Returns the last response content as a DOMDocument or as a formated XML String
-     * @see SoapClient::__getLastResponse()
-     * @uses AbstractSoapClientBase::getSoapClient()
-     * @uses AbstractSoapClientBase::getFormatedXml()
-     * @uses SoapClient::__getLastResponse()
+     * Returns the last response content as a DOMDocument or as a formatted XML String
      * @param bool $asDomDocument
-     * @return \DOMDocument|string|null
+     * @return DOMDocument|string|null
      */
-    public function getLastResponse($asDomDocument = false)
+    public function getLastResponse(bool $asDomDocument = false)
     {
         return $this->getLastXml('__getLastResponse', $asDomDocument);
     }
+
     /**
      * @param string $method
      * @param bool $asDomDocument
-     * @return \DOMDocument|string|null
+     * @return DOMDocument|string|null
      */
-    protected function getLastXml($method, $asDomDocument = false)
+    protected function getLastXml(string $method, bool $asDomDocument = false)
     {
         $xml = null;
-        if ($this->getSoapClient() instanceof \SoapClient) {
-            $xml = static::getFormatedXml($this->getSoapClient()->$method(), $asDomDocument);
+        if ($this->getSoapClient() instanceof SoapClient) {
+            $xml = static::getFormattedXml($this->getSoapClient()->$method(), $asDomDocument);
         }
+
         return $xml;
     }
+
     /**
      * Returns the last request headers used by the SoapClient object as the original value or an array
-     * @see SoapClient::__getLastRequestHeaders()
-     * @uses AbstractSoapClientBase::getSoapClient()
-     * @uses AbstractSoapClientBase::convertStringHeadersToArray()
-     * @uses SoapClient::__getLastRequestHeaders()
      * @param bool $asArray allows to get the headers in an associative array
-     * @return null|string|array
+     * @return null|string|string[]
      */
-    public function getLastRequestHeaders($asArray = false)
+    public function getLastRequestHeaders(bool $asArray = false)
     {
         return $this->getLastHeaders('__getLastRequestHeaders', $asArray);
     }
+
     /**
      * Returns the last response headers used by the SoapClient object as the original value or an array
-     * @see SoapClient::__getLastResponseHeaders()
-     * @uses AbstractSoapClientBase::getSoapClient()
-     * @uses AbstractSoapClientBase::convertStringHeadersToArray()
-     * @uses SoapClient::__getLastRequestHeaders()
      * @param bool $asArray allows to get the headers in an associative array
-     * @return null|string|array
+     * @return null|string|string[]
      */
-    public function getLastResponseHeaders($asArray = false)
+    public function getLastResponseHeaders(bool $asArray = false)
     {
         return $this->getLastHeaders('__getLastResponseHeaders', $asArray);
     }
+
     /**
      * @param string $method
      * @param bool $asArray allows to get the headers in an associative array
-     * @return string[]|null
+     * @return null|string|string[]
      */
-    protected function getLastHeaders($method, $asArray)
+    protected function getLastHeaders(string $method, bool $asArray)
     {
-        $headers = $this->getSoapClient() instanceof \SoapClient ? $this->getSoapClient()->$method() : null;
+        $headers = $this->getSoapClient() instanceof SoapClient ? $this->getSoapClient()->$method() : null;
         if (is_string($headers) && $asArray) {
             return static::convertStringHeadersToArray($headers);
         }
+
         return $headers;
     }
+
     /**
-     * Returns a XML string content as a DOMDocument or as a formated XML string
-     * @uses \DOMDocument::loadXML()
-     * @uses \DOMDocument::saveXML()
-     * @param string $string
+     * Returns a XML string content as a DOMDocument or as a formatted XML string
+     * @param string|null $string
      * @param bool $asDomDocument
-     * @return \DOMDocument|string|null
+     * @return DOMDocument|string|null
      */
-    public static function getFormatedXml($string, $asDomDocument = false)
+    public static function getFormattedXml(?string $string, bool $asDomDocument = false)
     {
-        return Utils::getFormatedXml($string, $asDomDocument);
+        return Utils::getFormattedXml($string, $asDomDocument);
     }
+
     /**
      * Returns an associative array between the headers name and their respective values
      * @param string $headers
      * @return string[]
      */
-    public static function convertStringHeadersToArray($headers)
+    public static function convertStringHeadersToArray(string $headers): array
     {
         $lines = explode("\r\n", $headers);
         $headers = [];
@@ -308,21 +255,21 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
                 $headers[$headerParts[0]] = trim(implode(':', array_slice($headerParts, 1)));
             }
         }
+
         return $headers;
     }
+
     /**
      * Sets a SoapHeader to send
      * For more information, please read the online documentation on {@link http://www.php.net/manual/en/class.soapheader.php}
-     * @uses AbstractSoapClientBase::getSoapClient()
-     * @uses SoapClient::__setSoapheaders()
-     * @param string $nameSpace SoapHeader namespace
+     * @param string $namespace SoapHeader namespace
      * @param string $name SoapHeader name
      * @param mixed $data SoapHeader data
      * @param bool $mustUnderstand
-     * @param string $actor
+     * @param string|null $actor
      * @return AbstractSoapClientBase
      */
-    public function setSoapHeader($nameSpace, $name, $data, $mustUnderstand = false, $actor = null)
+    public function setSoapHeader(string $namespace, string $name, $data, bool $mustUnderstand = false, ?string $actor = null): self
     {
         if ($this->getSoapClient()) {
             $defaultHeaders = (isset($this->getSoapClient()->__default_headers) && is_array($this->getSoapClient()->__default_headers)) ? $this->getSoapClient()->__default_headers : [];
@@ -334,24 +281,25 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
             }
             $this->getSoapClient()->__setSoapheaders(null);
             if (!empty($actor)) {
-                array_push($defaultHeaders, new \SoapHeader($nameSpace, $name, $data, $mustUnderstand, $actor));
+                array_push($defaultHeaders, new SoapHeader($namespace, $name, $data, $mustUnderstand, $actor));
             } else {
-                array_push($defaultHeaders, new \SoapHeader($nameSpace, $name, $data, $mustUnderstand));
+                array_push($defaultHeaders, new SoapHeader($namespace, $name, $data, $mustUnderstand));
             }
             $this->getSoapClient()->__setSoapheaders($defaultHeaders);
         }
+
         return $this;
     }
+
     /**
      * Sets the SoapClient Stream context HTTP Header name according to its value
      * If a context already exists, it tries to modify it
      * It the context does not exist, it then creates it with the header name and its value
-     * @uses AbstractSoapClientBase::getSoapClient()
      * @param string $headerName
      * @param mixed $headerValue
      * @return bool
      */
-    public function setHttpHeader($headerName, $headerValue)
+    public function setHttpHeader(string $headerName, $headerValue): bool
     {
         $state = false;
         if ($this->getSoapClient() && !empty($headerName)) {
@@ -401,21 +349,24 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
                 }
             }
         }
+
         return $state;
     }
+
     /**
-     * Returns current \SoapClient::_stream_context resource or null
+     * Returns current SoapClient::_stream_context resource or null
      * @return resource|null
      */
     public function getStreamContext()
     {
         return ($this->getSoapClient() && isset($this->getSoapClient()->_stream_context) && is_resource($this->getSoapClient()->_stream_context)) ? $this->getSoapClient()->_stream_context : null;
     }
+
     /**
-     * Returns current \SoapClient::_stream_context resource options or empty array
+     * Returns current SoapClient::_stream_context resource options or empty array
      * @return array
      */
-    public function getStreamContextOptions()
+    public function getStreamContextOptions(): array
     {
         $options = [];
         $context = $this->getStreamContext();
@@ -425,46 +376,42 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
                 $options['http']['header'] = array_filter(array_map('trim', explode(PHP_EOL, $options['http']['header'])));
             }
         }
+
         return $options;
     }
+
     /**
-     * Method returning last errors occured during the calls
+     * Method returning last errors occurred during the calls
      * @return array
      */
-    public function getLastError()
+    public function getLastError(): array
     {
         return $this->lastError;
     }
-    /**
-     * Method setting last errors occured during the calls
-     * @param array $lastError
-     * @return AbstractSoapClientBase
-     */
-    private function setLastError($lastError)
-    {
-        $this->lastError = $lastError;
-        return $this;
-    }
+
     /**
      * Method saving the last error returned by the SoapClient
      * @param string $methodName the method called when the error occurred
-     * @param \SoapFault $soapFault l'objet de l'erreur
+     * @param SoapFault $soapFault the fault
      * @return AbstractSoapClientBase
      */
-    public function saveLastError($methodName, \SoapFault $soapFault)
+    public function saveLastError(string $methodName, SoapFault $soapFault): SoapClientInterface
     {
         $this->lastError[$methodName] = $soapFault;
+
         return $this;
     }
+
     /**
      * Method getting the last error for a certain method
      * @param string $methodName method name to get error from
-     * @return \SoapFault|null
+     * @return SoapFault|null
      */
-    public function getLastErrorForMethod($methodName)
+    public function getLastErrorForMethod(string $methodName): ?SoapFault
     {
         return array_key_exists($methodName, $this->lastError) ? $this->lastError[$methodName] : null;
     }
+
     /**
      * Method returning current result from Soap call
      * @return mixed
@@ -473,28 +420,32 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
     {
         return $this->result;
     }
+
     /**
      * Method setting current result from Soap call
      * @param mixed $result
      * @return AbstractSoapClientBase
      */
-    public function setResult($result)
+    public function setResult($result): SoapClientInterface
     {
         $this->result = $result;
+
         return $this;
     }
+
     /**
      * @return array
      */
-    public function getOutputHeaders()
+    public function getOutputHeaders(): array
     {
         return $this->outputHeaders;
     }
+
     /**
      * Default string representation of current object. Don't want to expose any sensible data
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return get_called_class();
     }

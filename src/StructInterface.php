@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WsdlToPhp\PackageBase;
 
 interface StructInterface
@@ -10,5 +12,5 @@ interface StructInterface
      * @param array $array the exported values
      * @return StructInterface
      */
-    public static function __set_state(array $array);
+    public static function __set_state(array $array): StructInterface;
 }
