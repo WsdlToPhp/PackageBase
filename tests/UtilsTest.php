@@ -1,72 +1,66 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WsdlToPhp\PackageBase\Tests;
 
+use DOMDocument;
+use InvalidArgumentException;
+use ValueError;
 use WsdlToPhp\PackageBase\Utils;
 
 class UtilsTest extends TestCase
 {
-    /**
-     *
-     */
-    public function testGetFormatedXmlAsString()
+    public function testGetFormattedXmlAsString()
     {
-        $this->assertEquals(file_get_contents(__DIR__ . '/resources/formated.xml'), Utils::getFormatedXml(file_get_contents(__DIR__ . '/resources/oneline.xml')));
+        $this->assertEquals(file_get_contents(__DIR__ . '/resources/formated.xml'), Utils::getFormattedXml(file_get_contents(__DIR__ . '/resources/oneline.xml')));
     }
-    /**
-     *
-     */
-    public function testGetFormatedXmlAsDomDocument()
+
+    public function testGetFormattedXmlAsDomDocument()
     {
-        $this->assertInstanceOf('\DOMDocument', Utils::getFormatedXml(file_get_contents(__DIR__ . '/resources/oneline.xml'), true));
+        $this->assertInstanceOf(DOMDocument::class, Utils::getFormattedXml(file_get_contents(__DIR__ . '/resources/oneline.xml'), true));
     }
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testGetFormatedXmlEmptyStringAsString()
+
+    public function testGetFormattedXmlEmptyStringAsString()
     {
-        Utils::getFormatedXml('');
+        $this->expectException(-1 === version_compare(PHP_VERSION, '8.0.0') ? InvalidArgumentException::class : ValueError::class);
+
+        Utils::getFormattedXml('');
     }
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testGetFormatedXmlEmptyStringAsDomDocument()
+
+    public function testGetFormattedXmlEmptyStringAsDomDocument()
     {
-        Utils::getFormatedXml('', true);
+        $this->expectException(-1 === version_compare(PHP_VERSION, '8.0.0') ? InvalidArgumentException::class : ValueError::class);
+
+        Utils::getFormattedXml('', true);
     }
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testGetFormatedXmlInvalidXmlAsDomDocument()
+
+    public function testGetFormattedXmlInvalidXmlAsDomDocument()
     {
-        Utils::getFormatedXml('<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:img="http://ws.estesexpress.com/imageview" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ws.estesexpress.com/imageview" xml:lang="en"><root>', true);
+        $this->expectException(InvalidArgumentException::class);
+
+        Utils::getFormattedXml('<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:img="http://ws.estesexpress.com/imageview" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ws.estesexpress.com/imageview" xml:lang="en"><root>', true);
     }
-    /**
-     *
-     */
-    public function testGetFormatedXmlNullAsString()
+
+    public function testGetFormattedXmlNullAsString()
     {
-        $this->assertNull(Utils::getFormatedXml(null));
+        $this->assertNull(Utils::getFormattedXml(null));
     }
-    /**
-     *
-     */
-    public function testGetFormatedXmlNullAsDomDocument()
+
+    public function testGetFormattedXmlNullAsDomDocument()
     {
-        $this->assertNull(Utils::getFormatedXml(null, true));
+        $this->assertNull(Utils::getFormattedXml(null, true));
     }
-    /**
-     *
-     */
+
     public function testGetDOMDocument()
     {
-        $this->assertInstanceOf('\DOMDocument', Utils::getDOMDocument(file_get_contents(__DIR__ . '/resources/oneline.xml')));
+        $this->assertInstanceOf(DOMDocument::class, Utils::getDOMDocument(file_get_contents(__DIR__ . '/resources/oneline.xml')));
     }
-    /**
-     * @expectedException \InvalidArgumentException
-     */
+
     public function testGetDOMDocumentException()
     {
-        $this->assertInstanceOf('\DOMDocument', Utils::getDOMDocument(''));
+        $this->expectException(-1 === version_compare(PHP_VERSION, '8.0.0') ? InvalidArgumentException::class : ValueError::class);
+
+        $this->assertInstanceOf(DOMDocument::class, Utils::getDOMDocument(''));
     }
 }
