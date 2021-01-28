@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 3.0.1 - 2021-01-28
+- Update Travis CI badge and settings
+
 ## 3.0.0 - 2021-01-28
 - Issue #32 - Migrate to PHp >= 7.4
   - use `splitbrain/phpfarm:jessie` as Docker image and fix docker image settings
