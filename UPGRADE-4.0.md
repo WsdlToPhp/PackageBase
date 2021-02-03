@@ -10,7 +10,7 @@ $o->_set('name', 'the name');
 $theName = $o->_get('name');
 ```
 
-Same remark as previously ;)
+Same remark as previously, methods are renamed and marked as internal from now on ;)
 
 **Now**:
 ```php

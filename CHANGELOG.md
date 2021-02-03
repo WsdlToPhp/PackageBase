@@ -4,13 +4,13 @@
 - BC:
   - `WsdlToPhp\PackageBase\AbstractStructBase::_set` has been renamed to `WsdlToPhp\PackageBase\AbstractStructBase::setPropertyValue`
   - `WsdlToPhp\PackageBase\AbstractStructBase::_set` has been renamed to `WsdlToPhp\PackageBase\AbstractStructBase::getPropertyValue`
-- Version 2.0 is no more maintained
+- Improve `WsdlToPhp\PackageBase\AbstractStructBase::__set_state` method using `ReflectionClass`
 
 ## 3.0.1 - 2021-01-28
 - Update Travis CI badge and settings
 
 ## 3.0.0 - 2021-01-28
-- Issue #32 - Migrate to PHp >= 7.4
+- Issue #32 - Migrate to PHP >= 7.4
   - use `splitbrain/phpfarm:jessie` as Docker image and fix docker image settings
   - Code requires PHP >= 7.4
   - Code cleaning
