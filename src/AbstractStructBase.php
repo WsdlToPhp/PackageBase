@@ -6,6 +6,7 @@ namespace WsdlToPhp\PackageBase;
 
 use InvalidArgumentException;
 use JsonSerializable;
+use ReflectionClass;
 
 abstract class AbstractStructBase implements StructInterface, JsonSerializable
 {
@@ -26,8 +27,8 @@ abstract class AbstractStructBase implements StructInterface, JsonSerializable
      */
     public static function __set_state(array $array): StructInterface
     {
-        $className = get_called_class();
-        $object = new $className();
+        $reflection = new ReflectionClass(get_called_class());
+        $object = $reflection->newInstance();
         foreach ($array as $name => $value) {
             $object->_set($name, $value);
         }
@@ -41,6 +42,7 @@ abstract class AbstractStructBase implements StructInterface, JsonSerializable
      * @param string $name property name to set
      * @param mixed $value property value to use
      * @return self
+     * @internal
      */
     public function _set(string $name, $value): self
     {
@@ -59,6 +61,7 @@ abstract class AbstractStructBase implements StructInterface, JsonSerializable
      * @throws InvalidArgumentException
      * @param string $name property name to get
      * @return mixed
+     * @internal
      */
     public function _get(string $name)
     {
