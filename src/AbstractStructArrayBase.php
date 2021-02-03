@@ -105,15 +105,15 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
     public function add($item): self
     {
         // init array
-        if (!is_array($this->_get($this->getAttributeName()))) {
-            $this->_set($this->getAttributeName(), []);
+        if (!is_array($this->getPropertyValue($this->getAttributeName()))) {
+            $this->setPropertyValue($this->getAttributeName(), []);
         }
 
         // current array
-        $currentArray = $this->_get($this->getAttributeName());
+        $currentArray = $this->getPropertyValue($this->getAttributeName());
         $currentArray[] = $item;
         $this
-            ->_set($this->getAttributeName(), $currentArray)
+            ->setPropertyValue($this->getAttributeName(), $currentArray)
             ->setInternArray($currentArray)
             ->setInternArrayIsArray(true)
             ->setInternArrayOffset(0);
@@ -169,7 +169,7 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
     {
         $this->internArray[$offset] = $value;
 
-        return $this->_set($this->getAttributeName(), $this->internArray);
+        return $this->setPropertyValue($this->getAttributeName(), $this->internArray);
     }
 
     /**
@@ -181,7 +181,7 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
     {
         if ($this->offsetExists($offset)) {
             unset($this->internArray[$offset]);
-            $this->_set($this->getAttributeName(), $this->internArray);
+            $this->setPropertyValue($this->getAttributeName(), $this->internArray);
         }
 
         return $this;
@@ -231,7 +231,7 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
                 ->setInternArrayOffset(0)
                 ->setInternArrayIsArray(true);
         } elseif (!$internCall && property_exists($this, $this->getAttributeName())) {
-            $this->initInternArray($this->_get($this->getAttributeName()), true);
+            $this->initInternArray($this->getPropertyValue($this->getAttributeName()), true);
         }
 
         return $this;

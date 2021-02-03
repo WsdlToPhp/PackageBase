@@ -38,7 +38,7 @@ class StructBaseTest extends TestCase
         $object
             ->setBar('foo')
             ->setFoo('bar');
-        $this->assertSame('foo', $object->_get('bar'));
+        $this->assertSame('foo', $object->getPropertyValue('bar'));
     }
 
     public function testSetGetWithException()
@@ -49,7 +49,7 @@ class StructBaseTest extends TestCase
         $object
             ->setBar('foo')
             ->setFoo('bar');
-        $object->_get('sample');
+        $object->getPropertyValue('sample');
     }
 
     public function testJsonSerialize()
