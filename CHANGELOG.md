@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 4.0.0 - 2021-02-xx
+- BC:
+  - `WsdlToPhp\PackageBase\AbstractStructBase::_set` has been renamed to `WsdlToPhp\PackageBase\AbstractStructBase::setPropertyValue`
+  - `WsdlToPhp\PackageBase\AbstractStructBase::_set` has been renamed to `WsdlToPhp\PackageBase\AbstractStructBase::getPropertyValue`
+- Version 2.0 is no more maintained
+
 ## 3.0.1 - 2021-01-28
 - Update Travis CI badge and settings
 
