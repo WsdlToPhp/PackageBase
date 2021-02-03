@@ -30,7 +30,7 @@ abstract class AbstractStructBase implements StructInterface, JsonSerializable
         $reflection = new ReflectionClass(get_called_class());
         $object = $reflection->newInstance();
         foreach ($array as $name => $value) {
-            $object->_set($name, $value);
+            $object->setPropertyValue($name, $value);
         }
 
         return $object;
@@ -44,7 +44,7 @@ abstract class AbstractStructBase implements StructInterface, JsonSerializable
      * @return self
      * @internal
      */
-    public function _set(string $name, $value): self
+    public function setPropertyValue(string $name, $value): self
     {
         $setMethod = 'set' . ucfirst($name);
         if (method_exists($this, $setMethod)) {
@@ -63,7 +63,7 @@ abstract class AbstractStructBase implements StructInterface, JsonSerializable
      * @return mixed
      * @internal
      */
-    public function _get(string $name)
+    public function getPropertyValue(string $name)
     {
         $getMethod = 'get' . ucfirst($name);
         if (method_exists($this, $getMethod)) {
