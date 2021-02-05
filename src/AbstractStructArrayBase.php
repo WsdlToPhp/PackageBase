@@ -193,6 +193,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      */
     public function getInternArray(): array
     {
+        @trigger_error(sprintf('%s() will be private in WsdlToPhp/PackageBase 5.0.', __METHOD__), E_USER_DEPRECATED);
+
         return $this->internArray;
     }
 
@@ -203,6 +205,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      */
     public function setInternArray(array $internArray): self
     {
+        @trigger_error(sprintf('%s() will be private in WsdlToPhp/PackageBase 5.0.', __METHOD__), E_USER_DEPRECATED);
+
         $this->internArray = $internArray;
 
         return $this;
@@ -214,6 +218,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      */
     public function getInternArrayOffset(): int
     {
+        @trigger_error(sprintf('%s() will be private in WsdlToPhp/PackageBase 5.0.', __METHOD__), E_USER_DEPRECATED);
+
         return $this->internArrayOffset;
     }
 
@@ -225,6 +231,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      */
     public function initInternArray(array $array = [], bool $internCall = false): self
     {
+        @trigger_error(sprintf('%s() will be private in WsdlToPhp/PackageBase 5.0.', __METHOD__), E_USER_DEPRECATED);
+
         if (is_array($array) && count($array) > 0) {
             $this
                 ->setInternArray($array)
@@ -244,6 +252,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      */
     public function setInternArrayOffset(int $internArrayOffset): self
     {
+        @trigger_error(sprintf('%s() will be private in WsdlToPhp/PackageBase 5.0.', __METHOD__), E_USER_DEPRECATED);
+
         $this->internArrayOffset = $internArrayOffset;
 
         return $this;
@@ -255,6 +265,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      */
     public function getInternArrayIsArray(): bool
     {
+        @trigger_error(sprintf('%s() will be private in WsdlToPhp/PackageBase 5.0.', __METHOD__), E_USER_DEPRECATED);
+
         return $this->internArrayIsArray;
     }
 
@@ -265,6 +277,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      */
     public function setInternArrayIsArray(bool $internArrayIsArray = false): self
     {
+        @trigger_error(sprintf('%s() will be private in WsdlToPhp/PackageBase 5.0.', __METHOD__), E_USER_DEPRECATED);
+
         $this->internArrayIsArray = $internArrayIsArray;
 
         return $this;
