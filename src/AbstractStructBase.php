@@ -37,6 +37,8 @@ abstract class AbstractStructBase implements StructInterface, \JsonSerializable
      */
     public function _set($name, $value)
     {
+        @trigger_error(sprintf('%s() will be renamed to setPropertyValue in WsdlToPhp/PackageBase 4.0.', __METHOD__), E_USER_DEPRECATED);
+
         $setMethod = 'set' . ucfirst($name);
         if (method_exists($this, $setMethod)) {
             $this->$setMethod($value);
@@ -53,6 +55,8 @@ abstract class AbstractStructBase implements StructInterface, \JsonSerializable
      */
     public function _get($name)
     {
+        @trigger_error(sprintf('%s() will be renamed to getPropertyValue in WsdlToPhp/PackageBase 4.0.', __METHOD__), E_USER_DEPRECATED);
+
         $getMethod = 'get' . ucfirst($name);
         if (method_exists($this, $getMethod)) {
             return $this->$getMethod();
