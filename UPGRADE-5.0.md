@@ -1,6 +1,6 @@
 # UPGRADE FROM 4.0 to 5.0
 
-Internal properties and methods are now private:
+Internal properties and methods of [AbstractStructArrayBase](/src/AbstractStructArrayBase.php) are now private:
 - Properties:
   - $internArray
   - $internArrayIsArray
@@ -14,4 +14,4 @@ Internal properties and methods are now private:
   - getInternArrayIsArray
   - setInternArrayIsArray
 
-You don't have to manually call `initInternArray` before looping on the current object.
+You don't have to manually call `initInternArray` before looping on the current object, it's done automatically.
