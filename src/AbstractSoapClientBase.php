@@ -291,6 +291,8 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
      */
     public static function getFormatedXml($string, $asDomDocument = false)
     {
+        @trigger_error(sprintf('%s() will be renamed to getFormattedXml in WsdlToPhp/PackageBase 3.0.', __METHOD__), E_USER_DEPRECATED);
+
         return Utils::getFormatedXml($string, $asDomDocument);
     }
     /**

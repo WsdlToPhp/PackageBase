@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 2.2.2 - 2021-02-05
+- Add deprecation messages for next major releases 3, 4 and 5
+
 ## 2.2.1 - 2021-01-28
 - Fix Travis settings
 

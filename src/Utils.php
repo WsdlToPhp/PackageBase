@@ -13,6 +13,8 @@ class Utils
      */
     public static function getFormatedXml($string, $asDomDocument = false)
     {
+        @trigger_error(sprintf('%s() will be renamed to getFormattedXml in WsdlToPhp/PackageBase 3.0.', __METHOD__), E_USER_DEPRECATED);
+
         if (!is_null($string)) {
             $domDocument = self::getDOMDocument($string);
             return $asDomDocument ? $domDocument : $domDocument->saveXML();
