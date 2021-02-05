@@ -41,103 +41,8 @@ class StructArrayTest extends TestCase
                 2,
                 '3',
             ]);
-        $object->initInternArray();
 
         $this->assertSame(3, $object->length());
-    }
-
-    public function testCount()
-    {
-        $object = new StructArrayObject();
-        $object->initInternArray([
-            '1',
-            2,
-            '3',
-        ]);
-
-        $this->assertSame(3, $object->count());
-    }
-
-    public function testCurrent()
-    {
-        $object = new StructArrayObject();
-        $object->initInternArray([
-            '1',
-            2,
-            '3',
-        ]);
-
-        $this->assertSame('1', $object->current());
-    }
-
-    public function testNextKey()
-    {
-        $object = new StructArrayObject();
-        $object->initInternArray([
-            '1',
-            2,
-            '3',
-        ]);
-        $object->next();
-
-        $this->assertSame(1, $object->key());
-    }
-
-    public function testRewind()
-    {
-        $object = new StructArrayObject();
-        $object->initInternArray([
-            '1',
-            2,
-            '3',
-        ]);
-        $object->next();
-        $object->rewind();
-
-        $this->assertSame(0, $object->key());
-    }
-
-    public function testValid()
-    {
-        $object = new StructArrayObject();
-        $object->initInternArray([
-            '1',
-            2,
-            '3',
-        ]);
-        $object->next();
-
-        $this->assertTrue($object->valid());
-    }
-
-    public function testInValid()
-    {
-        $object = new StructArrayObject();
-        $object->initInternArray([
-            '1',
-            2,
-            '3',
-        ]);
-        $object
-            ->next()
-            ->next()
-            ->next()
-            ->next();
-
-        $this->assertFalse($object->valid());
-    }
-
-    public function testItem()
-    {
-        $object = new StructArrayObject();
-        $object->initInternArray([
-            '1',
-            2,
-            '3',
-        ]);
-        $object->next();
-
-        $this->assertSame(2, $object->item(1));
     }
 
     public function testAdd()
@@ -149,7 +54,6 @@ class StructArrayTest extends TestCase
                 2,
                 '3',
             ])
-            ->initInternArray()
             ->add(4);
 
         $this->assertSame('1', $object->current());
@@ -175,7 +79,6 @@ class StructArrayTest extends TestCase
                 2,
                 '3',
             ])
-            ->initInternArray()
             ->add(4);
 
         $this->assertSame('1', $object->first());
@@ -190,7 +93,6 @@ class StructArrayTest extends TestCase
                 2,
                 '3',
             ])
-            ->initInternArray()
             ->add(4);
 
         $this->assertSame(4, $object->last());
@@ -205,7 +107,6 @@ class StructArrayTest extends TestCase
                 2,
                 '3',
             ])
-            ->initInternArray()
             ->add(4);
 
         $this->assertTrue($object->offsetExists(3));
@@ -220,7 +121,6 @@ class StructArrayTest extends TestCase
                 2,
                 '3',
             ])
-            ->initInternArray()
             ->add(4);
 
         $this->assertFalse($object->offsetExists(4));
@@ -235,7 +135,6 @@ class StructArrayTest extends TestCase
                 2,
                 '3',
             ])
-            ->initInternArray()
             ->add(4);
 
         $this->assertSame(4, $object->offsetGet(3));
@@ -250,7 +149,6 @@ class StructArrayTest extends TestCase
                 2,
                 '3',
             ])
-            ->initInternArray()
             ->add(4);
 
         $this->assertNull($object->offsetGet(4));
@@ -265,7 +163,6 @@ class StructArrayTest extends TestCase
                 2,
                 '3',
             ])
-            ->initInternArray()
             ->offsetSet(2, 4);
 
         $this->assertSame(4, $object->offsetGet(2));
@@ -280,10 +177,25 @@ class StructArrayTest extends TestCase
                 2,
                 '3',
             ])
-            ->initInternArray()
             ->offsetUnset(2);
 
         $this->assertFalse($object->offsetExists(2));
+    }
+
+    public function testIteratorMethods()
+    {
+        $object = new StructArrayObject();
+        $object
+            ->setFoo($items = [
+                '1',
+                2,
+                '3',
+            ])
+            ->offsetUnset(2);
+
+        foreach ($object as $index => $item) {
+            $this->assertSame($items[$index], $item);
+        }
     }
 
     public function test__toStringMustReturnTheClassNameOfTheInstance()

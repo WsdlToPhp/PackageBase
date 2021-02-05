@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 5.0.0 - 2021/02/xx
+- Issue #13 - Auto initialize AbstractStructArrayBase::internArray
+- BC: read [UPGRADE-5.0.md](/UPGRADE-5.0.md)
+
 ## 4.0.1 - 2021/02/05
 - Add deprecation messages for next major release 5
 
