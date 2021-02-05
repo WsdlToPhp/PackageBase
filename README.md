@@ -202,29 +202,6 @@ $items->add(\Api\StructType\Item::__set_state([
     '_href' => 'http://www.entity-4.com',
 ]));
 ```
-- You can even reset the items:
-```php
-$items->initInternArray([
-    \Api\StructType\Item::__set_state([
-        'id' => 0,
-        'name' => 'Entity #0',
-        'label' => 'Entity #0',
-        '_href' => 'http://www.entity-0.com',
-    ]),
-    \Api\StructType\Item::__set_state([
-        'id' => 1,
-        'name' => 'Entity #1',
-        'label' => 'Entity #1',
-        '_href' => 'http://www.entity-1.com',
-    ]),
-    \Api\StructType\Item::__set_state([
-        'id' => 2,
-        'name' => 'Entity #2',
-        'label' => 'Entity #2',
-        '_href' => 'http://www.entity-2.com',
-    ]),
-]);
-```
 
 ### AbstractSoapClientBase
 #### Description
