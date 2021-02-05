@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 4.0.1 - 2021/02/05
+- Add deprecation messages for next major release 5
+
 ## 4.0.0 - 2021/02/03
 - BC:
   - `WsdlToPhp\PackageBase\AbstractStructBase::_set` has been renamed to `WsdlToPhp\PackageBase\AbstractStructBase::setPropertyValue`
