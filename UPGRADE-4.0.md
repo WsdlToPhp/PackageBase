@@ -1,6 +1,6 @@
 # UPGRADE FROM 3.0 to 4.0
 
-The previsouly `_set` and `_get` methods are to be used internally and are not intended to be used externally, at your own risks ;)
+The previously `_set` and `_get` methods are to be used internally and are not intended to be used externally, at your own risks ;)
 
 **Previously**:
 ```php

@@ -10,19 +10,19 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      * Array that contains values when only one parameter is set when calling __construct method
      * @var array
      */
-    protected array $internArray = [];
+    private array $internArray = [];
 
     /**
      * Bool that tells if array is set or not
      * @var bool
      */
-    protected bool $internArrayIsArray = false;
+    private bool $internArrayIsArray = false;
 
     /**
      * Items index browser
      * @var int
      */
-    protected int $internArrayOffset = 0;
+    private int $internArrayOffset = 0;
 
     /**
      * Method alias to count
@@ -30,6 +30,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      */
     public function length(): int
     {
+        $this->initInternArray();
+
         return $this->count();
     }
 
@@ -39,6 +41,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      */
     public function count(): int
     {
+        $this->initInternArray();
+
         return $this->getInternArrayIsArray() ? count($this->getInternArray()) : -1;
     }
 
@@ -48,6 +52,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      */
     public function current()
     {
+        $this->initInternArray();
+
         return $this->offsetGet($this->internArrayOffset);
     }
 
@@ -57,6 +63,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      */
     public function next(): self
     {
+        $this->initInternArray();
+
         return $this->setInternArrayOffset($this->getInternArrayOffset() + 1);
     }
 
@@ -66,6 +74,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      */
     public function rewind(): self
     {
+        $this->initInternArray();
+
         return $this->setInternArrayOffset(0);
     }
 
@@ -75,6 +85,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      */
     public function valid(): bool
     {
+        $this->initInternArray();
+
         return $this->offsetExists($this->getInternArrayOffset());
     }
 
@@ -84,6 +96,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      */
     public function key(): int
     {
+        $this->initInternArray();
+
         return $this->getInternArrayOffset();
     }
 
@@ -94,6 +108,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      */
     public function item($index)
     {
+        $this->initInternArray();
+
         return $this->offsetGet($index);
     }
 
@@ -127,6 +143,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      */
     public function first()
     {
+        $this->initInternArray();
+
         return $this->item(0);
     }
 
@@ -136,6 +154,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      */
     public function last()
     {
+        $this->initInternArray();
+
         return $this->item($this->length() - 1);
     }
 
@@ -146,6 +166,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      */
     public function offsetExists($offset): bool
     {
+        $this->initInternArray();
+
         return ($this->getInternArrayIsArray() && array_key_exists($offset, $this->getInternArray()));
     }
 
@@ -156,6 +178,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      */
     public function offsetGet($offset)
     {
+        $this->initInternArray();
+
         return $this->offsetExists($offset) ? $this->internArray[$offset] : null;
     }
 
@@ -167,6 +191,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      */
     public function offsetSet($offset, $value): self
     {
+        $this->initInternArray();
+
         $this->internArray[$offset] = $value;
 
         return $this->setPropertyValue($this->getAttributeName(), $this->internArray);
@@ -179,6 +205,8 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      */
     public function offsetUnset($offset): self
     {
+        $this->initInternArray();
+
         if ($this->offsetExists($offset)) {
             unset($this->internArray[$offset]);
             $this->setPropertyValue($this->getAttributeName(), $this->internArray);
@@ -191,7 +219,7 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      * Method returning intern array to iterate trough
      * @return array
      */
-    public function getInternArray(): array
+    private function getInternArray(): array
     {
         return $this->internArray;
     }
@@ -201,7 +229,7 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      * @param array $internArray
      * @return AbstractStructArrayBase
      */
-    public function setInternArray(array $internArray): self
+    private function setInternArray(array $internArray): self
     {
         $this->internArray = $internArray;
 
@@ -212,7 +240,7 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      * Method returns intern array index when iterating trough
      * @return int
      */
-    public function getInternArrayOffset(): int
+    private function getInternArrayOffset(): int
     {
         return $this->internArrayOffset;
     }
@@ -223,14 +251,14 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      * @param bool $internCall indicates that methods is calling itself
      * @return AbstractStructArrayBase
      */
-    public function initInternArray(array $array = [], bool $internCall = false): self
+    private function initInternArray(array $array = [], bool $internCall = false): self
     {
         if (is_array($array) && count($array) > 0) {
             $this
                 ->setInternArray($array)
                 ->setInternArrayOffset(0)
                 ->setInternArrayIsArray(true);
-        } elseif (!$internCall && property_exists($this, $this->getAttributeName())) {
+        } elseif (!$this->internArrayIsArray && !$internCall && property_exists($this, $this->getAttributeName())) {
             $this->initInternArray($this->getPropertyValue($this->getAttributeName()), true);
         }
 
@@ -242,7 +270,7 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      * @param int $internArrayOffset
      * @return AbstractStructArrayBase
      */
-    public function setInternArrayOffset(int $internArrayOffset): self
+    private function setInternArrayOffset(int $internArrayOffset): self
     {
         $this->internArrayOffset = $internArrayOffset;
 
@@ -253,7 +281,7 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      * Method returning true if intern array is an actual array
      * @return bool
      */
-    public function getInternArrayIsArray(): bool
+    private function getInternArrayIsArray(): bool
     {
         return $this->internArrayIsArray;
     }
@@ -263,7 +291,7 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      * @param bool $internArrayIsArray
      * @return AbstractStructArrayBase
      */
-    public function setInternArrayIsArray(bool $internArrayIsArray = false): self
+    private function setInternArrayIsArray(bool $internArrayIsArray = false): self
     {
         $this->internArrayIsArray = $internArrayIsArray;
 
