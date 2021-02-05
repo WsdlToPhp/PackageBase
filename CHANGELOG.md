@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 5.0.0 - 2021/02/xx
+## 5.0.0 - 2021/02/05
 - Issue #13 - Auto initialize AbstractStructArrayBase::internArray
 - BC: read [UPGRADE-5.0.md](/UPGRADE-5.0.md)
 
