@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 5.0.1 - 2021/02/09
+- Remove trigger_error calls since this is version 5.0 :)
+
 ## 5.0.0 - 2021/02/05
 - Issue #13 - Auto initialize AbstractStructArrayBase::internArray
 - BC: read [UPGRADE-5.0.md](/UPGRADE-5.0.md)
