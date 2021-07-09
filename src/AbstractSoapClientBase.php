@@ -67,7 +67,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
                 $wsdlUrl = $wsdlOptions[str_replace(self::OPTION_PREFIX, '', self::WSDL_URL)];
                 unset($wsdlOptions[str_replace(self::OPTION_PREFIX, '', self::WSDL_URL)]);
             }
-            $soapClientClassName = $this->getSoapClientClassName();
+            $soapClientClassName = $this->getSoapClientClassName($options['SoapClient'] ?? null);
             $this->setSoapClient(new $soapClientClassName($wsdlUrl, $wsdlOptions));
         }
     }
