@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 2.2.3 - 2021-07-11
+- Issue #40 - Composer deprecation notice
+
 ## 2.2.2 - 2021-02-05
 - Add deprecation messages for next major releases 3, 4 and 5
 
