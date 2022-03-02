@@ -129,10 +129,10 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
         $currentArray = $this->getPropertyValue($this->getAttributeName());
         $currentArray[] = $item;
         $this
-            ->setPropertyValue($this->getAttributeName(), $currentArray)
             ->setInternArray($currentArray)
             ->setInternArrayIsArray(true)
-            ->setInternArrayOffset(0);
+            ->setInternArrayOffset(0)
+            ->setPropertyValue($this->getAttributeName(), $currentArray);
 
         return $this;
     }
