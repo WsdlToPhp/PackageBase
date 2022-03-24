@@ -195,7 +195,9 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
 
         $this->internArray[$offset] = $value;
 
-        return $this->setPropertyValue($this->getAttributeName(), $this->internArray);
+        $this->setPropertyValue($this->getAttributeName(), $this->internArray);
+
+        return $this;
     }
 
     /**
