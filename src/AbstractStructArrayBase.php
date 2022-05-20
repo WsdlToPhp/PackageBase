@@ -50,6 +50,7 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      * Method returning the current element
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         $this->initInternArray();
@@ -61,6 +62,7 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      * Method moving the current position to the next element
      * @return AbstractStructArrayBase
      */
+    #[\ReturnTypeWillChange]
     public function next(): self
     {
         $this->initInternArray();
@@ -72,6 +74,7 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      * Method resetting itemOffset
      * @return AbstractStructArrayBase
      */
+    #[\ReturnTypeWillChange]
     public function rewind(): self
     {
         $this->initInternArray();
@@ -176,6 +179,7 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      * @param mixed $offset
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         $this->initInternArray();
@@ -189,6 +193,7 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      * @param mixed $value
      * @return AbstractStructArrayBase
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value): self
     {
         $this->initInternArray();
@@ -205,6 +210,7 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      * @param mixed $offset
      * @return AbstractStructArrayBase
      */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset): self
     {
         $this->initInternArray();
