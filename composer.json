@@ -39,6 +39,11 @@
             "name": "Jacob Dreesen",
             "email": "jacob.dreesen@gmail.com",
             "role": "Contributor"
+        },
+        {
+            "name": "Karl Pierce",
+            "email": "kpierce@ratespecial.com",
+            "role": "Contributor"
         }
     ],
     "support" : {
