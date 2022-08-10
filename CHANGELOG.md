@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 5.0.2 - 2022/08/10
+- PR #44 - Add #[\ReturnTypeWillChange] to AbstractStructArrayBase
+
 ## 5.0.1 - 2021/02/09
 - Remove trigger_error calls since this is version 5.0 :)
 
