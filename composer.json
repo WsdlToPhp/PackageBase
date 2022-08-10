@@ -39,6 +39,11 @@
             "name": "Jacob Dreesen",
             "email": "jacob.dreesen@gmail.com",
             "role": "Contributor"
+        },
+        {
+            "name": "Karl Pierce",
+            "email": "kpierce@ratespecial.com",
+            "role": "Contributor"
         }
     ],
     "support" : {
@@ -52,10 +57,12 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
-        "lint": "vendor/bin/php-cs-fixer fix --ansi --diff --verbose"
+        "lint": "vendor/bin/php-cs-fixer fix --ansi --diff --verbose",
+        "phpstan": "vendor/bin/phpstan analyze src --level=3"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "~2.0",
+        "friendsofphp/php-cs-fixer": "~3.0",
+        "phpstan/phpstan": "^1.4",
         "phpunit/phpunit": "^9"
     },
     "autoload": {

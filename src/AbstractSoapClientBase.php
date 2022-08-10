@@ -340,7 +340,7 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
                  * Create context if it does not exist
                  */
                 if ($streamContext === null) {
-                    $state = ($this->getSoapClient()->_stream_context = stream_context_create($options)) ? true : false;
+                    $state = is_resource($this->getSoapClient()->_stream_context = stream_context_create($options));
                 } else {
                     /**
                      * Set the new context http header option
