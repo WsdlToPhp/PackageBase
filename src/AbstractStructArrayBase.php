@@ -254,12 +254,12 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
     private function initInternArray($array = [], bool $internCall = false): self
     {
         if (is_array($array) && count($array) > 0) {
-            return $this
+            $this
                 ->setInternArray($array)
                 ->setInternArrayOffset(0)
                 ->setInternArrayIsArray(true);
         } elseif (!$this->internArrayIsArray && !$internCall && property_exists($this, $this->getAttributeName())) {
-            return $this->initInternArray($this->getPropertyValue($this->getAttributeName()), true);
+            $this->initInternArray($this->getPropertyValue($this->getAttributeName()), true);
         }
 
         return $this;
