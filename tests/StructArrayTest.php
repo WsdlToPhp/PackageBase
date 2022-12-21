@@ -6,7 +6,7 @@ namespace WsdlToPhp\PackageBase\Tests;
 
 class StructArrayTest extends TestCase
 {
-    public function testSetState()
+    public function testSetState(): void
     {
         $object = new StructArrayObject();
         $object
@@ -25,14 +25,14 @@ class StructArrayTest extends TestCase
         ]));
     }
 
-    public function testGetAttributeName()
+    public function testGetAttributeName(): void
     {
         $object = new StructArrayObject();
 
         $this->assertSame('foo', $object->getAttributeName());
     }
 
-    public function testLength()
+    public function testLength(): void
     {
         $object = new StructArrayObject();
         $object
@@ -45,7 +45,7 @@ class StructArrayTest extends TestCase
         $this->assertSame(3, $object->length());
     }
 
-    public function testAdd()
+    public function testAdd(): void
     {
         $object = new StructArrayObject();
         $object
@@ -59,7 +59,7 @@ class StructArrayTest extends TestCase
         $this->assertSame('1', $object->current());
     }
 
-    public function testAddOnEmpty()
+    public function testAddOnEmpty(): void
     {
         $object = new StructArrayObject();
         $object
@@ -70,7 +70,7 @@ class StructArrayTest extends TestCase
         $this->assertSame(4, $object->current());
     }
 
-    public function testFirst()
+    public function testFirst(): void
     {
         $object = new StructArrayObject();
         $object
@@ -84,7 +84,7 @@ class StructArrayTest extends TestCase
         $this->assertSame('1', $object->first());
     }
 
-    public function testLast()
+    public function testLast(): void
     {
         $object = new StructArrayObject();
         $object
@@ -98,7 +98,7 @@ class StructArrayTest extends TestCase
         $this->assertSame(4, $object->last());
     }
 
-    public function testOffsetExists()
+    public function testOffsetExists(): void
     {
         $object = new StructArrayObject();
         $object
@@ -112,7 +112,7 @@ class StructArrayTest extends TestCase
         $this->assertTrue($object->offsetExists(3));
     }
 
-    public function testOffsetNotExists()
+    public function testOffsetNotExists(): void
     {
         $object = new StructArrayObject();
         $object
@@ -126,7 +126,7 @@ class StructArrayTest extends TestCase
         $this->assertFalse($object->offsetExists(4));
     }
 
-    public function testOffsetGet()
+    public function testOffsetGet(): void
     {
         $object = new StructArrayObject();
         $object
@@ -140,7 +140,7 @@ class StructArrayTest extends TestCase
         $this->assertSame(4, $object->offsetGet(3));
     }
 
-    public function testOffsetGetNull()
+    public function testOffsetGetNull(): void
     {
         $object = new StructArrayObject();
         $object
@@ -154,7 +154,7 @@ class StructArrayTest extends TestCase
         $this->assertNull($object->offsetGet(4));
     }
 
-    public function testOffsetSet()
+    public function testOffsetSet(): void
     {
         $object = new StructArrayObject();
         $object
@@ -168,7 +168,7 @@ class StructArrayTest extends TestCase
         $this->assertSame(4, $object->offsetGet(2));
     }
 
-    public function testOffsetUnset()
+    public function testOffsetUnset(): void
     {
         $object = new StructArrayObject();
         $object
@@ -182,7 +182,7 @@ class StructArrayTest extends TestCase
         $this->assertFalse($object->offsetExists(2));
     }
 
-    public function testIteratorMethods()
+    public function testIteratorMethods(): void
     {
         $object = new StructArrayObject();
         $object
@@ -198,7 +198,7 @@ class StructArrayTest extends TestCase
         }
     }
 
-    public function test__toStringMustReturnTheClassNameOfTheInstance()
+    public function test__toStringMustReturnTheClassNameOfTheInstance(): void
     {
         $this->assertSame(StructArrayObject::class, (string) new StructArrayObject());
     }
