@@ -5,6 +5,7 @@ on:
             - develop
             - feature/*
             - feat/*
+            - release/*
     pull_request:
         types: [ opened, synchronize, reopened ]
 jobs:
