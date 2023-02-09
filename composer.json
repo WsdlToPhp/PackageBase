@@ -58,7 +58,7 @@
     "scripts": {
         "test": "vendor/bin/phpunit",
         "lint": "vendor/bin/php-cs-fixer fix --ansi --diff --verbose",
-        "phpstan": "vendor/bin/phpstan analyze src --level=3"
+        "phpstan": "vendor/bin/phpstan analyze src --level=5"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "~3.0",

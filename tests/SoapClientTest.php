@@ -11,21 +11,21 @@ use SoapClient as SoapClientBase;
 
 class SoapClientTest extends TestCase
 {
-    public function testSoapClientName()
+    public function testSoapClientName(): void
     {
         $soapClient = new SoapClient();
 
         $this->assertSame(Client::class, $soapClient->getSoapClientClassName());
     }
 
-    public function testSoapClientNameDefault()
+    public function testSoapClientNameDefault(): void
     {
         $soapClient = new SoapClient();
 
         $this->assertSame(Client::class, $soapClient->getSoapClientClassName(Client::class));
     }
 
-    public function testSoapClient()
+    public function testSoapClient(): void
     {
         $soapClient = new SoapClient([
             SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
@@ -35,7 +35,7 @@ class SoapClientTest extends TestCase
         $this->assertInstanceOf(Client::class, $soapClient->getSoapClient());
     }
 
-    public function testSetLocation()
+    public function testSetLocation(): void
     {
         $soapClient = new SoapClient([
             SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
@@ -47,7 +47,7 @@ class SoapClientTest extends TestCase
         $this->assertSame('http://api.bing.net:80/soap.asm', $soapClient->getSoapClient()->location);
     }
 
-    public function testLocationOption()
+    public function testLocationOption(): void
     {
         $soapClient = new SoapClient([
             SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
@@ -58,7 +58,7 @@ class SoapClientTest extends TestCase
         $this->assertSame('http://api.bing.net:80/soap.asm', $soapClient->getSoapClient()->location);
     }
 
-    public function testGetLastRequestAsString()
+    public function testGetLastRequestAsString(): void
     {
         $soapClient = new SoapClient([
             SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
@@ -68,7 +68,7 @@ class SoapClientTest extends TestCase
         $this->assertSame(Utils::getFormattedXml(file_get_contents(__DIR__ . '/resources/oneline.xml')), $soapClient->getLastRequest(false));
     }
 
-    public function testGetLastRequestAsDomDocument()
+    public function testGetLastRequestAsDomDocument(): void
     {
         $soapClient = new SoapClient([
             SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
@@ -78,7 +78,7 @@ class SoapClientTest extends TestCase
         $this->assertInstanceOf('\DOMDocument', $soapClient->getLastRequest(true));
     }
 
-    public function testGetLastResponseAsString()
+    public function testGetLastResponseAsString(): void
     {
         $soapClient = new SoapClient([
             SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
@@ -88,7 +88,7 @@ class SoapClientTest extends TestCase
         $this->assertSame(Utils::getFormattedXml(file_get_contents(__DIR__ . '/resources/oneline.xml')), $soapClient->getLastResponse(false));
     }
 
-    public function testGetLastResponseAsDomDocument()
+    public function testGetLastResponseAsDomDocument(): void
     {
         $soapClient = new SoapClient([
             SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
@@ -98,7 +98,7 @@ class SoapClientTest extends TestCase
         $this->assertInstanceOf(DOMDocument::class, $soapClient->getLastResponse(true));
     }
 
-    public function testGetLastRequestHeadersAsString()
+    public function testGetLastRequestHeadersAsString(): void
     {
         $soapClient = new SoapClient([
             SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
@@ -108,7 +108,7 @@ class SoapClientTest extends TestCase
         $this->assertSame($soapClient->getSoapClient()->__getLastRequestHeaders(), $soapClient->getLastRequestHeaders(false));
     }
 
-    public function testGetLastRequestHeadersAsArray()
+    public function testGetLastRequestHeadersAsArray(): void
     {
         $soapClient = new SoapClient([
             SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
@@ -118,7 +118,7 @@ class SoapClientTest extends TestCase
         $this->assertSame($soapClient->getSoapClient()->getLastRequestHeadersAsArray(), $soapClient->getLastRequestHeaders(true));
     }
 
-    public function testGetLastResponseHeadersAsString()
+    public function testGetLastResponseHeadersAsString(): void
     {
         $soapClient = new SoapClient([
             SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
@@ -128,7 +128,7 @@ class SoapClientTest extends TestCase
         $this->assertSame($soapClient->getSoapClient()->__getLastResponseHeaders(), $soapClient->getLastResponseHeaders(false));
     }
 
-    public function testGetLastResponseHeadersAsArray()
+    public function testGetLastResponseHeadersAsArray(): void
     {
         $soapClient = new SoapClient([
             SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
@@ -138,7 +138,7 @@ class SoapClientTest extends TestCase
         $this->assertSame($soapClient->getSoapClient()->getLastResponseHeadersAsArray(), $soapClient->getLastResponseHeaders(true));
     }
 
-    public function testSetGetLastErrorForMethod()
+    public function testSetGetLastErrorForMethod(): void
     {
         $soapClient = new SoapClient([
             SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
@@ -151,7 +151,7 @@ class SoapClientTest extends TestCase
         $this->assertInstanceOf(SoapFault::class, $soapClient->getLastErrorForMethod(SoapClient::class.'::search'));
     }
 
-    public function testSetGetLastError()
+    public function testSetGetLastError(): void
     {
         $soapClient = new SoapClient([
             SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
@@ -164,7 +164,7 @@ class SoapClientTest extends TestCase
         $this->assertCount(1, $soapClient->getLastError());
     }
 
-    public function testSetGetResult()
+    public function testSetGetResult(): void
     {
         $soapClient = new SoapClient([
             SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
@@ -177,7 +177,7 @@ class SoapClientTest extends TestCase
         $this->assertNull($soapClient->getResult());
     }
 
-    public function testSetHeaders()
+    public function testSetHeaders(): void
     {
         $soapClient = new SoapClient([
             SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
@@ -192,7 +192,7 @@ class SoapClientTest extends TestCase
         $this->assertTrue(strpos($o['http']['header'], 'X-Header-Name: X-Header-Value') !== false);
     }
 
-    public function testSetHeadersOnExistingHeaders()
+    public function testSetHeadersOnExistingHeaders(): void
     {
         $soapClient = new SoapClient([
             SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
@@ -209,7 +209,7 @@ class SoapClientTest extends TestCase
         $this->assertTrue(strpos($o['http']['header'], 'X-Header-ID: X-Header-ID-Value') !== false);
     }
 
-    public function testSetHeadersOnExistingHttpsHeaders()
+    public function testSetHeadersOnExistingHttpsHeaders(): void
     {
         $streamContext = stream_context_create([
             'https' => [
@@ -239,7 +239,7 @@ class SoapClientTest extends TestCase
         $this->assertTrue(strpos($o['http']['header'], 'X-Header-ID: X-Header-ID-Value') !== false);
     }
 
-    public function testSetHeadersOnExistingHttpHeaders()
+    public function testSetHeadersOnExistingHttpHeaders(): void
     {
         $streamContext = stream_context_create([
             'http' => [
@@ -267,7 +267,7 @@ class SoapClientTest extends TestCase
         $this->assertTrue(strpos($o['http']['header'], 'X-Header-ID: X-Header-ID-Value') !== false);
     }
 
-    public function testGetStreamContext()
+    public function testGetStreamContext(): void
     {
         $soapClient = new SoapClient([
             SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
@@ -282,7 +282,7 @@ class SoapClientTest extends TestCase
         $this->assertTrue(strpos($o['http']['header'], 'X-Header-Name: X-Header-Value') !== false);
     }
 
-    public function testGetStreamContextAsNull()
+    public function testGetStreamContextAsNull(): void
     {
         $soapClient = new SoapClient([
             SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
@@ -296,7 +296,7 @@ class SoapClientTest extends TestCase
         }
     }
 
-    public function testSetHeadersOnExistingHttpHeadersWithGetStreamContextOptions()
+    public function testSetHeadersOnExistingHttpHeadersWithGetStreamContextOptions(): void
     {
         $streamContext = stream_context_create([
             'http' => [
@@ -324,7 +324,7 @@ class SoapClientTest extends TestCase
         $this->assertContains('X-Header-ID: X-Header-ID-Value', $o['http']['header']);
     }
 
-    public function testSetSoapHeader()
+    public function testSetSoapHeader(): void
     {
         $soapClient = new SoapClient([
             SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
@@ -338,7 +338,7 @@ class SoapClientTest extends TestCase
         ], $soapClient->getSoapClient()->__default_headers);
     }
 
-    public function testSetSoapHeaderModified()
+    public function testSetSoapHeaderModified(): void
     {
         $soapClient = new SoapClient([
             SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
@@ -351,7 +351,7 @@ class SoapClientTest extends TestCase
         $this->assertEquals(new \SoapHeader('urn:namespace', 'HeaderAuth', 'the-data-modified', false), array_pop($soapClient->getSoapClient()->__default_headers));
     }
 
-    public function testSetSoapActor()
+    public function testSetSoapActor(): void
     {
         $soapClient = new SoapClient([
             SoapClient::WSDL_URL => __DIR__ . '/resources/bingsearch.wsdl',
@@ -433,7 +433,7 @@ class SoapClientTest extends TestCase
         ];
     }
 
-    public function testInvalidNonWsdlModeMustNotCreateASoapInstanceForMissingUriAndLocationOptions()
+    public function testInvalidNonWsdlModeMustNotCreateASoapInstanceForMissingUriAndLocationOptions(): void
     {
         $soapClient = new SoapClient([
             SoapClient::WSDL_URL => null,
@@ -442,7 +442,7 @@ class SoapClientTest extends TestCase
         $this->assertNull($soapClient->getSoapClient());
     }
 
-    public function testInvalidNonWsdlModeMustNotCreateASoapInstanceForMissingLocationOption()
+    public function testInvalidNonWsdlModeMustNotCreateASoapInstanceForMissingLocationOption(): void
     {
         $soapClient = new SoapClient([
             SoapClient::WSDL_URL => null,
@@ -452,7 +452,7 @@ class SoapClientTest extends TestCase
         $this->assertNull($soapClient->getSoapClient());
     }
 
-    public function testInvalidNonWsdlModeMustNotCreateASoapInstanceForMissingUriOption()
+    public function testInvalidNonWsdlModeMustNotCreateASoapInstanceForMissingUriOption(): void
     {
         $soapClient = new SoapClient([
             SoapClient::WSDL_URL => null,
@@ -462,7 +462,7 @@ class SoapClientTest extends TestCase
         $this->assertNull($soapClient->getSoapClient());
     }
 
-    public function testInvalidNonWsdlModeMustCreateASoapInstanceWithUriAndLocationOptions()
+    public function testInvalidNonWsdlModeMustCreateASoapInstanceWithUriAndLocationOptions(): void
     {
         $soapClient = new SoapClient([
             SoapClient::WSDL_URL => null,
@@ -473,12 +473,12 @@ class SoapClientTest extends TestCase
         $this->assertInstanceOf(SoapClientBase::class, $soapClient->getSoapClient());
     }
 
-    public function test__toStringMustReturnTheClassNameOfTheInstance()
+    public function test__toStringMustReturnTheClassNameOfTheInstance(): void
     {
         $this->assertSame(SoapClient::class, (string) new SoapClient());
     }
 
-    public function testGetOutputHeadersWithoutRequestMustReturnAnEmptyArray()
+    public function testGetOutputHeadersWithoutRequestMustReturnAnEmptyArray(): void
     {
         $soapClient = new SoapClient([
             SoapClient::WSDL_URL => null,

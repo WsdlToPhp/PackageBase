@@ -8,7 +8,7 @@ use InvalidArgumentException;
 
 class StructBaseTest extends TestCase
 {
-    public function testSetState()
+    public function testSetState(): void
     {
         $object = new StructObject();
         $object
@@ -21,7 +21,7 @@ class StructBaseTest extends TestCase
         ]));
     }
 
-    public function testSetStateException()
+    public function testSetStateException(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
@@ -32,7 +32,7 @@ class StructBaseTest extends TestCase
         ]);
     }
 
-    public function testSetGet()
+    public function testSetGet(): void
     {
         $object = new StructObject();
         $object
@@ -41,7 +41,7 @@ class StructBaseTest extends TestCase
         $this->assertSame('foo', $object->getPropertyValue('bar'));
     }
 
-    public function testSetGetWithException()
+    public function testSetGetWithException(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
@@ -52,7 +52,7 @@ class StructBaseTest extends TestCase
         $object->getPropertyValue('sample');
     }
 
-    public function testJsonSerialize()
+    public function testJsonSerialize(): void
     {
         $object = new StructObject();
         $object
@@ -64,7 +64,7 @@ class StructBaseTest extends TestCase
         ], $object->jsonSerialize());
     }
 
-    public function test__toStringMustReturnTheClassNameOfTheInstance()
+    public function test__toStringMustReturnTheClassNameOfTheInstance(): void
     {
         $this->assertSame(StructObject::class, (string) new StructObject());
     }
