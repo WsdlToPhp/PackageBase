@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 5.0.3 - 2023/02/09
+- PR #38 - type checking exception raised in php8
+
 ## 5.0.2 - 2022/08/10
 - PR #44 - Add #[\ReturnTypeWillChange] to AbstractStructArrayBase
 

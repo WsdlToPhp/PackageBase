@@ -44,6 +44,10 @@
             "name": "Karl Pierce",
             "email": "kpierce@ratespecial.com",
             "role": "Contributor"
+        },
+        {
+            "name": "maurobn",
+            "role": "Contributor"
         }
     ],
     "support" : {
