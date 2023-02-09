@@ -259,7 +259,7 @@ abstract class AbstractStructArrayBase extends AbstractStructBase implements Str
      * @param bool $internCall indicates that methods is calling itself
      * @return AbstractStructArrayBase
      */
-    private function initInternArray(array $array = [], bool $internCall = false): self
+    private function initInternArray($array = [], bool $internCall = false): self
     {
         if (is_array($array) && count($array) > 0) {
             $this
