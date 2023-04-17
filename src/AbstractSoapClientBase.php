@@ -52,6 +52,11 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
 
     public function initSoapClient(array $options): void
     {
+        if (app()->environment('testing') === true) {
+            $this->setSoapClient(resolve(SoapClient::class));
+            return;
+        }
+
         $wsdlOptions = [];
         $defaultWsdlOptions = static::getDefaultWsdlOptions();
         foreach ($defaultWsdlOptions as $optionName => $optionValue) {
