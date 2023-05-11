@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace WsdlToPhp\PackageBase;
 
-use DOMDocument;
-use SoapClient;
 use SoapFault;
+use SoapClient;
 use SoapHeader;
+use DOMDocument;
+use Illuminate\Support\Facades\Redis;
 
 abstract class AbstractSoapClientBase implements SoapClientInterface
 {
@@ -81,14 +82,17 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
 
     private function getWsdl(
         string $url
-    ): string
-    {
-        if (!\Illuminate\Support\Facades\Redis::exists(self::WSDL_KEY)) {
-            $wsdlContent = file_get_contents($url);
-            \Illuminate\Support\Facades\Redis::set(self::WSDL_KEY, $wsdlContent, 'EX', 86400);
+    ): string {
+        if (self::WSDL_KEY == 'wsdl_key') {
+            return $url;
         }
 
-        $wsdlContent = \Illuminate\Support\Facades\Redis::get(self::WSDL_KEY);
+        if (!Redis::exists(self::WSDL_KEY)) {
+            $wsdlContent = file_get_contents($url);
+            Redis::set(self::WSDL_KEY, $wsdlContent, 'EX', 86400);
+        }
+
+        $wsdlContent = Redis::get(self::WSDL_KEY);
         $tempWsdlFile = tempnam(sys_get_temp_dir(), 'wsdl_');
         file_put_contents($tempWsdlFile, $wsdlContent);
 
