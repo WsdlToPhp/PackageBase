@@ -154,6 +154,11 @@ interface SoapClientInterface
     const WSDL_USER_AGENT = 'wsdl_user_agent';
 
     /**
+     * Option key to define WSDL key
+     */
+    const WSDL_KEY = 'wsdl_key';
+
+    /**
      * Constructor
      * @param array $wsdlOptions
      */

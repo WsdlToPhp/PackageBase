@@ -69,12 +69,40 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
         if (self::canInstantiateSoapClientWithOptions($wsdlOptions)) {
             $wsdlUrl = null;
             if (array_key_exists(str_replace(self::OPTION_PREFIX, '', self::WSDL_URL), $wsdlOptions)) {
-                $wsdlUrl = $wsdlOptions[str_replace(self::OPTION_PREFIX, '', self::WSDL_URL)];
+                $wsdlUrl = $this->getWsdl($wsdlOptions[str_replace(self::OPTION_PREFIX, '', self::WSDL_URL)]);
                 unset($wsdlOptions[str_replace(self::OPTION_PREFIX, '', self::WSDL_URL)]);
             }
             $soapClientClassName = $this->getSoapClientClassName();
             $this->setSoapClient(new $soapClientClassName($wsdlUrl, $wsdlOptions));
+
+            $this->clearWsdl($wsdlUrl);
         }
+    }
+
+    private function getWsdl(
+        string $url
+    ): string
+    {
+        if (!\Illuminate\Support\Facades\Redis::exists(self::WSDL_KEY)) {
+            $wsdlContent = file_get_contents($url);
+            \Illuminate\Support\Facades\Redis::set(self::WSDL_KEY, $wsdlContent, 'EX', 86400);
+        }
+
+        $wsdlContent = \Illuminate\Support\Facades\Redis::get(self::WSDL_KEY);
+        $tempWsdlFile = tempnam(sys_get_temp_dir(), 'wsdl_');
+        file_put_contents($tempWsdlFile, $wsdlContent);
+
+        return $tempWsdlFile;
+    }
+
+    private function clearWsdl(
+        string $url
+    ): void {
+        if (self::WSDL_KEY == 'wsdl_key') {
+            return;
+        }
+
+        unlink($url);
     }
 
     /**
