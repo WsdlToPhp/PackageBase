@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace WsdlToPhp\PackageBase;
 
-use DOMDocument;
-use SoapClient;
 use SoapFault;
+use SoapClient;
 use SoapHeader;
+use DOMDocument;
+use Illuminate\Support\Facades\Cache;
 
 abstract class AbstractSoapClientBase implements SoapClientInterface
 {
@@ -69,12 +70,43 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
         if (self::canInstantiateSoapClientWithOptions($wsdlOptions)) {
             $wsdlUrl = null;
             if (array_key_exists(str_replace(self::OPTION_PREFIX, '', self::WSDL_URL), $wsdlOptions)) {
-                $wsdlUrl = $wsdlOptions[str_replace(self::OPTION_PREFIX, '', self::WSDL_URL)];
+                $wsdlUrl = $this->getWsdl($wsdlOptions[str_replace(self::OPTION_PREFIX, '', self::WSDL_URL)]);
                 unset($wsdlOptions[str_replace(self::OPTION_PREFIX, '', self::WSDL_URL)]);
             }
             $soapClientClassName = $this->getSoapClientClassName();
             $this->setSoapClient(new $soapClientClassName($wsdlUrl, $wsdlOptions));
+
+            $this->clearWsdl($wsdlUrl);
         }
+    }
+
+    private function getWsdl(
+        string $url
+    ): string {
+        if (self::WSDL_KEY == 'wsdl_key') {
+            return $url;
+        }
+
+        if (!Cache::has('wsdl_' . self::WSDL_KEY)) {
+            $wsdlContent = file_get_contents($url);
+            Cache::set('wsdl_' . self::WSDL_KEY, $wsdlContent, 'EX', 86400);
+        }
+
+        $wsdlContent = Cache::get('wsdl_' . self::WSDL_KEY);
+        $tempWsdlFile = tempnam(sys_get_temp_dir(), 'wsdl_');
+        file_put_contents($tempWsdlFile, $wsdlContent);
+
+        return $tempWsdlFile;
+    }
+
+    private function clearWsdl(
+        string $url
+    ): void {
+        if (self::WSDL_KEY == 'wsdl_key') {
+            return;
+        }
+
+        unlink($url);
     }
 
     /**
