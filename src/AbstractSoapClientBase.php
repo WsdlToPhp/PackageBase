@@ -8,7 +8,7 @@ use SoapFault;
 use SoapClient;
 use SoapHeader;
 use DOMDocument;
-use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Cache;
 
 abstract class AbstractSoapClientBase implements SoapClientInterface
 {
@@ -87,12 +87,12 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
             return $url;
         }
 
-        if (!Redis::exists(self::WSDL_KEY)) {
+        if (!Cache::has('wsdl_' . self::WSDL_KEY)) {
             $wsdlContent = file_get_contents($url);
-            Redis::set(self::WSDL_KEY, $wsdlContent, 'EX', 86400);
+            Cache::set('wsdl_' . self::WSDL_KEY, $wsdlContent, 'EX', 86400);
         }
 
-        $wsdlContent = Redis::get(self::WSDL_KEY);
+        $wsdlContent = Cache::get('wsdl_' . self::WSDL_KEY);
         $tempWsdlFile = tempnam(sys_get_temp_dir(), 'wsdl_');
         file_put_contents($tempWsdlFile, $wsdlContent);
 
