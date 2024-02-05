@@ -25,6 +25,15 @@ class SoapClientTest extends TestCase
         $this->assertSame(Client::class, $soapClient->getSoapClientClassName(Client::class));
     }
 
+    public function testCustomSoapClientNameReadFromConstant()
+    {
+        $defaultService = new DefaultSoapClientService();
+        $customService  = new CustomSoapClientService();
+
+        $this->assertSame(SoapClientBase::class, $defaultService->getSoapClientClassName());
+        $this->assertSame(Client::class, $customService->getSoapClientClassName());
+    }
+
     public function testSoapClient(): void
     {
         $soapClient = new SoapClient([
@@ -489,4 +498,5 @@ class SoapClientTest extends TestCase
         $this->assertTrue(is_array($soapClient->getOutputHeaders()));
         $this->assertEmpty($soapClient->getOutputHeaders());
     }
+
 }
