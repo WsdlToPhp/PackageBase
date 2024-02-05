@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 5.0.4 - 2024/02/05
+- PR #51 - Fix overriding the custom SoapClient class
+
 ## 5.0.3 - 2023/02/09
 - PR #38 - type checking exception raised in php8
 
