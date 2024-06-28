@@ -54,11 +54,11 @@
         "email" : "contact@wsdltophp.com"
     },
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "ext-dom": "*",
         "ext-json": "*",
         "ext-soap": "*",
-        "laravel/framework": "^10.26"
+        "laravel/framework": "^11.12"
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
