@@ -22,6 +22,6 @@ abstract class AbstractStructEnumBase implements StructEnumInterface
      */
     public function __toString(): string
     {
-        return get_called_class();
+        return static::class;
     }
 }

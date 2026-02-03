@@ -28,7 +28,7 @@ class SoapClientTest extends TestCase
     public function testCustomSoapClientNameReadFromConstant()
     {
         $defaultService = new DefaultSoapClientService();
-        $customService  = new CustomSoapClientService();
+        $customService = new CustomSoapClientService();
 
         $this->assertSame(SoapClientBase::class, $defaultService->getSoapClientClassName());
         $this->assertSame(Client::class, $customService->getSoapClientClassName());
