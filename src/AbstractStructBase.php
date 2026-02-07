@@ -27,7 +27,7 @@ abstract class AbstractStructBase implements StructInterface, JsonSerializable
      */
     public static function __set_state(array $array): StructInterface
     {
-        $reflection = new ReflectionClass(get_called_class());
+        $reflection = new ReflectionClass(static::class);
         $object = $reflection->newInstance();
         foreach ($array as $name => $value) {
             $object->setPropertyValue($name, $value);
@@ -79,6 +79,6 @@ abstract class AbstractStructBase implements StructInterface, JsonSerializable
      */
     public function __toString(): string
     {
-        return get_called_class();
+        return static::class;
     }
 }

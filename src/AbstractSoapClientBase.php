@@ -447,6 +447,6 @@ abstract class AbstractSoapClientBase implements SoapClientInterface
      */
     public function __toString(): string
     {
-        return get_called_class();
+        return static::class;
     }
 }

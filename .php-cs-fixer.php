@@ -15,6 +15,8 @@ return (new PhpCsFixer\Config())
         'no_whitespace_in_blank_line' => true,
         'ternary_operator_spaces' => true,
         'cast_spaces' => true,
-        'trailing_comma_in_multiline' => true
+        'trailing_comma_in_multiline' => true,
+        'phpdoc_separation' => false,
+        'single_line_empty_body' => false,
 	))
     ->setFinder($finder);
